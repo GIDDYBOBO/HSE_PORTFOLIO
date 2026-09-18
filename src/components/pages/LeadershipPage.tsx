@@ -33,50 +33,56 @@ export const LeadershipPage: React.FC = () => {
       </section>
 
       {/* Feature Spotlight: National Assembly & ISPON Legislative Reform */}
-      <section className="p-8 sm:p-10 rounded-3xl bg-neutral-950 border border-neutral-800 shadow-2xl relative overflow-hidden">
+      <section className="p-8 sm:p-10 rounded-3xl bg-[#08080d] border border-white/15 shadow-2xl relative overflow-hidden">
         <div className="relative z-10 space-y-6">
-          <div className="flex flex-wrap items-center justify-between gap-3 border-b border-neutral-800 pb-4">
-            <div className="flex items-center space-x-2 text-neutral-400 text-xs font-mono uppercase tracking-wider">
-              <Landmark className="w-4 h-4 text-white" />
+          <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-4">
+            <div className="flex items-center space-x-2 text-neutral-300 text-xs font-mono uppercase tracking-wider">
+              <Landmark className="w-4 h-4 text-[#aaa3ff]" />
               <span>National Legislative Assignment (May 2023 – Dec 2025)</span>
             </div>
-            <span className="px-3 py-1 rounded-full bg-neutral-900 text-neutral-200 text-xs font-mono border border-neutral-700">
-              ISPON Act 2014 Framework
-            </span>
+            <div className="flex items-center gap-2">
+              <span className="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-mono border border-emerald-500/20 flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                Mandate Completed • Historic Democratic Resolution
+              </span>
+              <span className="hidden sm:inline px-3 py-1 rounded-full bg-white/5 text-neutral-300 text-xs font-mono border border-white/10">
+                ISPON Act 2014 Framework
+              </span>
+            </div>
           </div>
 
           <div className="space-y-2 max-w-3xl">
-            <h2 className="text-2xl sm:text-3xl font-serif-display font-semibold text-white">
+            <h2 className="text-2xl sm:text-3xl font-display font-bold text-white tracking-tight">
               House of Representatives Committee on Safety Standards & Regulation
             </h2>
             <p className="text-xs sm:text-sm text-neutral-400 font-mono">
-              Statutory Mediation & Governance Reform for the Institute of Safety Professionals of Nigeria (ISPON)
+              Statutory Mediation & Institutional Governance Reform for the Institute of Safety Professionals of Nigeria (ISPON)
             </p>
           </div>
 
           <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed max-w-3xl">
-            Engr. Osazee was appointed to the National Assembly sub-committee addressing the long-running institutional crisis within ISPON. Over a multi-year mandate, the sub-committee reviewed dispute dossiers, conducted sittings and formal hearings, issued official guidance statements, facilitated conciliation across factions, drafted robust financial and electoral codes, and superintended the landmark democratic national elections in October 2024.
+            Appointed by the National Assembly sub-committee to resolve long-standing institutional friction within ISPON. Over a multi-year assignment, Engr. Osazee conducted formal sittings, evaluated stakeholder dossiers, formulated binding financial and electoral codes, and successfully superintended the historic October 2024 national elections that unified the profession under statutory law.
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
-            <div className="p-4 rounded-xl bg-neutral-900/80 border border-neutral-800 space-y-1">
-              <span className="text-xs font-mono text-white font-bold">Documented Review</span>
-              <p className="text-xs text-neutral-400">
+            <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 space-y-1">
+              <span className="text-xs font-mono text-[#aaa3ff] font-bold block">1. Dossier Evaluation</span>
+              <p className="text-xs text-neutral-400 leading-relaxed">
                 Audited dispute records and institutional documentation spanning past regulatory friction.
               </p>
             </div>
 
-            <div className="p-4 rounded-xl bg-neutral-900/80 border border-neutral-800 space-y-1">
-              <span className="text-xs font-mono text-white font-bold">Statutory Guidelines</span>
-              <p className="text-xs text-neutral-400">
+            <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 space-y-1">
+              <span className="text-xs font-mono text-emerald-400 font-bold block">2. Statutory Framework</span>
+              <p className="text-xs text-neutral-400 leading-relaxed">
                 Formulated transparent financial frameworks and electoral guidelines under the ISPON Act 2014.
               </p>
             </div>
 
-            <div className="p-4 rounded-xl bg-neutral-900/80 border border-neutral-800 space-y-1">
-              <span className="text-xs font-mono text-white font-bold">Democratic Resolution</span>
-              <p className="text-xs text-neutral-400">
-                Enabled unified national leadership elections in October 2024, restoring statutory stability.
+            <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 space-y-1">
+              <span className="text-xs font-mono text-white font-bold block">3. Democratic Resolution</span>
+              <p className="text-xs text-neutral-400 leading-relaxed">
+                Delivered unified national leadership elections in October 2024, restoring statutory stability.
               </p>
             </div>
           </div>

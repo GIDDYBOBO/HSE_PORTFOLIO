@@ -181,9 +181,9 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
             Engineered Safety That Protects <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-neutral-200 to-neutral-500">Megaprojects & Human Lives</span>.
           </h1>
 
-          {/* Hero Subtitle */}
-          <p className="text-base sm:text-xl text-neutral-300 max-w-3xl mx-auto leading-relaxed font-normal">
-            Safety isn&apos;t just a hard hat or a compliance checklist—it is the invisible engineering that allows humanity to dare the impossible. When thousands of tonnes of steel hang mid-air and live traffic roars beneath, true safety transforms raw peril into flawless execution. Directed by <strong className="text-white">Engr. Iyenoma ThankGod Osazee</strong> (Julius Berger Nigeria PLC • CMIOSH), where 22+ years of mega-infrastructure mastery meet cutting-edge environmental science.
+          {/* Hero Subtitle & Strategic Narrative */}
+          <p className="text-sm sm:text-base lg:text-lg text-neutral-300 max-w-3xl mx-auto leading-relaxed font-normal">
+            Safety isn&apos;t just a hard hat or a compliance checklist—it is the invisible engineering that allows humanity to dare the impossible. When thousands of tonnes of steel hang mid-air and live traffic roars beneath, true safety transforms raw peril into flawless execution. Drawing on over two decades of high-consequence HSEQ leadership across premier civil engineering corridors, partnering with corporate boards, government authorities, and industrial contractors across Africa and international jurisdictions to fortify safety governance, mitigate critical business risks, and embed resilient management systems that generate enduring value.
           </p>
 
           {/* Hero Action Buttons (Dialedweb Style: White Pill with Arrow + Glass Frosted Capsule) */}
@@ -271,8 +271,10 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
                   </div>
 
                   <div className="pt-2 border-t border-white/5 flex items-center justify-between text-xs font-mono text-neutral-300">
-                    <span className="text-[11px] text-emerald-400 font-semibold">{work.safetyRecord.split(' ')[0]} {work.safetyRecord.split(' ')[1]}</span>
-                    <span className="flex items-center gap-1 group-hover:translate-x-0.5 transition-transform text-white">
+                    <span className="text-[11px] text-emerald-400 font-medium truncate max-w-[180px]" title={work.safetyRecord}>
+                      {work.safetyRecord}
+                    </span>
+                    <span className="flex items-center gap-1 group-hover:translate-x-0.5 transition-transform text-white shrink-0">
                       Inspect
                       <ArrowUpRight className="w-3 h-3" />
                     </span>
@@ -361,7 +363,7 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
             title="Hover or click to recount"
           >
             <div className="flex items-center justify-between">
-              <span className="text-xs font-mono uppercase text-neutral-400 group-hover:text-[#aaa3ff] transition-colors">Global Recognition</span>
+              <span className="text-xs font-mono uppercase text-neutral-400 group-hover:text-[#aaa3ff] transition-colors">Global Selection</span>
               <span className="text-[10px] font-mono text-neutral-600 group-hover:text-emerald-400 transition-colors">Live</span>
             </div>
             <div>
@@ -371,7 +373,7 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
                   suffix="+" 
                   duration={2000} 
                   triggerKey={card3Key} 
-                /> <span className="text-2xl text-neutral-400">Pool</span>
+                /> <span className="text-2xl text-neutral-400">Submissions</span>
               </div>
               <p className="text-xs text-neutral-400 mt-1">
                 Selected speaker at the 23rd World Congress on Safety and Health at Work in Sydney, Australia.
@@ -396,13 +398,29 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
                   end={2} 
                   duration={1200} 
                   triggerKey={card4Key} 
-                /> <span className="text-2xl text-neutral-400">Dual MSc</span>
+                /> <span className="text-2xl text-neutral-400">Master Degrees</span>
               </div>
               <p className="text-xs text-neutral-400 mt-1">
-                Postgraduate master degrees from Heriot-Watt University Edinburgh and University of Portsmouth UK.
+                Civil Engineering (Heriot-Watt, Edinburgh) & Environmental OSH (Portsmouth, UK).
               </p>
             </div>
           </div>
+        </div>
+
+        {/* Verifiable Credentials Ribbon */}
+        <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 pt-4 text-xs font-mono text-neutral-400 border-t border-white/5">
+          <span className="flex items-center gap-1.5">
+            <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+            ISO 45001 Lead Auditor (#423290)
+          </span>
+          <span className="flex items-center gap-1.5">
+            <Award className="w-3.5 h-3.5 text-[#aaa3ff]" />
+            IOSH Chartered Fellow Assessor (#100175)
+          </span>
+          <span className="flex items-center gap-1.5">
+            <CheckCircle2 className="w-3.5 h-3.5 text-white" />
+            Registered Professional Engineer (MNSE)
+          </span>
         </div>
       </section>
 
@@ -649,10 +667,10 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
             Testimonials
           </span>
           <h2 className="text-3xl sm:text-4xl font-display font-extrabold text-white tracking-tight">
-            What Our Partners Say
+            Institutional Feedback & Endorsements
           </h2>
           <p className="text-xs sm:text-sm text-neutral-400 font-mono">
-            Real Stories. Real Results. Straight From Those Who Know Us Best.
+            Independent appraisals from corporate directors, legislative panels, and chartered institutions.
           </p>
         </div>
 
@@ -754,7 +772,7 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
             Ready to Build an Uncompromising Standard of Safety?
           </h2>
           <p className="text-sm sm:text-base text-neutral-300 leading-relaxed font-normal">
-            Whether preparing for a multi-million dollar infrastructure bid, deploying ISO 45001 management diagnostics, or seeking a keynote address, partner with Engr. Iyenoma ThankGod Osazee.
+            Available for executive safety directorship, ISO management system audits, high-consequence infrastructure bid advisory, and international keynote presentations.
           </p>
         </div>
 
@@ -763,7 +781,7 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
             onClick={onOpenBookingModal}
             className="flex items-center space-x-2 px-8 py-4 rounded-full bg-white hover:bg-neutral-200 text-black font-bold text-sm tracking-tight transition-all shadow-[0_0_30px_rgba(255,255,255,0.3)] hover:scale-105"
           >
-            <span>Book a Consultation</span>
+            <span>Book an Advisory Consultation</span>
             <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
           </button>
 

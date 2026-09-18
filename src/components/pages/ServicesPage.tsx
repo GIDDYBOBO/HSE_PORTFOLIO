@@ -89,6 +89,19 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
       ],
       tag: 'World Congress Research',
       serviceKey: 'sme_capacity'
+    },
+    {
+      number: '05',
+      title: 'Executive Board Masterclasses & CMIOSH Mentorship',
+      desc: 'Inspiring international keynote presentations, parliamentary advisory, and tailored executive mentoring for safety professionals preparing for IOSH peer review.',
+      deliverables: [
+        'Signature keynotes on Just Culture & Civil Engineering Safety',
+        'Parliamentary & statutory advisory for regulatory commissions',
+        'CMIOSH Peer Review Interview preparation & portfolio review',
+        'Executive board masterclasses on psychological safety & zero harm'
+      ],
+      tag: 'IOSH Peer Panelist',
+      serviceKey: 'keynote_speaking'
     }
   ];
 
@@ -136,12 +149,12 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
             Select Core Domain
           </span>
           <span className="text-xs font-mono text-neutral-400">
-            4 Enterprise Advisory Capabilities
+            5 Executive Advisory Capabilities
           </span>
         </div>
 
         {/* Tab Buttons */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
           {services.map((srv, idx) => (
             <button
               key={srv.number}

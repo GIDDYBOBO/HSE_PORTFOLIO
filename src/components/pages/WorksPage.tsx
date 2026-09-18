@@ -145,14 +145,23 @@ export const WorksPage: React.FC<WorksPageProps> = ({
                 </div>
 
                 {/* Technical Challenge & HSE Solution Snapshot */}
-                <div className="p-3.5 rounded-2xl bg-white/[0.03] border border-white/5 space-y-1.5 text-xs">
-                  <div className="font-mono text-[11px] text-[#aaa3ff] font-semibold flex items-center gap-1.5">
-                    <ShieldCheck className="w-3.5 h-3.5" />
-                    <span>HSE Engineering Solution:</span>
+                <div className="p-3.5 rounded-2xl bg-white/[0.03] border border-white/5 space-y-2 text-xs">
+                  <div className="space-y-0.5">
+                    <span className="font-mono text-[10px] uppercase tracking-wider text-amber-300/90 font-semibold block">
+                      Critical Risk Challenge:
+                    </span>
+                    <p className="text-neutral-300 leading-relaxed text-[11px]">
+                      {project.challenge}
+                    </p>
                   </div>
-                  <p className="text-neutral-300 leading-relaxed text-[11px]">
-                    {project.hseSolution}
-                  </p>
+                  <div className="space-y-0.5 pt-1.5 border-t border-white/5">
+                    <span className="font-mono text-[10px] uppercase tracking-wider text-emerald-400 font-semibold block">
+                      HSE Engineering Solution:
+                    </span>
+                    <p className="text-neutral-300 leading-relaxed text-[11px]">
+                      {project.hseSolution}
+                    </p>
+                  </div>
                 </div>
               </div>
 

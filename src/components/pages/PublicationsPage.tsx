@@ -72,27 +72,27 @@ export const PublicationsPage: React.FC = () => {
 
       {/* Publications Repository */}
       <section className="space-y-8">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-neutral-800 pb-4">
-          <div>
-            <h2 className="text-2xl font-serif-display font-semibold text-white">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-4">
+          <div className="space-y-1">
+            <h2 className="text-2xl sm:text-3xl font-display font-bold text-white tracking-tight">
               Published Works & International Monograms
             </h2>
-            <p className="text-xs text-neutral-400 font-mono mt-0.5">
-              Articles published in European Journal of Environment and Earth Sciences, ResearchGate, and World Congress
+            <p className="text-xs text-neutral-400 font-mono">
+              Articles in European Journal of Environment and Earth Sciences, ResearchGate, and World Congress
             </p>
           </div>
 
           {/* Theme Filters */}
-          <div className="flex flex-wrap items-center gap-2">
-            <Filter className="w-3.5 h-3.5 text-white mr-1" />
+          <div className="flex flex-wrap items-center gap-1.5">
+            <Filter className="w-3.5 h-3.5 text-[#aaa3ff] mr-1" />
             {themes.map((th) => (
               <button
                 key={th.id}
                 onClick={() => setActiveTheme(th.id)}
-                className={`px-3 py-1 rounded-lg text-xs font-medium transition-all ${
+                className={`px-3 py-1.5 rounded-full text-xs font-mono transition-all ${
                   activeTheme === th.id
-                    ? 'bg-white text-black font-semibold shadow-sm'
-                    : 'bg-neutral-900 text-neutral-300 hover:bg-neutral-800 hover:text-white border border-neutral-800'
+                    ? 'bg-white text-black font-semibold shadow-md'
+                    : 'bg-white/5 text-neutral-300 hover:bg-white/10 hover:text-white border border-white/5'
                 }`}
               >
                 {th.label}
@@ -108,12 +108,12 @@ export const PublicationsPage: React.FC = () => {
             return (
               <article
                 key={pub.id}
-                className="p-6 sm:p-8 rounded-2xl bg-neutral-900/60 border border-neutral-800 hover:border-neutral-700 transition-all space-y-4 shadow-lg"
+                className="p-6 sm:p-8 rounded-3xl bg-[#08080d] border border-white/10 hover:border-white/20 transition-all space-y-4 shadow-xl"
               >
                 {/* Meta header */}
-                <div className="flex flex-wrap items-center justify-between gap-2 border-b border-neutral-800 pb-3">
+                <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/10 pb-3">
                   <div className="flex flex-wrap items-center gap-2 text-xs font-mono">
-                    <span className="px-2.5 py-0.5 rounded bg-neutral-800 text-white border border-neutral-700 font-semibold uppercase">
+                    <span className="px-2.5 py-0.5 rounded-full bg-white/10 text-[#aaa3ff] border border-white/10 font-semibold uppercase text-[10px]">
                       {pub.type === 'journal' ? 'Peer-Reviewed Journal' : pub.type === 'world_congress' ? 'World Congress Abstract' : pub.type === 'national_guidance' ? 'National Standard' : 'Technical Monograph'}
                     </span>
                     <span className="text-neutral-400 flex items-center gap-1">
@@ -122,7 +122,7 @@ export const PublicationsPage: React.FC = () => {
                     </span>
                     {pub.doi && (
                       <span className="text-neutral-300 flex items-center gap-1">
-                        <Globe className="w-3 h-3" />
+                        <Globe className="w-3 h-3 text-neutral-400" />
                         DOI: {pub.doi}
                       </span>
                     )}
@@ -131,13 +131,13 @@ export const PublicationsPage: React.FC = () => {
                   <div className="flex items-center space-x-2">
                     <button
                       onClick={() => handleCopyCitation(pub.id, pub.citation)}
-                      className="flex items-center space-x-1.5 px-3 py-1 rounded-lg bg-neutral-800 hover:bg-neutral-700 text-neutral-300 hover:text-white text-xs font-mono transition-colors border border-neutral-700"
+                      className="flex items-center space-x-1.5 px-3 py-1 rounded-full bg-white/5 hover:bg-white/10 text-neutral-300 hover:text-white text-xs font-mono transition-colors border border-white/10"
                       title="Copy standard citation"
                     >
                       {copiedId === pub.id ? (
                         <>
-                          <Check className="w-3.5 h-3.5 text-white" />
-                          <span className="text-white">Copied!</span>
+                          <Check className="w-3.5 h-3.5 text-emerald-400" />
+                          <span className="text-emerald-400 font-semibold">Copied!</span>
                         </>
                       ) : (
                         <>
@@ -152,7 +152,7 @@ export const PublicationsPage: React.FC = () => {
                         href={pub.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center space-x-1 px-3 py-1 rounded-lg bg-neutral-800 hover:bg-neutral-700 text-neutral-200 hover:text-white text-xs font-mono border border-neutral-700 transition-colors"
+                        className="flex items-center space-x-1 px-3 py-1 rounded-full bg-white/5 hover:bg-white/10 text-neutral-200 hover:text-white text-xs font-mono border border-white/10 transition-colors"
                       >
                         <span>Access Link</span>
                         <ExternalLink className="w-3 h-3" />
@@ -163,10 +163,10 @@ export const PublicationsPage: React.FC = () => {
 
                 {/* Title & Authors */}
                 <div className="space-y-1">
-                  <h3 className="text-xl sm:text-2xl font-serif-display font-semibold text-white leading-snug">
+                  <h3 className="text-xl sm:text-2xl font-display font-bold text-white leading-snug">
                     {pub.title}
                   </h3>
-                  <p className="text-xs text-neutral-300 font-mono">
+                  <p className="text-xs text-[#aaa3ff] font-mono">
                     {pub.authors.join(' • ')}
                   </p>
                   <p className="text-xs text-neutral-400 italic">
@@ -181,14 +181,14 @@ export const PublicationsPage: React.FC = () => {
 
                 {/* Expandable Key Findings */}
                 {isExpanded ? (
-                  <div className="space-y-3 pt-3 border-t border-neutral-800 animate-fadeIn">
+                  <div className="space-y-3 pt-3 border-t border-white/10 animate-fadeIn">
                     <span className="text-xs font-mono uppercase tracking-wider text-neutral-200 font-semibold block">
                       Core Empirical Findings & Strategic Takeaways:
                     </span>
                     <ul className="space-y-2 text-xs text-neutral-300">
                       {pub.keyFindings.map((finding, fIdx) => (
                         <li key={fIdx} className="flex items-start space-x-2">
-                          <span className="text-white font-mono font-bold">•</span>
+                          <span className="text-emerald-400 font-mono font-bold">•</span>
                           <span className="leading-relaxed">{finding}</span>
                         </li>
                       ))}
@@ -196,7 +196,7 @@ export const PublicationsPage: React.FC = () => {
 
                     <div className="pt-2">
                       <span className="text-xs font-mono text-neutral-400 block mb-1">Standard Academic Citation:</span>
-                      <div className="p-3 rounded-lg bg-black border border-neutral-800 font-mono text-[11px] text-neutral-300 select-all">
+                      <div className="p-3 rounded-xl bg-black/60 border border-white/10 font-mono text-[11px] text-neutral-300 select-all">
                         {pub.citation}
                       </div>
                     </div>
@@ -204,13 +204,13 @@ export const PublicationsPage: React.FC = () => {
                 ) : null}
 
                 {/* Bottom Bar: Themes & Toggle Details */}
-                <div className="pt-3 border-t border-neutral-800 flex flex-wrap items-center justify-between gap-3">
+                <div className="pt-3 border-t border-white/10 flex flex-wrap items-center justify-between gap-3">
                   <div className="flex flex-wrap items-center gap-1.5">
                     <Tag className="w-3 h-3 text-neutral-400 mr-0.5" />
                     {pub.keyThemes.map((th, tIdx) => (
                       <span
                         key={tIdx}
-                        className="text-[10px] font-mono px-2 py-0.5 rounded bg-neutral-800 text-neutral-300 border border-neutral-700"
+                        className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-white/5 text-neutral-300 border border-white/10"
                       >
                         {th}
                       </span>
@@ -219,7 +219,7 @@ export const PublicationsPage: React.FC = () => {
 
                   <button
                     onClick={() => toggleExpand(pub.id)}
-                    className="flex items-center space-x-1 text-xs text-neutral-300 hover:text-white font-medium"
+                    className="flex items-center space-x-1 text-xs text-[#aaa3ff] hover:text-white font-medium cursor-pointer"
                   >
                     <span>{isExpanded ? 'Hide Key Findings' : 'View Key Findings & Citation'}</span>
                     {isExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
@@ -232,20 +232,20 @@ export const PublicationsPage: React.FC = () => {
       </section>
 
       {/* Research Theme Summary Matrix */}
-      <section className="p-8 rounded-3xl bg-neutral-950 border border-neutral-800 space-y-6">
-        <div>
-          <span className="text-xs font-mono uppercase tracking-wider text-neutral-400">
+      <section className="p-8 sm:p-10 rounded-3xl bg-[#08080d] border border-white/10 space-y-6">
+        <div className="space-y-1">
+          <span className="text-xs font-mono uppercase tracking-widest text-[#aaa3ff] font-semibold">
             Synthesis of Research Agenda
           </span>
-          <h2 className="text-2xl font-serif-display font-semibold text-white mt-1">
+          <h2 className="text-2xl sm:text-3xl font-display font-bold text-white tracking-tight">
             Overarching Research Themes
           </h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="p-5 rounded-xl bg-neutral-900/60 border border-neutral-800 space-y-2">
-            <h3 className="text-white font-serif-display font-semibold text-base flex items-center gap-2">
-              <span className="text-white font-mono">01.</span>
+          <div className="p-6 rounded-2xl bg-white/[0.03] border border-white/10 space-y-2">
+            <h3 className="text-white font-display font-bold text-base flex items-center gap-2">
+              <span className="text-[#aaa3ff] font-mono">01.</span>
               Occupational Hygiene & Thermal Extremes
             </h3>
             <p className="text-xs text-neutral-400 leading-relaxed">
@@ -253,9 +253,9 @@ export const PublicationsPage: React.FC = () => {
             </p>
           </div>
 
-          <div className="p-5 rounded-xl bg-neutral-900/60 border border-neutral-800 space-y-2">
-            <h3 className="text-white font-serif-display font-semibold text-base flex items-center gap-2">
-              <span className="text-white font-mono">02.</span>
+          <div className="p-6 rounded-2xl bg-white/[0.03] border border-white/10 space-y-2">
+            <h3 className="text-white font-display font-bold text-base flex items-center gap-2">
+              <span className="text-[#aaa3ff] font-mono">02.</span>
               Environmental Sustainability & Landfill Bioreactors
             </h3>
             <p className="text-xs text-neutral-400 leading-relaxed">
@@ -263,9 +263,9 @@ export const PublicationsPage: React.FC = () => {
             </p>
           </div>
 
-          <div className="p-5 rounded-xl bg-neutral-900/60 border border-neutral-800 space-y-2">
-            <h3 className="text-white font-serif-display font-semibold text-base flex items-center gap-2">
-              <span className="text-white font-mono">03.</span>
+          <div className="p-6 rounded-2xl bg-white/[0.03] border border-white/10 space-y-2">
+            <h3 className="text-white font-display font-bold text-base flex items-center gap-2">
+              <span className="text-[#aaa3ff] font-mono">03.</span>
               Construction SMEs & Subcontractor Safety
             </h3>
             <p className="text-xs text-neutral-400 leading-relaxed">
@@ -273,9 +273,9 @@ export const PublicationsPage: React.FC = () => {
             </p>
           </div>
 
-          <div className="p-5 rounded-xl bg-neutral-900/60 border border-neutral-800 space-y-2">
-            <h3 className="text-white font-serif-display font-semibold text-base flex items-center gap-2">
-              <span className="text-white font-mono">04.</span>
+          <div className="p-6 rounded-2xl bg-white/[0.03] border border-white/10 space-y-2">
+            <h3 className="text-white font-display font-bold text-base flex items-center gap-2">
+              <span className="text-[#aaa3ff] font-mono">04.</span>
               ISO 45001 & Management Systems Governance
             </h3>
             <p className="text-xs text-neutral-400 leading-relaxed">
