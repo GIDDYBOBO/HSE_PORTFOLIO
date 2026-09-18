@@ -3,15 +3,12 @@ import { PageId } from '../types';
 import { 
   ArrowUp, 
   ArrowUpRight, 
-  ShieldCheck, 
-  Mail, 
   MapPin, 
   Linkedin, 
+  Bookmark,
   BookOpen, 
   GraduationCap, 
-  Globe, 
-  Award,
-  Share2
+  Mail 
 } from 'lucide-react';
 
 interface FooterProps {
@@ -19,75 +16,30 @@ interface FooterProps {
   onOpenBookingModal?: () => void;
 }
 
-const INSTITUTIONAL_CARDS = [
+const CREDENTIAL_TILES = [
   {
-    id: 'direct-email',
-    name: 'Executive Direct Liaison',
-    handle: 'contact@iyenomaosazee.com',
-    category: 'Corporate Office',
-    badge: 'Priority Dispatch',
-    badgeColor: 'text-rose-400 bg-rose-500/10 border-rose-500/20',
-    icon: Mail,
-    url: 'mailto:contact@iyenomaosazee.com',
-    description: 'Direct communication desk for high-level board advisories, mega-infrastructure safety retainers, and keynote speaking.'
+    title: 'CMIOSH #100175',
+    subtitle: 'Chartered UK Safety'
   },
   {
-    id: 'iosh',
-    name: 'IOSH UK Chartered Directory',
-    handle: 'Chartered Fellow #100175',
-    category: 'Statutory Body',
-    badge: 'Peer Review Panel',
-    badgeColor: 'text-emerald-400 bg-emerald-500/10 border-emerald-500/20',
-    icon: Award,
-    url: 'https://iosh.com',
-    description: 'Institution of Occupational Safety and Health UK chartered status, international peer review panels, and global mentorship.'
-  }
-];
-
-const PLATFORM_PROFILES = [
-  {
-    id: 'linkedin',
-    name: 'LinkedIn Professional',
-    handle: 'in/iyenoma-osazee',
-    category: 'Executive Network',
-    badge: 'Verified Leader',
-    badgeColor: 'text-blue-400 bg-blue-500/10 border-blue-500/20',
-    icon: Linkedin,
-    url: 'https://www.linkedin.com/in/iyenoma-osazee',
-    description: 'Executive discourse, construction safety governance, corporate HSE directorship, and CMIOSH peer networking.'
+    title: 'Julius Berger PLC',
+    subtitle: 'HSE Manager (Abuja)'
   },
   {
-    id: 'researchgate',
-    name: 'ResearchGate Scientific',
-    handle: 'Iyenoma-ThankGod-Osazee',
-    category: 'Academic Publications',
-    badge: 'Peer-Reviewed',
-    badgeColor: 'text-cyan-400 bg-cyan-500/10 border-cyan-500/20',
-    icon: BookOpen,
-    url: 'https://www.researchgate.net/search/publication?q=Iyenoma+ThankGod+Osazee',
-    description: 'Full-text preprints and citations on WBGT heat stress ergonomics, landfill leachate modeling, and occupational epidemiology.'
+    title: 'ISO 45001 Lead',
+    subtitle: 'IRCA Cert #423290'
   },
   {
-    id: 'scholar',
-    name: 'Google Scholar Index',
-    handle: 'Engr. I.T. Osazee',
-    category: 'Citations Index',
-    badge: 'Published Papers',
-    badgeColor: 'text-amber-400 bg-amber-500/10 border-amber-500/20',
-    icon: GraduationCap,
-    url: 'https://scholar.google.com/scholar?q=Iyenoma+ThankGod+Osazee',
-    description: 'Scholarly citations in international occupational hygiene journals, waste management engineering, and civil risk reduction.'
+    title: 'Fellow ISPON',
+    subtitle: 'Safety Professionals Nig.'
   },
   {
-    id: 'nse',
-    name: 'NSE & NISafetyE',
-    handle: 'Civil & Safety Divisions',
-    category: 'Engineering Council',
-    badge: 'Registered MNSE',
-    badgeColor: 'text-purple-400 bg-purple-500/10 border-purple-500/20',
-    icon: Globe,
-    url: 'https://nse.org.ng',
-    description: 'Nigerian Society of Engineers and Safety Engineering Division corporate membership, standards review, and code compliance.'
+    title: 'MNSE & Safety Eng',
+    subtitle: 'Civil Engineering Div'
+  },
+  {
+    title: 'Top 50 Africa',
+    subtitle: 'NatureNews Sustainability'
   }
 ];
 
@@ -96,180 +48,185 @@ export const Footer: React.FC<FooterProps> = ({ onSelectPage, onOpenBookingModal
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleNav = (id: PageId, anchorId?: string) => {
+  const handleNav = (id: PageId) => {
     onSelectPage(id);
-    if (anchorId) {
-      setTimeout(() => {
-        const el = document.getElementById(anchorId);
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
-        else window.scrollTo({ top: 0, behavior: 'smooth' });
-      }, 50);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleConsultationClick = () => {
+    if (onOpenBookingModal) {
+      onOpenBookingModal();
     } else {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      handleNav('services');
     }
   };
 
-  return (
-    <footer className="relative border-t border-white/10 bg-[#040407] text-neutral-400 text-xs overflow-hidden">
-      {/* Subtle top ambient glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-32 dialed-glow pointer-events-none" />
+  const handleInquiryClick = () => {
+    handleNav('services');
+    setTimeout(() => {
+      const formEl = document.getElementById('inquiry-form-section');
+      if (formEl) {
+        formEl.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100);
+  };
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12 space-y-16">
+  return (
+    <footer className="border-t border-white/10 bg-[#050508] text-neutral-300 text-xs">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-14 space-y-10">
         
-        {/* Verification Credentials Row */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 py-4 border-b border-white/10 text-center font-mono text-[11px]">
-          <div className="p-3 rounded-2xl bg-white/[0.02] border border-white/5 flex flex-col items-center justify-center">
-            <span className="text-white font-bold">CMIOSH #100175</span>
-            <span className="text-neutral-300 text-[10px] mt-0.5">Chartered UK Safety</span>
-          </div>
-          <div className="p-3 rounded-2xl bg-white/[0.02] border border-white/5 flex flex-col items-center justify-center">
-            <span className="text-white font-bold">Julius Berger PLC</span>
-            <span className="text-neutral-300 text-[10px] mt-0.5">HSE Manager (Abuja)</span>
-          </div>
-          <div className="p-3 rounded-2xl bg-white/[0.02] border border-white/5 flex flex-col items-center justify-center">
-            <span className="text-white font-bold">ISO 45001 Lead</span>
-            <span className="text-neutral-300 text-[10px] mt-0.5">IRCA Cert #423290</span>
-          </div>
-          <div className="p-3 rounded-2xl bg-white/[0.02] border border-white/5 flex flex-col items-center justify-center">
-            <span className="text-white font-bold">Fellow ISPON</span>
-            <span className="text-neutral-300 text-[10px] mt-0.5">Safety Professionals Nig.</span>
-          </div>
-          <div className="p-3 rounded-2xl bg-white/[0.02] border border-white/5 flex flex-col items-center justify-center">
-            <span className="text-white font-bold">MNSE & Safety Eng</span>
-            <span className="text-neutral-300 text-[10px] mt-0.5">Civil Engineering Div</span>
-          </div>
-          <div className="p-3 rounded-2xl bg-white/[0.02] border border-white/5 flex flex-col items-center justify-center">
-            <span className="text-white font-bold">Top 50 Africa</span>
-            <span className="text-neutral-300 text-[10px] mt-0.5">NatureNews Sustainability</span>
-          </div>
+        {/* Top Row: 6 Credential Badges matching image */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-3.5">
+          {CREDENTIAL_TILES.map((tile, idx) => (
+            <div
+              key={idx}
+              className="p-4 rounded-2xl bg-[#090910] border border-white/10 flex flex-col items-center justify-center text-center space-y-1 hover:border-white/20 transition-colors"
+            >
+              <span className="text-white font-mono font-bold text-xs tracking-tight">
+                {tile.title}
+              </span>
+              <span className="text-neutral-400 font-mono text-[10px] sm:text-[11px]">
+                {tile.subtitle}
+              </span>
+            </div>
+          ))}
         </div>
 
-        {/* Multi-Column Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
+        {/* Subtle Horizontal Divider matching image */}
+        <div className="border-t border-white/10 w-full" />
+
+        {/* 3-Column Core Layout matching image */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 lg:gap-14 items-start">
           
-          {/* Col 1: Bio / Brand */}
+          {/* Column 1: Brand & Profile */}
           <div className="md:col-span-5 space-y-4">
-            <div className="flex items-center space-x-2.5">
-              <div className="w-8 h-8 rounded-full bg-white text-black flex items-center justify-center font-extrabold text-xs">
+            <div className="flex items-center space-x-3">
+              <div className="w-8 h-8 rounded-full bg-white text-black flex items-center justify-center font-extrabold text-xs shrink-0 select-none">
                 TG
               </div>
               <span className="text-lg font-display font-bold text-white tracking-tight">
                 Engr. Iyenoma ThankGod Osazee
               </span>
             </div>
-            <p className="text-xs text-neutral-300 leading-relaxed max-w-md">
-              Official executive portfolio and technical repository. Blending two decades of frontline 
-              civil construction safety directorship at Julius Berger Nigeria PLC with peer-reviewed research in 
-              occupational hygiene, landfill sustainability, thermal WBGT ergonomics, and statutory safety reform.
+
+            <p className="text-xs sm:text-[12.5px] text-neutral-300 leading-relaxed max-w-md">
+              Official executive portfolio and technical repository. Blending two decades of frontline civil construction safety directorship at Julius Berger Nigeria PLC with peer-reviewed research in occupational hygiene, landfill sustainability, thermal WBGT ergonomics, and statutory safety reform.
             </p>
-            
-            <div className="flex items-center space-x-4 pt-1 font-mono text-[11px] text-neutral-300">
-              <span className="flex items-center gap-1">
-                <MapPin className="w-3.5 h-3.5 text-neutral-400" />
-                Abuja, Federal Capital Territory, Nigeria
-              </span>
+
+            <div className="flex items-center space-x-2 pt-0.5 font-mono text-xs text-neutral-300">
+              <MapPin className="w-3.5 h-3.5 text-neutral-400 shrink-0" />
+              <span>Abuja, Federal Capital Territory, Nigeria</span>
             </div>
 
-            {/* Quick-Access Social Media Chips */}
+            {/* Social & Academic Profile Icons Row */}
             <div className="pt-2 flex items-center space-x-2">
               <a
-                id="footer-quick-linkedin"
+                id="footer-icon-linkedin"
                 href="https://www.linkedin.com/in/iyenoma-osazee"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Connect on LinkedIn"
-                className="p-2 rounded-xl bg-white/[0.04] hover:bg-white/[0.12] text-neutral-300 hover:text-white border border-white/10 hover:border-white/25 transition-all"
+                aria-label="LinkedIn Professional Network"
                 title="LinkedIn Profile: Engr. Iyenoma Osazee"
+                className="w-9 h-9 rounded-xl bg-[#0f0f18] hover:bg-[#181826] border border-white/10 hover:border-white/25 flex items-center justify-center text-neutral-300 hover:text-white transition-all"
               >
                 <Linkedin className="w-4 h-4 text-[#aaa3ff]" />
               </a>
+
               <a
-                id="footer-quick-iosh"
-                href="https://iosh.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="IOSH UK Chartered Safety Profile"
-                className="p-2 rounded-xl bg-white/[0.04] hover:bg-white/[0.12] text-neutral-300 hover:text-white border border-white/10 hover:border-white/25 transition-all"
-                title="IOSH UK Chartered Safety Professional (#100175)"
-              >
-                <Award className="w-4 h-4 text-emerald-400" />
-              </a>
-              <a
-                id="footer-quick-researchgate"
+                id="footer-icon-researchgate"
                 href="https://www.researchgate.net/search/publication?q=Iyenoma+ThankGod+Osazee"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="ResearchGate Publications"
-                className="p-2 rounded-xl bg-white/[0.04] hover:bg-white/[0.12] text-neutral-300 hover:text-white border border-white/10 hover:border-white/25 transition-all"
                 title="ResearchGate Scientific Papers"
+                className="w-9 h-9 rounded-xl bg-[#0f0f18] hover:bg-[#181826] border border-white/10 hover:border-white/25 flex items-center justify-center text-neutral-300 hover:text-white transition-all"
               >
-                <BookOpen className="w-4 h-4 text-cyan-400" />
+                <Bookmark className="w-4 h-4 text-emerald-400" />
               </a>
+
               <a
-                id="footer-quick-scholar"
+                id="footer-icon-scholar"
                 href="https://scholar.google.com/scholar?q=Iyenoma+ThankGod+Osazee"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Google Scholar Citation Index"
-                className="p-2 rounded-xl bg-white/[0.04] hover:bg-white/[0.12] text-neutral-300 hover:text-white border border-white/10 hover:border-white/25 transition-all"
                 title="Google Scholar Citations"
+                className="w-9 h-9 rounded-xl bg-[#0f0f18] hover:bg-[#181826] border border-white/10 hover:border-white/25 flex items-center justify-center text-neutral-300 hover:text-white transition-all"
+              >
+                <BookOpen className="w-4 h-4 text-cyan-400" />
+              </a>
+
+              <a
+                id="footer-icon-iosh"
+                href="https://iosh.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Institution of Occupational Safety and Health UK"
+                title="Chartered Fellow (CMIOSH #100175)"
+                className="w-9 h-9 rounded-xl bg-[#0f0f18] hover:bg-[#181826] border border-white/10 hover:border-white/25 flex items-center justify-center text-neutral-300 hover:text-white transition-all"
               >
                 <GraduationCap className="w-4 h-4 text-amber-400" />
               </a>
+
               <a
-                id="footer-quick-email"
+                id="footer-icon-email"
                 href="mailto:contact@iyenomaosazee.com"
-                aria-label="Direct Email Liaison"
-                className="p-2 rounded-xl bg-white/[0.04] hover:bg-white/[0.12] text-neutral-300 hover:text-white border border-white/10 hover:border-white/25 transition-all"
-                title="Direct Executive Email"
+                aria-label="Direct Liaison Email"
+                title="Executive Email Liaison"
+                className="w-9 h-9 rounded-xl bg-[#0f0f18] hover:bg-[#181826] border border-white/10 hover:border-white/25 flex items-center justify-center text-neutral-300 hover:text-white transition-all"
               >
                 <Mail className="w-4 h-4 text-rose-400" />
               </a>
             </div>
           </div>
 
-          {/* Col 2: Navigation */}
-          <div className="md:col-span-3 space-y-3">
+          {/* Column 2: Navigation */}
+          <div className="md:col-span-3 space-y-3.5">
             <h4 className="text-xs font-mono uppercase tracking-widest text-white font-semibold">
-              Navigation
+              NAVIGATION
             </h4>
-            <ul className="space-y-2 text-xs">
+            <ul className="space-y-2.5 text-xs">
               <li>
                 <button
+                  id="footer-nav-overview"
                   onClick={() => handleNav('overview')}
-                  className="hover:text-white transition-colors"
+                  className="text-neutral-300 hover:text-white transition-colors text-left"
                 >
                   Executive Overview
                 </button>
               </li>
               <li>
                 <button
-                  onClick={() => handleNav('overview', 'signature-works-section')}
-                  className="hover:text-white transition-colors"
+                  id="footer-nav-works"
+                  onClick={() => handleNav('works')}
+                  className="text-neutral-300 hover:text-white transition-colors text-left"
                 >
                   Signature Megaprojects (Works)
                 </button>
               </li>
               <li>
                 <button
-                  onClick={() => handleNav('overview', 'services-powerhouse-section')}
-                  className="hover:text-white transition-colors"
+                  id="footer-nav-services"
+                  onClick={() => handleNav('services')}
+                  className="text-neutral-300 hover:text-white transition-colors text-left"
                 >
                   Safety & Advisory Services
                 </button>
               </li>
               <li>
                 <button
+                  id="footer-nav-publications"
                   onClick={() => handleNav('publications')}
-                  className="hover:text-white transition-colors"
+                  className="text-neutral-300 hover:text-white transition-colors text-left"
                 >
                   Research Papers & WBGT Tool
                 </button>
               </li>
               <li>
                 <button
+                  id="footer-nav-leadership"
                   onClick={() => handleNav('leadership')}
-                  className="hover:text-white transition-colors"
+                  className="text-neutral-300 hover:text-white transition-colors text-left"
                 >
                   Institutional Leadership & Honors
                 </button>
@@ -277,30 +234,29 @@ export const Footer: React.FC<FooterProps> = ({ onSelectPage, onOpenBookingModal
             </ul>
           </div>
 
-          {/* Col 3: Direct Engagement & Consultation */}
-          <div className="md:col-span-4 space-y-3">
+          {/* Column 3: Executive Engagement */}
+          <div className="md:col-span-4 space-y-4">
             <h4 className="text-xs font-mono uppercase tracking-widest text-white font-semibold">
-              Executive Engagement
+              EXECUTIVE ENGAGEMENT
             </h4>
             <p className="text-xs text-neutral-300 leading-relaxed">
               Available for high-consequence project safety governance, ISO 45001 auditing diagnostics, and international keynote addresses.
             </p>
 
-            <div className="pt-2 flex flex-col space-y-2">
+            <div className="pt-2 space-y-2.5">
               <button
-                onClick={() => {
-                  if (onOpenBookingModal) onOpenBookingModal();
-                  else handleNav('advisory');
-                }}
-                className="w-full py-2.5 px-4 rounded-full bg-white hover:bg-neutral-200 text-black font-semibold text-xs transition-all flex items-center justify-center space-x-1.5 shadow-md"
+                id="footer-btn-book-consultation"
+                onClick={handleConsultationClick}
+                className="w-full py-3 px-5 rounded-full bg-white hover:bg-neutral-200 text-black font-semibold text-xs transition-all flex items-center justify-center space-x-1.5 shadow-md cursor-pointer"
               >
                 <span>Book a Consultation Call</span>
-                <ArrowUpRight className="w-3.5 h-3.5" />
+                <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
               </button>
 
               <button
-                onClick={() => handleNav('advisory')}
-                className="w-full py-2.5 px-4 rounded-full bg-white/5 hover:bg-white/10 text-neutral-300 hover:text-white font-medium text-xs border border-white/10 transition-colors text-center"
+                id="footer-btn-written-inquiry"
+                onClick={handleInquiryClick}
+                className="w-full py-3 px-5 rounded-full bg-[#181820] hover:bg-[#20202c] text-white font-medium text-xs border border-white/10 transition-colors text-center cursor-pointer"
               >
                 Submit Formal Written Inquiry
               </button>
@@ -308,141 +264,15 @@ export const Footer: React.FC<FooterProps> = ({ onSelectPage, onOpenBookingModal
           </div>
         </div>
 
-        {/* Professional Networks & Verified Social Profiles Section */}
-        <div id="footer-social-media-section" className="pt-10 border-t border-white/10 space-y-6">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-            <div className="space-y-1.5">
-              <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[#aaa3ff] text-[11px] font-mono">
-                <Share2 className="w-3.5 h-3.5 text-[#aaa3ff]" />
-                <span>Professional Profiles & Verified Networks</span>
-              </div>
-              <h3 className="text-xl sm:text-2xl font-display font-bold text-white tracking-tight">
-                Connect Across Global Safety, Engineering & Research Platforms
-              </h3>
-              <p className="text-xs text-neutral-300 max-w-2xl leading-relaxed">
-                Verified digital profiles across international occupational health registries, scholarly indexes, statutory councils, and executive networking platforms.
-              </p>
-            </div>
-            <div className="flex items-center space-x-2 text-[11px] font-mono text-neutral-400">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span className="text-neutral-300">Verified & Active Channels</span>
-            </div>
-          </div>
-
-          {/* Side-by-Side Boxes: Executive Direct Liaison & IOSH UK Chartered Directory (No "View Profile" link) */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-            {INSTITUTIONAL_CARDS.map((card) => {
-              const IconComponent = card.icon;
-              return (
-                <a
-                  key={card.id}
-                  id={`footer-card-${card.id}`}
-                  href={card.url}
-                  target={card.url.startsWith('mailto:') ? undefined : '_blank'}
-                  rel={card.url.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
-                  className="group relative p-4 rounded-2xl bg-white/[0.02] hover:bg-white/[0.06] border border-white/5 hover:border-white/20 transition-all duration-200 flex flex-col justify-between space-y-3"
-                >
-                  <div className="flex items-start justify-between gap-2">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white group-hover:bg-white/10 group-hover:border-white/20 transition-colors">
-                        <IconComponent className="w-4 h-4 text-white group-hover:text-[#aaa3ff] transition-colors" />
-                      </div>
-                      <div>
-                        <h4 className="text-xs font-semibold text-white group-hover:text-[#aaa3ff] transition-colors flex items-center gap-1.5">
-                          <span>{card.name}</span>
-                        </h4>
-                        <span className="font-mono text-[10px] text-neutral-400 block truncate max-w-[200px] sm:max-w-xs">
-                          {card.handle}
-                        </span>
-                      </div>
-                    </div>
-                    <span className={`text-[9px] font-mono px-2 py-0.5 rounded-full border ${card.badgeColor} whitespace-nowrap`}>
-                      {card.badge}
-                    </span>
-                  </div>
-
-                  <p className="text-[11px] text-neutral-300 leading-relaxed">
-                    {card.description}
-                  </p>
-
-                  <div className="pt-2 border-t border-white/5 flex items-center justify-between text-[11px] text-neutral-400">
-                    <span className="font-mono text-[10px] text-neutral-400">{card.category}</span>
-                  </div>
-                </a>
-              );
-            })}
-          </div>
-
-          {/* Other Professional & Scientific Platform Profiles */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
-            {PLATFORM_PROFILES.map((profile) => {
-              const IconComponent = profile.icon;
-              return (
-                <a
-                  key={profile.id}
-                  id={`footer-social-card-${profile.id}`}
-                  href={profile.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group relative p-4 rounded-2xl bg-white/[0.02] hover:bg-white/[0.06] border border-white/5 hover:border-white/20 transition-all duration-200 flex flex-col justify-between space-y-3"
-                >
-                  <div className="flex items-start justify-between gap-2">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white group-hover:bg-white/10 group-hover:border-white/20 transition-colors">
-                        <IconComponent className="w-4 h-4 text-white group-hover:text-[#aaa3ff] transition-colors" />
-                      </div>
-                      <div>
-                        <h4 className="text-xs font-semibold text-white group-hover:text-[#aaa3ff] transition-colors flex items-center gap-1.5">
-                          <span>{profile.name}</span>
-                        </h4>
-                        <span className="font-mono text-[10px] text-neutral-400 block truncate max-w-[150px]">
-                          {profile.handle}
-                        </span>
-                      </div>
-                    </div>
-                    <span className={`text-[9px] font-mono px-2 py-0.5 rounded-full border ${profile.badgeColor} whitespace-nowrap`}>
-                      {profile.badge}
-                    </span>
-                  </div>
-
-                  <p className="text-[11px] text-neutral-300 leading-relaxed">
-                    {profile.description}
-                  </p>
-
-                  <div className="pt-2 border-t border-white/5 flex items-center justify-between text-[11px] text-neutral-400 group-hover:text-white transition-colors">
-                    <span className="font-mono text-[10px] text-neutral-400">{profile.category}</span>
-                    <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-[#aaa3ff] group-hover:translate-x-0.5 transition-transform">
-                      <span>View Profile</span>
-                      <ArrowUpRight className="w-3 h-3" />
-                    </span>
-                  </div>
-                </a>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* DIALEDWEB GIANT TYPOGRAPHY BANNER */}
-        <div className="pt-10 border-t border-white/10 flex flex-col items-center justify-center select-none pointer-events-none">
-          <span className="text-[15vw] leading-[0.8] font-display font-black tracking-tighter text-white/[0.04] uppercase text-center block">
-            OSAZEE
-          </span>
-        </div>
-
-        {/* Bottom Legal & Back to Top Strip */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 text-[11px] font-mono text-neutral-300">
-          <div className="flex flex-wrap items-center gap-3">
-            <span>© {new Date().getFullYear()} Engr. Iyenoma ThankGod Osazee. All rights reserved.</span>
-            <span>•</span>
-            <span>HSE Manager, Julius Berger Nigeria PLC</span>
-          </div>
-
+        {/* Minimal Bottom Bar */}
+        <div className="pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] font-mono text-neutral-400">
+          <p>© {new Date().getFullYear()} Engr. Iyenoma ThankGod Osazee. All rights reserved.</p>
           <button
             onClick={scrollToTop}
-            className="flex items-center space-x-1.5 px-3 py-1.5 rounded-full bg-white/5 hover:bg-white/10 text-neutral-300 hover:text-white border border-white/10 transition-colors"
+            className="flex items-center space-x-1.5 text-neutral-400 hover:text-white transition-colors cursor-pointer"
           >
             <span>Back to top</span>
-            <ArrowUp className="w-3 h-3" />
+            <ArrowUp className="w-3.5 h-3.5" />
           </button>
         </div>
 
@@ -450,3 +280,4 @@ export const Footer: React.FC<FooterProps> = ({ onSelectPage, onOpenBookingModal
     </footer>
   );
 };
+

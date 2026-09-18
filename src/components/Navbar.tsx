@@ -93,16 +93,24 @@ export const Navbar: React.FC<NavbarProps> = ({
 
             <button
               id="nav-link-works"
-              onClick={() => handleNavClick('overview', 'signature-works-section')}
-              className="px-3.5 py-1.5 rounded-full text-xs font-medium text-neutral-300 hover:text-white hover:bg-white/5 transition-all"
+              onClick={() => handleNavClick('works')}
+              className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all ${
+                currentPage === 'works'
+                  ? 'bg-white/15 text-white font-semibold shadow-inner'
+                  : 'text-neutral-300 hover:text-white hover:bg-white/5'
+              }`}
             >
               Works
             </button>
 
             <button
               id="nav-link-services"
-              onClick={() => handleNavClick('overview', 'services-powerhouse-section')}
-              className="px-3.5 py-1.5 rounded-full text-xs font-medium text-neutral-300 hover:text-white hover:bg-white/5 transition-all"
+              onClick={() => handleNavClick('services')}
+              className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all ${
+                currentPage === 'services' || currentPage === 'advisory'
+                  ? 'bg-white/15 text-white font-semibold shadow-inner'
+                  : 'text-neutral-300 hover:text-white hover:bg-white/5'
+              }`}
             >
               Services
             </button>
@@ -175,19 +183,23 @@ export const Navbar: React.FC<NavbarProps> = ({
             </button>
 
             <button
-              onClick={() => handleNavClick('overview', 'signature-works-section')}
-              className="w-full text-left px-4 py-2.5 rounded-xl text-xs font-medium text-neutral-300 hover:bg-white/10 flex items-center justify-between"
+              onClick={() => handleNavClick('works')}
+              className={`w-full text-left px-4 py-2.5 rounded-xl text-xs font-medium flex items-center justify-between ${
+                currentPage === 'works' ? 'bg-white text-black font-semibold' : 'text-neutral-300 hover:bg-white/10'
+              }`}
             >
-              <span>Featured Megaprojects</span>
-              <span className="text-[10px] font-mono uppercase text-neutral-400">Works</span>
+              <span>Works</span>
+              <span className="text-[10px] font-mono uppercase text-neutral-400">Megaprojects</span>
             </button>
 
             <button
-              onClick={() => handleNavClick('overview', 'services-powerhouse-section')}
-              className="w-full text-left px-4 py-2.5 rounded-xl text-xs font-medium text-neutral-300 hover:bg-white/10 flex items-center justify-between"
+              onClick={() => handleNavClick('services')}
+              className={`w-full text-left px-4 py-2.5 rounded-xl text-xs font-medium flex items-center justify-between ${
+                currentPage === 'services' || currentPage === 'advisory' ? 'bg-white text-black font-semibold' : 'text-neutral-300 hover:bg-white/10'
+              }`}
             >
-              <span>Advisory & Services</span>
-              <span className="text-[10px] font-mono uppercase text-neutral-400">Services</span>
+              <span>Services</span>
+              <span className="text-[10px] font-mono uppercase text-neutral-400">Advisory</span>
             </button>
 
             <button
@@ -196,7 +208,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 currentPage === 'publications' ? 'bg-white text-black font-semibold' : 'text-neutral-300 hover:bg-white/10'
               }`}
             >
-              <span>Research Papers & WBGT Tool</span>
+              <span>Research & WBGT</span>
               <span className="text-[10px] font-mono uppercase text-neutral-400">Science</span>
             </button>
 
@@ -206,18 +218,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                 currentPage === 'leadership' ? 'bg-white text-black font-semibold' : 'text-neutral-300 hover:bg-white/10'
               }`}
             >
-              <span>Leadership & Speaking</span>
-              <span className="text-[10px] font-mono uppercase text-neutral-400">Governance</span>
-            </button>
-
-            <button
-              onClick={() => handleNavClick('advisory')}
-              className={`w-full text-left px-4 py-2.5 rounded-xl text-xs font-medium flex items-center justify-between ${
-                currentPage === 'advisory' ? 'bg-white text-black font-semibold' : 'text-neutral-300 hover:bg-white/10'
-              }`}
-            >
-              <span>Advisory Consultation</span>
-              <span className="text-[10px] font-mono uppercase text-neutral-400">Contact</span>
+              <span>Leadership</span>
+              <span className="text-[10px] font-mono uppercase text-neutral-400">Honors</span>
             </button>
           </div>
         )}

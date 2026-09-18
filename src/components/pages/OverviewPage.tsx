@@ -29,8 +29,7 @@ import {
   Clock,
   Quote,
   Star,
-  Activity,
-  RotateCw
+  Activity
 } from 'lucide-react';
 
 interface OverviewPageProps {
@@ -45,7 +44,6 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [activeCaseStudy, setActiveCaseStudy] = useState<Megaproject | null>(null);
   const [activeServiceTab, setActiveServiceTab] = useState<number>(0);
-  const [kpiKey, setKpiKey] = useState<number>(0);
   const [card1Key, setCard1Key] = useState<number>(0);
   const [card2Key, setCard2Key] = useState<number>(0);
   const [card3Key, setCard3Key] = useState<number>(0);
@@ -299,16 +297,6 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
           <p className="text-xs sm:text-sm text-neutral-400 font-mono">
             Relentlessly standard-driven, engineering zero-harm environments across West Africa&apos;s largest infrastructure corridors.
           </p>
-          <div className="pt-1 flex items-center justify-center">
-            <button
-              onClick={() => setKpiKey(k => k + 1)}
-              className="inline-flex items-center space-x-1.5 px-3.5 py-1.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 hover:border-emerald-500/30 text-xs font-mono text-neutral-300 hover:text-white transition-all cursor-pointer shadow-sm group"
-              title="Click to replay live counters"
-            >
-              <RotateCw className="w-3 h-3 text-emerald-400 group-hover:rotate-180 transition-transform duration-500" />
-              <span>Replay Live Counter</span>
-            </button>
-          </div>
         </div>
 
         {/* Big KPI Cards Grid */}
@@ -330,7 +318,7 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
                   end={22} 
                   suffix="+" 
                   duration={1600} 
-                  triggerKey={`${kpiKey}-${card1Key}`} 
+                  triggerKey={card1Key} 
                 /> <span className="text-2xl text-neutral-400">Years</span>
               </div>
               <p className="text-xs text-neutral-400 mt-1">
@@ -356,7 +344,7 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
                   end={50} 
                   suffix="M+" 
                   duration={1800} 
-                  triggerKey={`${kpiKey}-${card2Key}`} 
+                  triggerKey={card2Key} 
                 /> <span className="text-2xl text-neutral-400">Hours</span>
               </div>
               <p className="text-xs text-neutral-400 mt-1">
@@ -382,7 +370,7 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
                   end={1100} 
                   suffix="+" 
                   duration={2000} 
-                  triggerKey={`${kpiKey}-${card3Key}`} 
+                  triggerKey={card3Key} 
                 /> <span className="text-2xl text-neutral-400">Pool</span>
               </div>
               <p className="text-xs text-neutral-400 mt-1">
@@ -407,7 +395,7 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
                 <CountUp 
                   end={2} 
                   duration={1200} 
-                  triggerKey={`${kpiKey}-${card4Key}`} 
+                  triggerKey={card4Key} 
                 /> <span className="text-2xl text-neutral-400">Dual MSc</span>
               </div>
               <p className="text-xs text-neutral-400 mt-1">
@@ -780,7 +768,7 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
           </button>
 
           <button
-            onClick={() => onSelectPage('advisory')}
+            onClick={() => onSelectPage('services')}
             className="px-7 py-4 rounded-full bg-white/10 hover:bg-white/15 text-white font-semibold text-sm border border-white/15 transition-all backdrop-blur-md"
           >
             Submit Detailed Project Dossier

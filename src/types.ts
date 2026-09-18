@@ -1,4 +1,4 @@
-export type PageId = 'overview' | 'publications' | 'leadership' | 'advisory';
+export type PageId = 'overview' | 'works' | 'services' | 'publications' | 'leadership' | 'advisory';
 
 export interface Credential {
   id: string;
