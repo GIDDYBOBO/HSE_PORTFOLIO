@@ -1,0 +1,289 @@
+import React, { useState } from 'react';
+import { PUBLICATIONS } from '../../data/profileData';
+import { ThermalCalculator } from '../tools/ThermalCalculator';
+import { 
+  BookOpen, 
+  ExternalLink, 
+  Copy, 
+  Check, 
+  Filter, 
+  Globe, 
+  Calendar, 
+  ChevronDown, 
+  ChevronUp, 
+  Tag 
+} from 'lucide-react';
+
+export const PublicationsPage: React.FC = () => {
+  const [activeTheme, setActiveTheme] = useState<string>('all');
+  const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [expandedPubId, setExpandedPubId] = useState<string | null>('pub-thermal-hazards');
+
+  const themes = [
+    { id: 'all', label: 'All Publications' },
+    { id: 'thermal', label: 'Thermal Hazards & WBGT' },
+    { id: 'landfill', label: 'Landfill & Sustainability' },
+    { id: 'sme', label: 'Construction SMEs' },
+    { id: 'guidance', label: 'National Standards' }
+  ];
+
+  const filteredPublications = PUBLICATIONS.filter((pub) => {
+    if (activeTheme === 'all') return true;
+    if (activeTheme === 'thermal') return pub.keyThemes.some(t => t.toLowerCase().includes('thermal') || t.toLowerCase().includes('heat'));
+    if (activeTheme === 'landfill') return pub.keyThemes.some(t => t.toLowerCase().includes('landfill') || t.toLowerCase().includes('waste') || t.toLowerCase().includes('methane'));
+    if (activeTheme === 'sme') return pub.keyThemes.some(t => t.toLowerCase().includes('sme') || t.toLowerCase().includes('small'));
+    if (activeTheme === 'guidance') return pub.type === 'national_guidance';
+    return true;
+  });
+
+  const handleCopyCitation = (id: string, citation: string) => {
+    navigator.clipboard.writeText(citation);
+    setCopiedId(id);
+    setTimeout(() => setCopiedId(null), 2500);
+  };
+
+  const toggleExpand = (id: string) => {
+    setExpandedPubId(expandedPubId === id ? null : id);
+  };
+
+  return (
+    <div className="space-y-16 pt-24 sm:pt-28 pb-16">
+      {/* Header Section */}
+      <section className="space-y-4 max-w-4xl">
+        <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-white/10 border border-white/10 text-[#aaa3ff] text-xs font-mono">
+          <BookOpen className="w-3.5 h-3.5 text-white" />
+          <span>Peer-Reviewed Science & Technical Contributions</span>
+        </div>
+        <h1 className="text-3xl sm:text-5xl font-display font-extrabold text-white tracking-tight">
+          Research Papers & Technical Publications
+        </h1>
+        <p className="text-neutral-300 text-base sm:text-lg leading-relaxed">
+          Engr. Iyenoma ThankGod Osazee approaches health, safety, and environmental protection not merely as corporate compliance, but as an empirical discipline. His research spans landfill gas kinetics, leachate mitigation, bioclimatic thermal hazards (WBGT), and safety frameworks for developing-world construction SMEs.
+        </p>
+      </section>
+
+      {/* Embedded Live Tool: Thermal Stress & WBGT Field Calculator */}
+      <section id="wbgt-calculator-section" className="space-y-4">
+        <div className="flex items-center space-x-2 text-xs font-mono uppercase tracking-wider text-neutral-400">
+          <span>Applied Research Implementation</span>
+        </div>
+        <ThermalCalculator />
+      </section>
+
+      {/* Publications Repository */}
+      <section className="space-y-8">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-neutral-800 pb-4">
+          <div>
+            <h2 className="text-2xl font-serif-display font-semibold text-white">
+              Published Works & International Monograms
+            </h2>
+            <p className="text-xs text-neutral-400 font-mono mt-0.5">
+              Articles published in European Journal of Environment and Earth Sciences, ResearchGate, and World Congress
+            </p>
+          </div>
+
+          {/* Theme Filters */}
+          <div className="flex flex-wrap items-center gap-2">
+            <Filter className="w-3.5 h-3.5 text-white mr-1" />
+            {themes.map((th) => (
+              <button
+                key={th.id}
+                onClick={() => setActiveTheme(th.id)}
+                className={`px-3 py-1 rounded-lg text-xs font-medium transition-all ${
+                  activeTheme === th.id
+                    ? 'bg-white text-black font-semibold shadow-sm'
+                    : 'bg-neutral-900 text-neutral-300 hover:bg-neutral-800 hover:text-white border border-neutral-800'
+                }`}
+              >
+                {th.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Publications List */}
+        <div className="space-y-6">
+          {filteredPublications.map((pub) => {
+            const isExpanded = expandedPubId === pub.id;
+            return (
+              <article
+                key={pub.id}
+                className="p-6 sm:p-8 rounded-2xl bg-neutral-900/60 border border-neutral-800 hover:border-neutral-700 transition-all space-y-4 shadow-lg"
+              >
+                {/* Meta header */}
+                <div className="flex flex-wrap items-center justify-between gap-2 border-b border-neutral-800 pb-3">
+                  <div className="flex flex-wrap items-center gap-2 text-xs font-mono">
+                    <span className="px-2.5 py-0.5 rounded bg-neutral-800 text-white border border-neutral-700 font-semibold uppercase">
+                      {pub.type === 'journal' ? 'Peer-Reviewed Journal' : pub.type === 'world_congress' ? 'World Congress Abstract' : pub.type === 'national_guidance' ? 'National Standard' : 'Technical Monograph'}
+                    </span>
+                    <span className="text-neutral-400 flex items-center gap-1">
+                      <Calendar className="w-3 h-3 text-neutral-400" />
+                      {pub.publishedDate}
+                    </span>
+                    {pub.doi && (
+                      <span className="text-neutral-300 flex items-center gap-1">
+                        <Globe className="w-3 h-3" />
+                        DOI: {pub.doi}
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="flex items-center space-x-2">
+                    <button
+                      onClick={() => handleCopyCitation(pub.id, pub.citation)}
+                      className="flex items-center space-x-1.5 px-3 py-1 rounded-lg bg-neutral-800 hover:bg-neutral-700 text-neutral-300 hover:text-white text-xs font-mono transition-colors border border-neutral-700"
+                      title="Copy standard citation"
+                    >
+                      {copiedId === pub.id ? (
+                        <>
+                          <Check className="w-3.5 h-3.5 text-white" />
+                          <span className="text-white">Copied!</span>
+                        </>
+                      ) : (
+                        <>
+                          <Copy className="w-3.5 h-3.5 text-neutral-400" />
+                          <span>Copy Citation</span>
+                        </>
+                      )}
+                    </button>
+
+                    {pub.url && (
+                      <a
+                        href={pub.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center space-x-1 px-3 py-1 rounded-lg bg-neutral-800 hover:bg-neutral-700 text-neutral-200 hover:text-white text-xs font-mono border border-neutral-700 transition-colors"
+                      >
+                        <span>Access Link</span>
+                        <ExternalLink className="w-3 h-3" />
+                      </a>
+                    )}
+                  </div>
+                </div>
+
+                {/* Title & Authors */}
+                <div className="space-y-1">
+                  <h3 className="text-xl sm:text-2xl font-serif-display font-semibold text-white leading-snug">
+                    {pub.title}
+                  </h3>
+                  <p className="text-xs text-neutral-300 font-mono">
+                    {pub.authors.join(' • ')}
+                  </p>
+                  <p className="text-xs text-neutral-400 italic">
+                    {pub.journal} {pub.volume && `• ${pub.volume}`} {pub.issue && `• ${pub.issue}`} {pub.pages && `• ${pub.pages}`}
+                  </p>
+                </div>
+
+                {/* Abstract Preview */}
+                <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed">
+                  {pub.abstract}
+                </p>
+
+                {/* Expandable Key Findings */}
+                {isExpanded ? (
+                  <div className="space-y-3 pt-3 border-t border-neutral-800 animate-fadeIn">
+                    <span className="text-xs font-mono uppercase tracking-wider text-neutral-200 font-semibold block">
+                      Core Empirical Findings & Strategic Takeaways:
+                    </span>
+                    <ul className="space-y-2 text-xs text-neutral-300">
+                      {pub.keyFindings.map((finding, fIdx) => (
+                        <li key={fIdx} className="flex items-start space-x-2">
+                          <span className="text-white font-mono font-bold">•</span>
+                          <span className="leading-relaxed">{finding}</span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    <div className="pt-2">
+                      <span className="text-xs font-mono text-neutral-400 block mb-1">Standard Academic Citation:</span>
+                      <div className="p-3 rounded-lg bg-black border border-neutral-800 font-mono text-[11px] text-neutral-300 select-all">
+                        {pub.citation}
+                      </div>
+                    </div>
+                  </div>
+                ) : null}
+
+                {/* Bottom Bar: Themes & Toggle Details */}
+                <div className="pt-3 border-t border-neutral-800 flex flex-wrap items-center justify-between gap-3">
+                  <div className="flex flex-wrap items-center gap-1.5">
+                    <Tag className="w-3 h-3 text-neutral-400 mr-0.5" />
+                    {pub.keyThemes.map((th, tIdx) => (
+                      <span
+                        key={tIdx}
+                        className="text-[10px] font-mono px-2 py-0.5 rounded bg-neutral-800 text-neutral-300 border border-neutral-700"
+                      >
+                        {th}
+                      </span>
+                    ))}
+                  </div>
+
+                  <button
+                    onClick={() => toggleExpand(pub.id)}
+                    className="flex items-center space-x-1 text-xs text-neutral-300 hover:text-white font-medium"
+                  >
+                    <span>{isExpanded ? 'Hide Key Findings' : 'View Key Findings & Citation'}</span>
+                    {isExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+                  </button>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* Research Theme Summary Matrix */}
+      <section className="p-8 rounded-3xl bg-neutral-950 border border-neutral-800 space-y-6">
+        <div>
+          <span className="text-xs font-mono uppercase tracking-wider text-neutral-400">
+            Synthesis of Research Agenda
+          </span>
+          <h2 className="text-2xl font-serif-display font-semibold text-white mt-1">
+            Overarching Research Themes
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="p-5 rounded-xl bg-neutral-900/60 border border-neutral-800 space-y-2">
+            <h3 className="text-white font-serif-display font-semibold text-base flex items-center gap-2">
+              <span className="text-white font-mono">01.</span>
+              Occupational Hygiene & Thermal Extremes
+            </h3>
+            <p className="text-xs text-neutral-400 leading-relaxed">
+              Traced back to his 2007 BOHS bursary award, Engr. Osazee studies the physiological impact of working under severe heat and cold stress, championing calibrated WBGT monitoring and metabolic work-rest cycles across outdoor industrial worksites.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-xl bg-neutral-900/60 border border-neutral-800 space-y-2">
+            <h3 className="text-white font-serif-display font-semibold text-base flex items-center gap-2">
+              <span className="text-white font-mono">02.</span>
+              Environmental Sustainability & Landfill Bioreactors
+            </h3>
+            <p className="text-xs text-neutral-400 leading-relaxed">
+              Published in the European Journal of Environment and Earth Sciences, his papers on landfill management analyze methane and CO2 greenhouse emissions, toxic leachate contamination, and the transition toward waste-to-energy containment.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-xl bg-neutral-900/60 border border-neutral-800 space-y-2">
+            <h3 className="text-white font-serif-display font-semibold text-base flex items-center gap-2">
+              <span className="text-white font-mono">03.</span>
+              Construction SMEs & Subcontractor Safety
+            </h3>
+            <p className="text-xs text-neutral-400 leading-relaxed">
+              Recognized at the 23rd World Congress on Safety and Health at Work in Sydney, Australia (selected from 1,100+ candidates), his work establishes non-punitive safety coaching that elevates informal construction subcontractors.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-xl bg-neutral-900/60 border border-neutral-800 space-y-2">
+            <h3 className="text-white font-serif-display font-semibold text-base flex items-center gap-2">
+              <span className="text-white font-mono">04.</span>
+              ISO 45001 & Management Systems Governance
+            </h3>
+            <p className="text-xs text-neutral-400 leading-relaxed">
+              As an ISO 45001 Certified Lead Auditor and CMIOSH Chartered member, he translates systemic OHS standards into resilient, human-centered operational processes that eliminate single-point safety failures.
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+};
