@@ -34,7 +34,7 @@ export const CaseStudyModal: React.FC<CaseStudyModalProps> = ({
         <div className="relative p-6 sm:p-8 border-b border-white/10 bg-gradient-to-r from-neutral-900/80 via-black to-[#0d0d14]">
           <div className="flex items-center justify-between gap-4">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="px-3 py-1 rounded-full bg-white/10 text-[#aaa3ff] text-xs font-mono font-medium border border-[#aaa3ff]/30">
+              <span className="px-3 py-1 rounded-full bg-sky-400/10 text-sky-300 text-xs font-mono font-medium border border-sky-400/20">
                 {project.category}
               </span>
               <span className="text-xs font-mono text-neutral-400 flex items-center gap-1">
@@ -112,8 +112,8 @@ export const CaseStudyModal: React.FC<CaseStudyModalProps> = ({
             </div>
 
             <div className="p-5 sm:p-6 rounded-2xl bg-neutral-950/80 border border-white/10 space-y-3">
-              <span className="text-xs font-mono uppercase tracking-wider text-emerald-400/90 font-semibold flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
+              <span className="text-xs font-mono uppercase tracking-wider text-sky-400 font-semibold flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-sky-400"></span>
                 The Engineered HSE Protocol
               </span>
               <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed">
@@ -123,10 +123,10 @@ export const CaseStudyModal: React.FC<CaseStudyModalProps> = ({
           </div>
 
           {/* Safety Milestone Banner */}
-          <div className="p-5 rounded-2xl bg-[#0c0c16] border border-[#aaa3ff]/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="p-5 rounded-2xl bg-white/[0.03] border border-sky-400/20 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="space-y-1">
-              <span className="text-[11px] font-mono uppercase text-[#aaa3ff] font-semibold flex items-center gap-1.5">
-                <Award className="w-4 h-4" />
+              <span className="text-[11px] font-mono uppercase text-sky-300 font-semibold flex items-center gap-1.5">
+                <Award className="w-4 h-4 text-sky-400" />
                 Verified Safety Achievement
               </span>
               <p className="text-sm sm:text-base font-display font-semibold text-white">

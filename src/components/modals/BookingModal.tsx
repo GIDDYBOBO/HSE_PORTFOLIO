@@ -57,7 +57,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
         {/* Header */}
         <div className="p-6 sm:p-8 border-b border-white/10 bg-gradient-to-r from-neutral-900 via-black to-[#0d0d14] flex items-center justify-between">
           <div>
-            <div className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-white/10 text-xs font-mono text-[#aaa3ff] border border-[#aaa3ff]/30 mb-2">
+            <div className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-sky-400/10 text-xs font-mono text-sky-400 border border-sky-400/20 mb-2">
               <Clock className="w-3 h-3" />
               <span>Direct Liaison Session</span>
             </div>

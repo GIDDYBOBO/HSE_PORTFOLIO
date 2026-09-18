@@ -129,7 +129,7 @@ export const Footer: React.FC<FooterProps> = ({ onSelectPage, onOpenBookingModal
                 title="LinkedIn Profile: Engr. Iyenoma Osazee"
                 className="w-9 h-9 rounded-xl bg-[#0f0f18] hover:bg-[#181826] border border-white/10 hover:border-white/25 flex items-center justify-center text-neutral-300 hover:text-white transition-all"
               >
-                <Linkedin className="w-4 h-4 text-[#aaa3ff]" />
+                <Linkedin className="w-4 h-4 text-neutral-300 group-hover:text-white" />
               </a>
 
               <a
@@ -141,7 +141,7 @@ export const Footer: React.FC<FooterProps> = ({ onSelectPage, onOpenBookingModal
                 title="ResearchGate Scientific Papers"
                 className="w-9 h-9 rounded-xl bg-[#0f0f18] hover:bg-[#181826] border border-white/10 hover:border-white/25 flex items-center justify-center text-neutral-300 hover:text-white transition-all"
               >
-                <Bookmark className="w-4 h-4 text-emerald-400" />
+                <Bookmark className="w-4 h-4 text-neutral-300 group-hover:text-white" />
               </a>
 
               <a
@@ -165,7 +165,7 @@ export const Footer: React.FC<FooterProps> = ({ onSelectPage, onOpenBookingModal
                 title="Chartered Fellow (CMIOSH #100175)"
                 className="w-9 h-9 rounded-xl bg-[#0f0f18] hover:bg-[#181826] border border-white/10 hover:border-white/25 flex items-center justify-center text-neutral-300 hover:text-white transition-all"
               >
-                <GraduationCap className="w-4 h-4 text-amber-400" />
+                <GraduationCap className="w-4 h-4 text-sky-400" />
               </a>
 
               <a

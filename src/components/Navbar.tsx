@@ -69,7 +69,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <div className="flex flex-col">
               <span className="font-display font-bold text-white text-sm sm:text-base tracking-tight group-hover:text-neutral-200 transition-colors flex items-center gap-1.5">
                 OSAZEE
-                <span className="w-1.5 h-1.5 rounded-full bg-[#aaa3ff] animate-pulse"></span>
+                <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse"></span>
               </span>
               <span className="text-[10px] text-neutral-400 font-mono tracking-wider uppercase -mt-0.5">
                 CMIOSH • Julius Berger
@@ -232,7 +232,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         onClick={() => handleNavClick('leadership')}
       >
         <div className="bg-[#0b0b10] hover:bg-neutral-900 border-l border-t border-b border-white/15 px-2 py-4 rounded-l-xl shadow-2xl flex flex-col items-center space-y-3 transition-all duration-300 group-hover:translate-x-0 translate-x-1">
-          <div className="w-5 h-5 rounded-full bg-[#aaa3ff]/20 text-[#aaa3ff] border border-[#aaa3ff]/40 flex items-center justify-center text-[10px] font-bold">
+          <div className="w-5 h-5 rounded-full bg-sky-400/15 text-sky-400 border border-sky-400/30 flex items-center justify-center text-[10px] font-bold">
             ★
           </div>
           <span className="text-[10px] font-mono tracking-widest text-neutral-400 group-hover:text-white uppercase [writing-mode:vertical-rl] rotate-180 font-medium">

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'motion/react';
 import { PageId } from '../../types';
 import { 
   Briefcase, 
@@ -129,8 +130,13 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
   return (
     <div className="space-y-16 pt-24 sm:pt-28 pb-16">
       {/* 1. Page Header */}
-      <section className="space-y-4 max-w-4xl">
-        <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-white/10 border border-white/10 text-[#aaa3ff] text-xs font-mono">
+      <motion.section 
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        className="space-y-4 max-w-4xl"
+      >
+        <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-white/10 border border-white/10 text-sky-400 text-xs font-mono">
           <Briefcase className="w-3.5 h-3.5 text-white" />
           <span>Executive Services • Engineering & Safety Advisory</span>
         </div>
@@ -140,12 +146,18 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
         <p className="text-neutral-300 text-base sm:text-lg leading-relaxed">
           Uniting twenty-two years of high-consequence site command at Julius Berger PLC with peer-reviewed environmental science and international statutory credentials. Bespoke advisory for boards, mega-infrastructure ventures, and institutional authorities.
         </p>
-      </section>
+      </motion.section>
 
       {/* 2. Interactive Tabbed Service Powerhouse */}
-      <section className="space-y-8">
+      <motion.section 
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className="space-y-8"
+      >
         <div className="flex items-center justify-between flex-wrap gap-4 border-b border-white/10 pb-4">
-          <span className="text-xs font-mono uppercase tracking-widest text-[#aaa3ff] font-semibold">
+          <span className="text-xs font-mono uppercase tracking-widest text-sky-400 font-semibold">
             Select Core Domain
           </span>
           <span className="text-xs font-mono text-neutral-400">
@@ -166,7 +178,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
               }`}
             >
               <div className="flex items-center justify-between w-full">
-                <span className="text-xs font-mono font-bold text-[#aaa3ff]">
+                <span className="text-xs font-mono font-bold text-sky-300">
                   {srv.number}
                 </span>
                 <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-neutral-300">
@@ -185,7 +197,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             <div className="lg:col-span-7 space-y-6">
               <div className="space-y-2">
-                <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#aaa3ff]">
+                <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-sky-400">
                   <ShieldCheck className="w-3.5 h-3.5" />
                   <span>{services[activeServiceTab].tag}</span>
                 </div>
@@ -204,7 +216,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {services[activeServiceTab].deliverables.map((item, i) => (
                     <div key={i} className="flex items-start space-x-2 text-xs text-neutral-200">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-4 h-4 text-sky-400 shrink-0 mt-0.5" />
                       <span className="leading-snug">{item}</span>
                     </div>
                   ))}
@@ -230,7 +242,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
 
             {/* Strategic Value Card */}
             <div className="lg:col-span-5 p-6 rounded-2xl bg-white/[0.02] border border-white/10 space-y-4">
-              <span className="text-xs font-mono uppercase text-[#aaa3ff] font-semibold block">
+              <span className="text-xs font-mono uppercase text-sky-400 font-semibold block">
                 Standard of Rigor
               </span>
               <div className="space-y-3 text-xs text-neutral-300 leading-relaxed">
@@ -247,7 +259,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
                   Liaison Channel
                 </div>
                 <div className="text-xs font-mono text-white font-semibold flex items-center gap-2">
-                  <Mail className="w-3.5 h-3.5 text-emerald-400" />
+                  <Mail className="w-3.5 h-3.5 text-sky-400" />
                   <span>contact@iyenomaosazee.com</span>
                 </div>
                 <div className="text-[11px] text-neutral-400">
@@ -257,12 +269,19 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* 3. Formal Inquiry & Project Dossier Submission Form */}
-      <section id="inquiry-form-section" className="space-y-8 scroll-mt-28">
+      <motion.section 
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        id="inquiry-form-section" 
+        className="space-y-8 scroll-mt-28"
+      >
         <div className="space-y-2 max-w-2xl">
-          <span className="text-xs font-mono uppercase tracking-widest text-[#aaa3ff] font-semibold">
+          <span className="text-xs font-mono uppercase tracking-widest text-sky-400 font-semibold">
             Direct Briefing Desk
           </span>
           <h2 className="text-2xl sm:text-4xl font-display font-bold text-white tracking-tight">
@@ -277,8 +296,8 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
           {/* Form */}
           <div className="lg:col-span-8 p-6 sm:p-10 rounded-3xl bg-[#08080d] border border-white/10 shadow-xl">
             {submitted ? (
-              <div className="p-8 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-center space-y-4 animate-fadeIn">
-                <div className="w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto">
+              <div className="p-8 rounded-2xl bg-sky-400/10 border border-sky-400/20 text-center space-y-4 animate-fadeIn">
+                <div className="w-12 h-12 rounded-full bg-sky-400/20 text-sky-300 flex items-center justify-center mx-auto">
                   <CheckCircle2 className="w-6 h-6" />
                 </div>
                 <h3 className="text-xl font-display font-bold text-white">
@@ -287,7 +306,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
                 <p className="text-xs sm:text-sm text-neutral-300 max-w-md mx-auto leading-relaxed">
                   Your project dossier has been registered with reference ID:
                 </p>
-                <div className="p-3 rounded-xl bg-black/60 border border-white/10 font-mono text-sm text-emerald-400 font-bold inline-block">
+                <div className="p-3 rounded-xl bg-black/60 border border-white/10 font-mono text-sm text-sky-300 font-bold inline-block">
                   {inquiryId}
                 </div>
                 <p className="text-xs text-neutral-400">
@@ -315,7 +334,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
                       value={formData.fullName}
                       onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                       placeholder="e.g., Dr. Chidi Okafor"
-                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-xs placeholder:text-neutral-500 focus:outline-none focus:border-[#aaa3ff] transition-colors"
+                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-xs placeholder:text-neutral-500 focus:outline-none focus:border-sky-400 transition-colors"
                     />
                   </div>
 
@@ -329,7 +348,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
                       value={formData.organization}
                       onChange={(e) => setFormData({ ...formData, organization: e.target.value })}
                       placeholder="e.g., Federal Ministry of Works"
-                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-xs placeholder:text-neutral-500 focus:outline-none focus:border-[#aaa3ff] transition-colors"
+                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-xs placeholder:text-neutral-500 focus:outline-none focus:border-sky-400 transition-colors"
                     />
                   </div>
                 </div>
@@ -345,7 +364,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       placeholder="name@organization.gov.ng"
-                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-xs placeholder:text-neutral-500 focus:outline-none focus:border-[#aaa3ff] transition-colors"
+                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-xs placeholder:text-neutral-500 focus:outline-none focus:border-sky-400 transition-colors"
                     />
                   </div>
 
@@ -356,7 +375,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
                     <select
                       value={formData.serviceType}
                       onChange={(e) => setFormData({ ...formData, serviceType: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl bg-[#111118] border border-white/10 text-white text-xs focus:outline-none focus:border-[#aaa3ff] transition-colors"
+                      className="w-full px-4 py-3 rounded-xl bg-[#111118] border border-white/10 text-white text-xs focus:outline-none focus:border-sky-400 transition-colors"
                     >
                       <option value="mega_infrastructure">Mega-Infrastructure Safety Governance</option>
                       <option value="iso_audit">ISO 45001 / 14001 Auditing & Diagnostics</option>
@@ -405,7 +424,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     placeholder="Provide details on site location, project scale, contractor arrangements, and specific safety advisory objectives..."
-                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-xs placeholder:text-neutral-500 focus:outline-none focus:border-[#aaa3ff] transition-colors"
+                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-xs placeholder:text-neutral-500 focus:outline-none focus:border-sky-400 transition-colors"
                   />
                 </div>
 
@@ -428,7 +447,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
           {/* Quick Contact Information Panel */}
           <div className="lg:col-span-4 space-y-4">
             <div className="p-6 rounded-3xl bg-[#08080d] border border-white/10 space-y-4">
-              <span className="text-xs font-mono uppercase tracking-wider text-[#aaa3ff] font-semibold">
+              <span className="text-xs font-mono uppercase tracking-wider text-sky-400 font-semibold">
                 Direct Executive Channels
               </span>
 
@@ -451,7 +470,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
                   </span>
                   <a
                     href="mailto:contact@iyenomaosazee.com"
-                    className="text-xs text-emerald-400 font-mono block hover:underline"
+                    className="text-xs text-sky-300 font-mono block hover:underline"
                   >
                     contact@iyenomaosazee.com
                   </a>
@@ -482,7 +501,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
     </div>
   );
 };

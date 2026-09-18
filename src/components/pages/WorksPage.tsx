@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'motion/react';
 import { PageId } from '../../types';
 import { SIGNATURE_WORKS, Megaproject } from '../../data/projectsData';
 import { CaseStudyModal } from '../modals/CaseStudyModal';
@@ -45,8 +46,13 @@ export const WorksPage: React.FC<WorksPageProps> = ({
   return (
     <div className="space-y-16 pt-24 sm:pt-28 pb-16">
       {/* 1. Header Section */}
-      <section className="space-y-4 max-w-4xl">
-        <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-white/10 border border-white/10 text-[#aaa3ff] text-xs font-mono">
+      <motion.section 
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        className="space-y-4 max-w-4xl"
+      >
+        <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-white/10 border border-white/10 text-sky-400 text-xs font-mono">
           <Building2 className="w-3.5 h-3.5 text-white" />
           <span>Frontline Portfolio • Mega-Infrastructure Safety</span>
         </div>
@@ -56,13 +62,19 @@ export const WorksPage: React.FC<WorksPageProps> = ({
         <p className="text-neutral-300 text-base sm:text-lg leading-relaxed">
           Over two decades directing executive HSE frameworks for high-consequence civil engineering schemes across West Africa. From multi-billion naira trans-Niger marine corridors to high-density capital expressways and sovereign institutional towers.
         </p>
-      </section>
+      </motion.section>
 
       {/* 2. Filter Tabs (Dialedweb Pill Style) */}
-      <section className="space-y-8">
+      <motion.section 
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className="space-y-8"
+      >
         <div className="flex items-center justify-between flex-wrap gap-4 border-b border-white/10 pb-4">
           <div className="flex items-center space-x-2">
-            <Filter className="w-4 h-4 text-[#aaa3ff]" />
+            <Filter className="w-4 h-4 text-sky-400" />
             <span className="text-xs font-mono uppercase tracking-wider text-neutral-400">
               Filter by Engineering Classification:
             </span>
@@ -94,10 +106,10 @@ export const WorksPage: React.FC<WorksPageProps> = ({
               <div className="space-y-4">
                 {/* Meta Header */}
                 <div className="flex flex-wrap items-center justify-between gap-2">
-                  <span className="px-2.5 py-1 rounded-full text-[10px] font-mono tracking-wider uppercase bg-white/10 text-[#aaa3ff] border border-white/10">
+                  <span className="px-2.5 py-1 rounded-full text-[10px] font-mono tracking-wider uppercase bg-sky-400/10 text-sky-300 border border-sky-400/20">
                     {project.category}
                   </span>
-                  <div className="flex items-center space-x-2 text-xs font-mono text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/20">
+                  <div className="flex items-center space-x-2 text-xs font-mono text-sky-300 bg-sky-400/10 px-2.5 py-1 rounded-full border border-sky-400/20">
                     <CheckCircle2 className="w-3.5 h-3.5" />
                     <span>{project.safetyRecord}</span>
                   </div>
@@ -147,7 +159,7 @@ export const WorksPage: React.FC<WorksPageProps> = ({
                 {/* Technical Challenge & HSE Solution Snapshot */}
                 <div className="p-3.5 rounded-2xl bg-white/[0.03] border border-white/5 space-y-2 text-xs">
                   <div className="space-y-0.5">
-                    <span className="font-mono text-[10px] uppercase tracking-wider text-amber-300/90 font-semibold block">
+                    <span className="font-mono text-[10px] uppercase tracking-wider text-sky-300/90 font-semibold block">
                       Critical Risk Challenge:
                     </span>
                     <p className="text-neutral-300 leading-relaxed text-[11px]">
@@ -155,7 +167,7 @@ export const WorksPage: React.FC<WorksPageProps> = ({
                     </p>
                   </div>
                   <div className="space-y-0.5 pt-1.5 border-t border-white/5">
-                    <span className="font-mono text-[10px] uppercase tracking-wider text-emerald-400 font-semibold block">
+                    <span className="font-mono text-[10px] uppercase tracking-wider text-sky-300 font-semibold block">
                       HSE Engineering Solution:
                     </span>
                     <p className="text-neutral-300 leading-relaxed text-[11px]">
@@ -171,7 +183,7 @@ export const WorksPage: React.FC<WorksPageProps> = ({
                 className="w-full py-3 px-4 rounded-2xl bg-white/5 hover:bg-white/10 text-neutral-200 hover:text-white font-medium text-xs border border-white/10 transition-all flex items-center justify-between group/btn cursor-pointer"
               >
                 <span className="flex items-center gap-2">
-                  <Layers className="w-3.5 h-3.5 text-[#aaa3ff]" />
+                  <Layers className="w-3.5 h-3.5 text-sky-400" />
                   <span>Inspect Technical Case Study</span>
                 </span>
                 <ChevronRight className="w-4 h-4 text-neutral-400 group-hover/btn:translate-x-1 transition-transform" />
@@ -179,12 +191,18 @@ export const WorksPage: React.FC<WorksPageProps> = ({
             </div>
           ))}
         </div>
-      </section>
+      </motion.section>
 
       {/* 4. High-Consequence Safety Protocol Callout */}
-      <section className="p-8 sm:p-10 rounded-3xl bg-[#08080d] border border-white/10 space-y-6">
+      <motion.section 
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className="p-8 sm:p-10 rounded-3xl bg-[#08080d] border border-white/10 space-y-6"
+      >
         <div className="space-y-2 max-w-2xl">
-          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-white/5 text-xs font-mono text-[#aaa3ff]">
+          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-white/5 text-xs font-mono text-sky-400">
             <Activity className="w-3.5 h-3.5" />
             <span>Julius Berger Operational Rigor</span>
           </div>
@@ -198,30 +216,36 @@ export const WorksPage: React.FC<WorksPageProps> = ({
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-white/5">
           <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5 space-y-1">
-            <span className="text-xs font-mono text-[#aaa3ff] uppercase font-semibold">1. Predictive Hazard Control</span>
+            <span className="text-xs font-mono text-sky-300 uppercase font-semibold">1. Predictive Hazard Control</span>
             <p className="text-xs text-neutral-400 leading-relaxed">
               Dynamic risk assessment prior to every high-tonnage tandem crane lift or marine barge launch.
             </p>
           </div>
           <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5 space-y-1">
-            <span className="text-xs font-mono text-emerald-400 uppercase font-semibold">2. Bioclimatic Health</span>
+            <span className="text-xs font-mono text-neutral-200 uppercase font-semibold">2. Bioclimatic Health</span>
             <p className="text-xs text-neutral-400 leading-relaxed">
               Scientific WBGT heat index measurements governing work-rest cycles for hot-mix asphalt laydown.
             </p>
           </div>
           <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5 space-y-1">
-            <span className="text-xs font-mono text-blue-400 uppercase font-semibold">3. Just Culture Reporting</span>
+            <span className="text-xs font-mono text-neutral-400 uppercase font-semibold">3. Just Culture Reporting</span>
             <p className="text-xs text-neutral-400 leading-relaxed">
               Psychologically safe frontline near-miss logging, empowering all 1,800+ workers to exercise Stop Work Authority.
             </p>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* 5. Bottom Engagement CTA */}
-      <section className="p-8 sm:p-12 rounded-3xl bg-gradient-to-b from-[#0e0e18] to-black border border-white/15 text-center space-y-6">
+      <motion.section 
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className="p-8 sm:p-12 rounded-3xl bg-gradient-to-b from-[#0e0e18] to-black border border-white/15 text-center space-y-6"
+      >
         <div className="space-y-3 max-w-2xl mx-auto">
-          <span className="text-xs font-mono uppercase tracking-widest text-[#aaa3ff] font-semibold">
+          <span className="text-xs font-mono uppercase tracking-widest text-sky-400 font-semibold">
             Technical Consultation
           </span>
           <h2 className="text-2xl sm:text-4xl font-display font-extrabold text-white tracking-tight">
@@ -247,7 +271,7 @@ export const WorksPage: React.FC<WorksPageProps> = ({
             Explore All Safety Services
           </button>
         </div>
-      </section>
+      </motion.section>
 
       {/* Case Study Modal */}
       <CaseStudyModal

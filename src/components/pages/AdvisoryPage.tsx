@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'motion/react';
 import { 
   Mail, 
   Send, 
@@ -81,8 +82,13 @@ export const AdvisoryPage: React.FC = () => {
   return (
     <div className="space-y-16 pt-24 sm:pt-28 pb-16">
       {/* Header Section */}
-      <section className="space-y-4 max-w-4xl">
-        <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-white/10 border border-white/10 text-[#aaa3ff] text-xs font-mono">
+      <motion.section 
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        className="space-y-4 max-w-4xl"
+      >
+        <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-white/10 border border-white/10 text-sky-400 text-xs font-mono">
           <Mail className="w-3.5 h-3.5 text-white" />
           <span>Strategic Engagement & Direct Liaison</span>
         </div>
@@ -92,12 +98,18 @@ export const AdvisoryPage: React.FC = () => {
         <p className="text-neutral-300 text-base sm:text-lg leading-relaxed">
           Engr. Iyenoma ThankGod Osazee is available for select high-level advisory engagements, international keynote addresses, corporate ISO 45001 management systems diagnostics, and institutional safety policy reviews.
         </p>
-      </section>
+      </motion.section>
 
       {/* Advisory Capabilities Grid */}
-      <section className="space-y-6">
+      <motion.section 
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className="space-y-6"
+      >
         <div className="border-b border-neutral-800 pb-4">
-          <span className="text-xs font-mono uppercase tracking-wider text-[#aaa3ff]">
+          <span className="text-xs font-mono uppercase tracking-wider text-sky-400">
             Core Advisory Capabilities
           </span>
           <h2 className="text-2xl font-display font-bold text-white mt-1">
@@ -130,10 +142,16 @@ export const AdvisoryPage: React.FC = () => {
             </div>
           ))}
         </div>
-      </section>
+      </motion.section>
 
       {/* Interactive Booking & Inquiry Form + Contact Details */}
-      <section className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <motion.section 
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className="grid grid-cols-1 lg:grid-cols-12 gap-8"
+      >
         {/* Form Column */}
         <div className="lg:col-span-7 bg-neutral-950 border border-neutral-800 rounded-2xl p-6 sm:p-8 shadow-xl">
           <div className="border-b border-neutral-800 pb-4 mb-6">
@@ -279,7 +297,7 @@ export const AdvisoryPage: React.FC = () => {
               <button
                 type="submit"
                 id="btn-submit-advisory-form"
-                className="w-full flex items-center justify-center space-x-2 py-3 rounded-xl bg-white hover:bg-neutral-200 text-black font-semibold text-xs tracking-wide shadow-md transition-all"
+                className="w-full flex items-center justify-center space-x-2 py-3 rounded-xl bg-white hover:bg-neutral-200 text-black font-semibold text-xs tracking-wide shadow-md transition-all cursor-pointer"
               >
                 <span>Transmit Advisory Dossier</span>
                 <Send className="w-3.5 h-3.5" />
@@ -348,7 +366,7 @@ export const AdvisoryPage: React.FC = () => {
             </p>
           </div>
         </div>
-      </section>
+      </motion.section>
     </div>
   );
 };

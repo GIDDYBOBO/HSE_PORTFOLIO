@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'motion/react';
 import { LEADERSHIP_ROLES, AWARDS_AND_HONORS } from '../../data/profileData';
 import { 
   Award, 
@@ -19,8 +20,13 @@ export const LeadershipPage: React.FC = () => {
   return (
     <div className="space-y-16 pt-24 sm:pt-28 pb-16">
       {/* Header Section */}
-      <section className="space-y-4 max-w-4xl">
-        <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-white/10 border border-white/10 text-[#aaa3ff] text-xs font-mono">
+      <motion.section 
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        className="space-y-4 max-w-4xl"
+      >
+        <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-white/10 border border-white/10 text-sky-400 text-xs font-mono">
           <Award className="w-3.5 h-3.5 text-white" />
           <span>Statutory Governance & International Presence</span>
         </div>
@@ -30,19 +36,25 @@ export const LeadershipPage: React.FC = () => {
         <p className="text-neutral-300 text-base sm:text-lg leading-relaxed">
           Beyond his corporate executive duties at Julius Berger Nigeria PLC, Engr. Osazee plays a central role in shaping national safety legislation, superintending international professional elections, mentoring chartered safety aspirants, and addressing global symposiums.
         </p>
-      </section>
+      </motion.section>
 
       {/* Feature Spotlight: National Assembly & ISPON Legislative Reform */}
-      <section className="p-8 sm:p-10 rounded-3xl bg-[#08080d] border border-white/15 shadow-2xl relative overflow-hidden">
+      <motion.section 
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className="p-8 sm:p-10 rounded-3xl bg-[#08080d] border border-white/15 shadow-2xl relative overflow-hidden"
+      >
         <div className="relative z-10 space-y-6">
           <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-4">
             <div className="flex items-center space-x-2 text-neutral-300 text-xs font-mono uppercase tracking-wider">
-              <Landmark className="w-4 h-4 text-[#aaa3ff]" />
+              <Landmark className="w-4 h-4 text-sky-400" />
               <span>National Legislative Assignment (May 2023 – Dec 2025)</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-mono border border-emerald-500/20 flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span className="px-3 py-1 rounded-full bg-sky-400/10 text-sky-300 text-xs font-mono border border-sky-400/20 flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse"></span>
                 Mandate Completed • Historic Democratic Resolution
               </span>
               <span className="hidden sm:inline px-3 py-1 rounded-full bg-white/5 text-neutral-300 text-xs font-mono border border-white/10">
@@ -66,14 +78,14 @@ export const LeadershipPage: React.FC = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
             <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 space-y-1">
-              <span className="text-xs font-mono text-[#aaa3ff] font-bold block">1. Dossier Evaluation</span>
+              <span className="text-xs font-mono text-sky-300 font-bold block">1. Dossier Evaluation</span>
               <p className="text-xs text-neutral-400 leading-relaxed">
                 Audited dispute records and institutional documentation spanning past regulatory friction.
               </p>
             </div>
 
             <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 space-y-1">
-              <span className="text-xs font-mono text-emerald-400 font-bold block">2. Statutory Framework</span>
+              <span className="text-xs font-mono text-neutral-200 font-bold block">2. Statutory Framework</span>
               <p className="text-xs text-neutral-400 leading-relaxed">
                 Formulated transparent financial frameworks and electoral guidelines under the ISPON Act 2014.
               </p>
@@ -87,10 +99,16 @@ export const LeadershipPage: React.FC = () => {
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Leadership Roles & Service */}
-      <section className="space-y-6">
+      <motion.section 
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className="space-y-6"
+      >
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-neutral-800 pb-4">
           <div>
             <h2 className="text-2xl font-serif-display font-semibold text-white">
@@ -165,10 +183,16 @@ export const LeadershipPage: React.FC = () => {
             </div>
           ))}
         </div>
-      </section>
+      </motion.section>
 
       {/* Honors, Awards & Distinctions */}
-      <section className="space-y-6">
+      <motion.section 
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className="space-y-6"
+      >
         <div className="border-b border-neutral-800 pb-4">
           <span className="text-xs font-mono uppercase tracking-wider text-neutral-400">
             Accolades & Professional Distinctions
@@ -226,10 +250,16 @@ export const LeadershipPage: React.FC = () => {
             );
           })}
         </div>
-      </section>
+      </motion.section>
 
       {/* Speaking & Keynote Topics */}
-      <section className="p-8 rounded-3xl bg-neutral-950 border border-neutral-800 space-y-6">
+      <motion.section 
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className="p-8 rounded-3xl bg-neutral-950 border border-neutral-800 space-y-6"
+      >
         <div>
           <span className="text-xs font-mono uppercase tracking-wider text-neutral-400">
             Thought Leadership Topics
@@ -273,7 +303,7 @@ export const LeadershipPage: React.FC = () => {
             </p>
           </div>
         </div>
-      </section>
+      </motion.section>
     </div>
   );
 };

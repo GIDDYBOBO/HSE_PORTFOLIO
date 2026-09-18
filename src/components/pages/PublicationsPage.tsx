@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'motion/react';
 import { PUBLICATIONS } from '../../data/profileData';
 import { ThermalCalculator } from '../tools/ThermalCalculator';
 import { 
@@ -49,8 +50,13 @@ export const PublicationsPage: React.FC = () => {
   return (
     <div className="space-y-16 pt-24 sm:pt-28 pb-16">
       {/* Header Section */}
-      <section className="space-y-4 max-w-4xl">
-        <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-white/10 border border-white/10 text-[#aaa3ff] text-xs font-mono">
+      <motion.section 
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        className="space-y-4 max-w-4xl"
+      >
+        <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-white/10 border border-white/10 text-sky-400 text-xs font-mono">
           <BookOpen className="w-3.5 h-3.5 text-white" />
           <span>Peer-Reviewed Science & Technical Contributions</span>
         </div>
@@ -60,18 +66,31 @@ export const PublicationsPage: React.FC = () => {
         <p className="text-neutral-300 text-base sm:text-lg leading-relaxed">
           Engr. Iyenoma ThankGod Osazee approaches health, safety, and environmental protection not merely as corporate compliance, but as an empirical discipline. His research spans landfill gas kinetics, leachate mitigation, bioclimatic thermal hazards (WBGT), and safety frameworks for developing-world construction SMEs.
         </p>
-      </section>
+      </motion.section>
 
       {/* Embedded Live Tool: Thermal Stress & WBGT Field Calculator */}
-      <section id="wbgt-calculator-section" className="space-y-4">
+      <motion.section 
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        id="wbgt-calculator-section" 
+        className="space-y-4"
+      >
         <div className="flex items-center space-x-2 text-xs font-mono uppercase tracking-wider text-neutral-400">
           <span>Applied Research Implementation</span>
         </div>
         <ThermalCalculator />
-      </section>
+      </motion.section>
 
       {/* Publications Repository */}
-      <section className="space-y-8">
+      <motion.section 
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className="space-y-8"
+      >
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-4">
           <div className="space-y-1">
             <h2 className="text-2xl sm:text-3xl font-display font-bold text-white tracking-tight">
@@ -84,7 +103,7 @@ export const PublicationsPage: React.FC = () => {
 
           {/* Theme Filters */}
           <div className="flex flex-wrap items-center gap-1.5">
-            <Filter className="w-3.5 h-3.5 text-[#aaa3ff] mr-1" />
+            <Filter className="w-3.5 h-3.5 text-sky-400 mr-1" />
             {themes.map((th) => (
               <button
                 key={th.id}
@@ -113,7 +132,7 @@ export const PublicationsPage: React.FC = () => {
                 {/* Meta header */}
                 <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/10 pb-3">
                   <div className="flex flex-wrap items-center gap-2 text-xs font-mono">
-                    <span className="px-2.5 py-0.5 rounded-full bg-white/10 text-[#aaa3ff] border border-white/10 font-semibold uppercase text-[10px]">
+                    <span className="px-2.5 py-0.5 rounded-full bg-sky-400/10 text-sky-300 border border-sky-400/20 font-semibold uppercase text-[10px]">
                       {pub.type === 'journal' ? 'Peer-Reviewed Journal' : pub.type === 'world_congress' ? 'World Congress Abstract' : pub.type === 'national_guidance' ? 'National Standard' : 'Technical Monograph'}
                     </span>
                     <span className="text-neutral-400 flex items-center gap-1">
@@ -136,8 +155,8 @@ export const PublicationsPage: React.FC = () => {
                     >
                       {copiedId === pub.id ? (
                         <>
-                          <Check className="w-3.5 h-3.5 text-emerald-400" />
-                          <span className="text-emerald-400 font-semibold">Copied!</span>
+                          <Check className="w-3.5 h-3.5 text-sky-300" />
+                          <span className="text-sky-300 font-semibold">Copied!</span>
                         </>
                       ) : (
                         <>
@@ -166,7 +185,7 @@ export const PublicationsPage: React.FC = () => {
                   <h3 className="text-xl sm:text-2xl font-display font-bold text-white leading-snug">
                     {pub.title}
                   </h3>
-                  <p className="text-xs text-[#aaa3ff] font-mono">
+                  <p className="text-xs text-sky-300 font-mono">
                     {pub.authors.join(' • ')}
                   </p>
                   <p className="text-xs text-neutral-400 italic">
@@ -188,7 +207,7 @@ export const PublicationsPage: React.FC = () => {
                     <ul className="space-y-2 text-xs text-neutral-300">
                       {pub.keyFindings.map((finding, fIdx) => (
                         <li key={fIdx} className="flex items-start space-x-2">
-                          <span className="text-emerald-400 font-mono font-bold">•</span>
+                          <span className="text-sky-400 font-mono font-bold">•</span>
                           <span className="leading-relaxed">{finding}</span>
                         </li>
                       ))}
@@ -219,7 +238,7 @@ export const PublicationsPage: React.FC = () => {
 
                   <button
                     onClick={() => toggleExpand(pub.id)}
-                    className="flex items-center space-x-1 text-xs text-[#aaa3ff] hover:text-white font-medium cursor-pointer"
+                    className="flex items-center space-x-1 text-xs text-sky-400 hover:text-white font-medium cursor-pointer"
                   >
                     <span>{isExpanded ? 'Hide Key Findings' : 'View Key Findings & Citation'}</span>
                     {isExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
@@ -229,12 +248,18 @@ export const PublicationsPage: React.FC = () => {
             );
           })}
         </div>
-      </section>
+      </motion.section>
 
       {/* Research Theme Summary Matrix */}
-      <section className="p-8 sm:p-10 rounded-3xl bg-[#08080d] border border-white/10 space-y-6">
+      <motion.section 
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className="p-8 sm:p-10 rounded-3xl bg-[#08080d] border border-white/10 space-y-6"
+      >
         <div className="space-y-1">
-          <span className="text-xs font-mono uppercase tracking-widest text-[#aaa3ff] font-semibold">
+          <span className="text-xs font-mono uppercase tracking-widest text-sky-400 font-semibold">
             Synthesis of Research Agenda
           </span>
           <h2 className="text-2xl sm:text-3xl font-display font-bold text-white tracking-tight">
@@ -245,7 +270,7 @@ export const PublicationsPage: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="p-6 rounded-2xl bg-white/[0.03] border border-white/10 space-y-2">
             <h3 className="text-white font-display font-bold text-base flex items-center gap-2">
-              <span className="text-[#aaa3ff] font-mono">01.</span>
+              <span className="text-sky-400 font-mono">01.</span>
               Occupational Hygiene & Thermal Extremes
             </h3>
             <p className="text-xs text-neutral-400 leading-relaxed">
@@ -255,7 +280,7 @@ export const PublicationsPage: React.FC = () => {
 
           <div className="p-6 rounded-2xl bg-white/[0.03] border border-white/10 space-y-2">
             <h3 className="text-white font-display font-bold text-base flex items-center gap-2">
-              <span className="text-[#aaa3ff] font-mono">02.</span>
+              <span className="text-sky-400 font-mono">02.</span>
               Environmental Sustainability & Landfill Bioreactors
             </h3>
             <p className="text-xs text-neutral-400 leading-relaxed">
@@ -265,7 +290,7 @@ export const PublicationsPage: React.FC = () => {
 
           <div className="p-6 rounded-2xl bg-white/[0.03] border border-white/10 space-y-2">
             <h3 className="text-white font-display font-bold text-base flex items-center gap-2">
-              <span className="text-[#aaa3ff] font-mono">03.</span>
+              <span className="text-sky-400 font-mono">03.</span>
               Construction SMEs & Subcontractor Safety
             </h3>
             <p className="text-xs text-neutral-400 leading-relaxed">
@@ -275,7 +300,7 @@ export const PublicationsPage: React.FC = () => {
 
           <div className="p-6 rounded-2xl bg-white/[0.03] border border-white/10 space-y-2">
             <h3 className="text-white font-display font-bold text-base flex items-center gap-2">
-              <span className="text-[#aaa3ff] font-mono">04.</span>
+              <span className="text-sky-400 font-mono">04.</span>
               ISO 45001 & Management Systems Governance
             </h3>
             <p className="text-xs text-neutral-400 leading-relaxed">
@@ -283,7 +308,8 @@ export const PublicationsPage: React.FC = () => {
             </p>
           </div>
         </div>
-      </section>
+      </motion.section>
     </div>
   );
 };
+

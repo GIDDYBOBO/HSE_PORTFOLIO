@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'motion/react';
 import { PageId } from '../../types';
 import { 
   CREDENTIALS, 
@@ -162,18 +163,23 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
     <div className="space-y-24 sm:space-y-32 pt-24 pb-20">
       
       {/* 1. HERO SECTION (Dialedweb Style: Sleek Glow, Big Typography, Status Pill, Dual CTAs, Interactive Stage) */}
-      <section className="relative pt-6 sm:pt-12">
+      <motion.section 
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        className="relative pt-6 sm:pt-12"
+      >
         {/* Subtle Ambient Radial Glow */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-5xl h-[500px] dialed-glow pointer-events-none -z-10" />
 
         <div className="space-y-8 max-w-4xl mx-auto text-center">
           {/* Live Status Pill (Dialedweb Signature) */}
           <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-neutral-900/80 backdrop-blur-md border border-white/10 text-neutral-200 text-xs font-mono shadow-lg">
-            <span className="w-2 h-2 rounded-full bg-[#aaa3ff] animate-ping" />
-            <span className="w-2 h-2 rounded-full bg-[#aaa3ff] -ml-4" />
+            <span className="w-2 h-2 rounded-full bg-sky-400 animate-ping" />
+            <span className="w-2 h-2 rounded-full bg-sky-400 -ml-4" />
             <span className="tracking-wide">Available for Strategic Advisory & Global Keynotes</span>
             <span className="text-neutral-500">•</span>
-            <span className="text-[#aaa3ff] font-semibold">Julius Berger PLC</span>
+            <span className="text-sky-400 font-semibold">Julius Berger PLC</span>
           </div>
 
           {/* Main Hero Headline (Dialedweb Typography: Large, Bold, Tight Tracking) */}
@@ -203,7 +209,7 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
               }}
               className="flex items-center space-x-2 px-6 py-3.5 rounded-full bg-white/10 hover:bg-white/15 text-white font-semibold text-sm border border-white/15 transition-all backdrop-blur-md"
             >
-              <Activity className="w-4 h-4 text-[#aaa3ff]" />
+              <Activity className="w-4 h-4 text-sky-400" />
               <span>Test WBGT Field Calculator</span>
             </button>
 
@@ -239,7 +245,7 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
           <div className="p-4 sm:p-6 rounded-3xl bg-[#08080d]/80 border border-white/10 backdrop-blur-xl shadow-2xl space-y-4">
             <div className="flex items-center justify-between px-2 text-xs font-mono text-neutral-400 border-b border-white/10 pb-3">
               <span className="flex items-center gap-2 text-neutral-200 uppercase tracking-wider">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span className="w-2 h-2 rounded-full bg-sky-400 animate-pulse"></span>
                 Operational Command Snapshot • Live Federal Works
               </span>
               <span className="hidden sm:inline text-neutral-400">
@@ -256,13 +262,13 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
                 >
                   <div className="space-y-2">
                     <div className="flex items-center justify-between text-[11px] font-mono">
-                      <span className="text-[#aaa3ff] px-2 py-0.5 rounded-full bg-white/5 border border-white/10">
+                      <span className="text-sky-300 px-2.5 py-0.5 rounded-full bg-sky-400/10 border border-sky-400/20 font-medium">
                         {work.category}
                       </span>
                       <span className="text-neutral-400">{work.metrics[0].value}</span>
                     </div>
 
-                    <h3 className="text-base font-display font-bold text-white group-hover:text-[#aaa3ff] transition-colors line-clamp-1">
+                    <h3 className="text-base font-display font-bold text-white group-hover:text-sky-300 transition-colors line-clamp-1">
                       {work.title}
                     </h3>
                     <p className="text-xs text-neutral-400 line-clamp-2 leading-relaxed">
@@ -271,7 +277,7 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
                   </div>
 
                   <div className="pt-2 border-t border-white/5 flex items-center justify-between text-xs font-mono text-neutral-300">
-                    <span className="text-[11px] text-emerald-400 font-medium truncate max-w-[180px]" title={work.safetyRecord}>
+                    <span className="text-[11px] text-sky-300/90 font-medium truncate max-w-[180px]" title={work.safetyRecord}>
                       {work.safetyRecord}
                     </span>
                     <span className="flex items-center gap-1 group-hover:translate-x-0.5 transition-transform text-white shrink-0">
@@ -284,13 +290,20 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* 2. KEY PERFORMANCE INDICATORS ("Numbers That Just Make Sense" - Dialedweb Pattern) */}
-      <section id="kpi-metrics-section" className="space-y-8 scroll-mt-24">
+      <motion.section 
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        id="kpi-metrics-section" 
+        className="space-y-8 scroll-mt-24"
+      >
         <div className="space-y-3 text-center max-w-2xl mx-auto">
-          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[#aaa3ff] text-[11px] font-mono">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-sky-400 text-[11px] font-mono">
+            <span className="w-2 h-2 rounded-full bg-sky-400 animate-pulse" />
             <span>Key Performance Indicators • Dynamic Active Metrics</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-display font-extrabold text-white tracking-tight">
@@ -307,23 +320,28 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
           <div 
             onMouseEnter={() => setCard1Key(k => k + 1)}
             onClick={() => setCard1Key(k => k + 1)}
-            className="group p-6 sm:p-8 rounded-3xl bg-[#08080d] border border-white/10 hover:border-white/20 transition-all space-y-2 flex flex-col justify-between cursor-pointer"
+            className="group p-6 sm:p-7 xl:p-8 rounded-3xl bg-[#08080d] border border-white/10 hover:border-white/20 transition-all flex flex-col justify-between cursor-pointer h-full"
             title="Hover or click to recount"
           >
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-mono uppercase text-neutral-400 group-hover:text-[#aaa3ff] transition-colors">Frontline Tenure</span>
-              <span className="text-[10px] font-mono text-neutral-600 group-hover:text-emerald-400 transition-colors">Live</span>
+            <div className="flex items-center justify-between pb-3.5 border-b border-white/5">
+              <span className="text-xs font-mono uppercase text-neutral-400 group-hover:text-sky-300 transition-colors tracking-wider">Frontline Tenure</span>
+              <span className="text-[10px] font-mono text-neutral-500 group-hover:text-neutral-300 transition-colors">Verified</span>
             </div>
-            <div>
-              <div className="text-4xl sm:text-5xl font-display font-extrabold text-white tracking-tight">
-                <CountUp 
-                  end={22} 
-                  suffix="+" 
-                  duration={1600} 
-                  triggerKey={card1Key} 
-                /> <span className="text-2xl text-neutral-400">Years</span>
+            <div className="pt-6 sm:pt-8 flex flex-col justify-end space-y-2.5">
+              <div className="flex items-baseline gap-1.5 xl:gap-2 whitespace-nowrap">
+                <span className="text-3xl sm:text-4xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-display font-extrabold text-white tracking-tight shrink-0">
+                  <CountUp 
+                    end={22} 
+                    suffix="+" 
+                    duration={1600} 
+                    triggerKey={card1Key} 
+                  />
+                </span>
+                <span className="text-sm sm:text-base lg:text-xs xl:text-base 2xl:text-xl text-neutral-400 font-medium">
+                  Years
+                </span>
               </div>
-              <p className="text-xs text-neutral-400 mt-1">
+              <p className="text-xs text-neutral-400 leading-relaxed min-h-[36px] sm:min-h-[42px]">
                 Executive HSE leadership delivering landmark national infrastructure at Julius Berger PLC.
               </p>
             </div>
@@ -333,23 +351,28 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
           <div 
             onMouseEnter={() => setCard2Key(k => k + 1)}
             onClick={() => setCard2Key(k => k + 1)}
-            className="group p-6 sm:p-8 rounded-3xl bg-[#08080d] border border-white/10 hover:border-white/20 transition-all space-y-2 flex flex-col justify-between cursor-pointer"
+            className="group p-6 sm:p-7 xl:p-8 rounded-3xl bg-[#08080d] border border-white/10 hover:border-white/20 transition-all flex flex-col justify-between cursor-pointer h-full"
             title="Hover or click to recount"
           >
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-mono uppercase text-neutral-400 group-hover:text-[#aaa3ff] transition-colors">Operational Exposure</span>
-              <span className="text-[10px] font-mono text-neutral-600 group-hover:text-emerald-400 transition-colors">Live</span>
+            <div className="flex items-center justify-between pb-3.5 border-b border-white/5">
+              <span className="text-xs font-mono uppercase text-neutral-400 group-hover:text-sky-300 transition-colors tracking-wider">Operational Exposure</span>
+              <span className="text-[10px] font-mono text-neutral-500 group-hover:text-neutral-300 transition-colors">Verified</span>
             </div>
-            <div>
-              <div className="text-4xl sm:text-5xl font-display font-extrabold text-white tracking-tight">
-                <CountUp 
-                  end={50} 
-                  suffix="M+" 
-                  duration={1800} 
-                  triggerKey={card2Key} 
-                /> <span className="text-2xl text-neutral-400">Hours</span>
+            <div className="pt-6 sm:pt-8 flex flex-col justify-end space-y-2.5">
+              <div className="flex items-baseline gap-1.5 xl:gap-2 whitespace-nowrap">
+                <span className="text-3xl sm:text-4xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-display font-extrabold text-white tracking-tight shrink-0">
+                  <CountUp 
+                    end={50} 
+                    suffix="M+" 
+                    duration={1800} 
+                    triggerKey={card2Key} 
+                  />
+                </span>
+                <span className="text-sm sm:text-base lg:text-xs xl:text-base 2xl:text-xl text-neutral-400 font-medium">
+                  Hours
+                </span>
               </div>
-              <p className="text-xs text-neutral-400 mt-1">
+              <p className="text-xs text-neutral-400 leading-relaxed min-h-[36px] sm:min-h-[42px]">
                 Supervised safe work-hours under zero-fatal incident protocols across live multi-tier civil schemes.
               </p>
             </div>
@@ -359,23 +382,28 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
           <div 
             onMouseEnter={() => setCard3Key(k => k + 1)}
             onClick={() => setCard3Key(k => k + 1)}
-            className="group p-6 sm:p-8 rounded-3xl bg-[#08080d] border border-white/10 hover:border-white/20 transition-all space-y-2 flex flex-col justify-between cursor-pointer"
+            className="group p-6 sm:p-7 xl:p-8 rounded-3xl bg-[#08080d] border border-white/10 hover:border-white/20 transition-all flex flex-col justify-between cursor-pointer h-full"
             title="Hover or click to recount"
           >
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-mono uppercase text-neutral-400 group-hover:text-[#aaa3ff] transition-colors">Global Selection</span>
-              <span className="text-[10px] font-mono text-neutral-600 group-hover:text-emerald-400 transition-colors">Live</span>
+            <div className="flex items-center justify-between pb-3.5 border-b border-white/5">
+              <span className="text-xs font-mono uppercase text-neutral-400 group-hover:text-sky-300 transition-colors tracking-wider">Global Selection</span>
+              <span className="text-[10px] font-mono text-neutral-500 group-hover:text-neutral-300 transition-colors">Verified</span>
             </div>
-            <div>
-              <div className="text-4xl sm:text-5xl font-display font-extrabold text-white tracking-tight">
-                <CountUp 
-                  end={1100} 
-                  suffix="+" 
-                  duration={2000} 
-                  triggerKey={card3Key} 
-                /> <span className="text-2xl text-neutral-400">Submissions</span>
+            <div className="pt-6 sm:pt-8 flex flex-col justify-end space-y-2.5">
+              <div className="flex items-baseline gap-1.5 xl:gap-2 whitespace-nowrap">
+                <span className="text-3xl sm:text-4xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-display font-extrabold text-white tracking-tight shrink-0">
+                  <CountUp 
+                    end={1100} 
+                    suffix="+" 
+                    duration={2000} 
+                    triggerKey={card3Key} 
+                  />
+                </span>
+                <span className="text-sm sm:text-base lg:text-xs xl:text-base 2xl:text-xl text-neutral-400 font-medium">
+                  Submissions
+                </span>
               </div>
-              <p className="text-xs text-neutral-400 mt-1">
+              <p className="text-xs text-neutral-400 leading-relaxed min-h-[36px] sm:min-h-[42px]">
                 Selected speaker at the 23rd World Congress on Safety and Health at Work in Sydney, Australia.
               </p>
             </div>
@@ -385,22 +413,27 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
           <div 
             onMouseEnter={() => setCard4Key(k => k + 1)}
             onClick={() => setCard4Key(k => k + 1)}
-            className="group p-6 sm:p-8 rounded-3xl bg-[#08080d] border border-white/10 hover:border-white/20 transition-all space-y-2 flex flex-col justify-between cursor-pointer"
+            className="group p-6 sm:p-7 xl:p-8 rounded-3xl bg-[#08080d] border border-white/10 hover:border-white/20 transition-all flex flex-col justify-between cursor-pointer h-full"
             title="Hover or click to recount"
           >
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-mono uppercase text-neutral-400 group-hover:text-[#aaa3ff] transition-colors">Chartered Rigor</span>
-              <span className="text-[10px] font-mono text-neutral-600 group-hover:text-emerald-400 transition-colors">Live</span>
+            <div className="flex items-center justify-between pb-3.5 border-b border-white/5">
+              <span className="text-xs font-mono uppercase text-neutral-400 group-hover:text-sky-300 transition-colors tracking-wider">Chartered Rigor</span>
+              <span className="text-[10px] font-mono text-neutral-500 group-hover:text-neutral-300 transition-colors">Verified</span>
             </div>
-            <div>
-              <div className="text-4xl sm:text-5xl font-display font-extrabold text-white tracking-tight">
-                <CountUp 
-                  end={2} 
-                  duration={1200} 
-                  triggerKey={card4Key} 
-                /> <span className="text-2xl text-neutral-400">Master Degrees</span>
+            <div className="pt-6 sm:pt-8 flex flex-col justify-end space-y-2.5">
+              <div className="flex items-baseline gap-1.5 xl:gap-2 whitespace-nowrap">
+                <span className="text-3xl sm:text-4xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-display font-extrabold text-white tracking-tight shrink-0">
+                  <CountUp 
+                    end={2} 
+                    duration={1200} 
+                    triggerKey={card4Key} 
+                  />
+                </span>
+                <span className="text-sm sm:text-base lg:text-xs xl:text-base 2xl:text-xl text-neutral-400 font-medium">
+                  Master Degrees
+                </span>
               </div>
-              <p className="text-xs text-neutral-400 mt-1">
+              <p className="text-xs text-neutral-400 leading-relaxed min-h-[36px] sm:min-h-[42px]">
                 Civil Engineering (Heriot-Watt, Edinburgh) & Environmental OSH (Portsmouth, UK).
               </p>
             </div>
@@ -409,26 +442,33 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
 
         {/* Verifiable Credentials Ribbon */}
         <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 pt-4 text-xs font-mono text-neutral-400 border-t border-white/5">
-          <span className="flex items-center gap-1.5">
-            <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+          <span className="flex items-center gap-1.5 text-neutral-300">
+            <ShieldCheck className="w-3.5 h-3.5 text-sky-400" />
             ISO 45001 Lead Auditor (#423290)
           </span>
-          <span className="flex items-center gap-1.5">
-            <Award className="w-3.5 h-3.5 text-[#aaa3ff]" />
+          <span className="flex items-center gap-1.5 text-neutral-300">
+            <Award className="w-3.5 h-3.5 text-sky-400" />
             IOSH Chartered Fellow Assessor (#100175)
           </span>
-          <span className="flex items-center gap-1.5">
+          <span className="flex items-center gap-1.5 text-neutral-300">
             <CheckCircle2 className="w-3.5 h-3.5 text-white" />
             Registered Professional Engineer (MNSE)
           </span>
         </div>
-      </section>
+      </motion.section>
 
       {/* 3. SIGNATURE WORKS & MEGAPROJECTS (Dialedweb Style: Filterable Showcase with Interactive Case Study Trigger) */}
-      <section id="signature-works-section" className="space-y-8 scroll-mt-28">
+      <motion.section 
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        id="signature-works-section" 
+        className="space-y-8 scroll-mt-28"
+      >
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-white/10 pb-6">
           <div className="space-y-2">
-            <span className="text-xs font-mono uppercase tracking-widest text-[#aaa3ff] font-semibold">
+            <span className="text-xs font-mono uppercase tracking-widest text-sky-400 font-semibold">
               Signature Works
             </span>
             <h2 className="text-3xl sm:text-4xl font-display font-extrabold text-white tracking-tight">
@@ -468,7 +508,7 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
               <div className="space-y-4">
                 {/* Meta Header */}
                 <div className="flex items-center justify-between gap-2">
-                  <span className="text-[11px] font-mono px-3 py-1 rounded-full bg-white/5 text-[#aaa3ff] border border-white/10 font-medium">
+                  <span className="text-[11px] font-mono px-3 py-1 rounded-full bg-sky-400/10 text-sky-300 border border-sky-400/20 font-medium">
                     {work.category}
                   </span>
                   <span className="text-xs font-mono text-neutral-400 flex items-center gap-1">
@@ -479,7 +519,7 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
 
                 {/* Title */}
                 <div>
-                  <h3 className="text-xl font-display font-bold text-white group-hover:text-[#aaa3ff] transition-colors leading-snug">
+                  <h3 className="text-xl font-display font-bold text-white group-hover:text-sky-300 transition-colors leading-snug">
                     {work.title}
                   </h3>
                   <p className="text-xs text-neutral-400 font-mono mt-1 flex items-center gap-1">
@@ -501,7 +541,7 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
                   </div>
                   <div className="p-2.5 rounded-xl bg-white/[0.02] border border-white/5">
                     <span className="text-[10px] font-mono uppercase text-neutral-400 block">Outcome</span>
-                    <strong className="text-xs font-display font-bold text-emerald-400 truncate block">{work.metrics[3].value}</strong>
+                    <strong className="text-xs font-display font-bold text-sky-300 truncate block">{work.metrics[3].value}</strong>
                   </div>
                 </div>
               </div>
@@ -517,12 +557,19 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
             </article>
           ))}
         </div>
-      </section>
+      </motion.section>
 
       {/* 4. OUR SERVICES: YOUR SAFETY & ENGINEERING POWERHOUSE (Dialedweb "Our Services: Your Digital Powerhouse") */}
-      <section id="services-powerhouse-section" className="space-y-8 scroll-mt-28">
+      <motion.section 
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        id="services-powerhouse-section" 
+        className="space-y-8 scroll-mt-28"
+      >
         <div className="space-y-2 max-w-3xl">
-          <span className="text-xs font-mono uppercase tracking-widest text-[#aaa3ff] font-semibold">
+          <span className="text-xs font-mono uppercase tracking-widest text-sky-400 font-semibold">
             Our Services
           </span>
           <h2 className="text-3xl sm:text-5xl font-display font-extrabold text-white tracking-tight">
@@ -549,7 +596,7 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
                       : 'bg-[#08080d] hover:bg-white/[0.04] text-neutral-300 border-white/10'
                   }`}
                 >
-                  <span className={`text-sm font-mono font-bold ${isActive ? 'text-black' : 'text-[#aaa3ff]'}`}>
+                  <span className={`text-sm font-mono font-bold ${isActive ? 'text-black' : 'text-sky-400'}`}>
                     {svc.number}
                   </span>
                   <div className="space-y-1">
@@ -568,7 +615,7 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
           {/* Active Service Detailed Panel */}
           <div className="lg:col-span-7 p-8 sm:p-10 rounded-3xl bg-[#08080d] border border-white/15 shadow-2xl space-y-6">
             <div className="flex items-center justify-between border-b border-white/10 pb-4">
-              <span className="text-xs font-mono text-[#aaa3ff] uppercase tracking-wider font-semibold">
+              <span className="text-xs font-mono text-sky-400 uppercase tracking-wider font-semibold">
                 Practice Area {services[activeServiceTab].number} of 05
               </span>
               <span className="px-3 py-1 rounded-full bg-white/10 text-white text-xs font-mono border border-white/10">
@@ -608,7 +655,7 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
                     const el = document.getElementById('interactive-wbgt-section');
                     if (el) el.scrollIntoView({ behavior: 'smooth' });
                   }}
-                  className="px-5 py-2.5 rounded-full bg-[#aaa3ff] text-black font-bold text-xs hover:bg-white transition-colors flex items-center gap-1.5"
+                  className="px-5 py-2.5 rounded-full bg-sky-400 text-black font-bold text-xs hover:bg-sky-300 transition-colors flex items-center gap-1.5"
                 >
                   <Activity className="w-4 h-4" />
                   <span>Launch Live WBGT Calculator Below</span>
@@ -629,14 +676,21 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* 5. INTERACTIVE APPLIED SCIENCE: WBGT & THERMAL HAZARDS FIELD CALCULATOR */}
-      <section id="interactive-wbgt-section" className="space-y-6 scroll-mt-28">
+      <motion.section 
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        id="interactive-wbgt-section" 
+        className="space-y-6 scroll-mt-28"
+      >
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/10 pb-4">
           <div>
-            <div className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[#aaa3ff] text-xs font-mono mb-2">
-              <Activity className="w-3.5 h-3.5" />
+            <div className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-sky-400 text-xs font-mono mb-2">
+              <Activity className="w-3.5 h-3.5 text-sky-400" />
               <span>Applied Research Implementation</span>
             </div>
             <h2 className="text-2xl sm:text-4xl font-display font-extrabold text-white tracking-tight">
@@ -658,12 +712,18 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
 
         {/* Live Calculator Component */}
         <ThermalCalculator />
-      </section>
+      </motion.section>
 
       {/* 6. TESTIMONIALS & INSTITUTIONAL WORDS (Dialedweb Pattern: What Our Partners Say) */}
-      <section className="space-y-8">
+      <motion.section 
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className="space-y-8"
+      >
         <div className="space-y-2 text-center max-w-2xl mx-auto">
-          <span className="text-xs font-mono uppercase tracking-widest text-[#aaa3ff] font-semibold">
+          <span className="text-xs font-mono uppercase tracking-widest text-sky-400 font-semibold">
             Testimonials
           </span>
           <h2 className="text-3xl sm:text-4xl font-display font-extrabold text-white tracking-tight">
@@ -698,20 +758,26 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
                   </p>
                 </div>
 
-                <span className="text-[10px] font-mono px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-[#aaa3ff]">
+                <span className="text-[10px] font-mono px-2.5 py-1 rounded-full bg-sky-400/10 border border-sky-400/20 text-sky-300 font-medium">
                   {t.badge}
                 </span>
               </div>
             </div>
           ))}
         </div>
-      </section>
+      </motion.section>
 
       {/* 7. ABOUT / ACADEMIC & INSTITUTIONAL LEADERSHIP (Dialedweb Style: "Our Global Team / About Us") */}
-      <section className="p-8 sm:p-12 rounded-3xl bg-[#08080d] border border-white/10 space-y-10">
+      <motion.section 
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className="p-8 sm:p-12 rounded-3xl bg-[#08080d] border border-white/10 space-y-10"
+      >
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 border-b border-white/10 pb-8">
           <div className="space-y-2 max-w-2xl">
-            <span className="text-xs font-mono uppercase tracking-widest text-[#aaa3ff] font-semibold">
+            <span className="text-xs font-mono uppercase tracking-widest text-sky-400 font-semibold">
               Institutional Pedigree
             </span>
             <h2 className="text-3xl sm:text-4xl font-display font-extrabold text-white tracking-tight">
@@ -740,7 +806,7 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
               className="p-6 rounded-2xl bg-white/[0.02] border border-white/10 flex flex-col justify-between space-y-3"
             >
               <div className="space-y-2">
-                <span className="text-[10px] font-mono uppercase px-2.5 py-0.5 rounded-full bg-white/5 text-[#aaa3ff] border border-white/10 font-semibold">
+                <span className="text-[10px] font-mono uppercase px-2.5 py-0.5 rounded-full bg-sky-400/10 text-sky-300 border border-sky-400/20 font-semibold">
                   {acad.badge}
                 </span>
                 <h4 className="text-base font-display font-bold text-white leading-snug">
@@ -760,12 +826,18 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
             </div>
           ))}
         </div>
-      </section>
+      </motion.section>
 
       {/* 8. HIGH-IMPACT BOTTOM CTA BANNER (Dialedweb Pattern: "Grow Your Digital Presence / Let's Build Something Extraordinary") */}
-      <section className="relative p-8 sm:p-14 rounded-3xl bg-gradient-to-b from-[#0e0e18] to-black border border-white/15 shadow-[0_20px_70px_rgba(0,0,0,0.8)] overflow-hidden text-center space-y-6">
+      <motion.section 
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className="relative p-8 sm:p-14 rounded-3xl bg-gradient-to-b from-[#0e0e18] to-black border border-white/15 shadow-[0_20px_70px_rgba(0,0,0,0.8)] overflow-hidden text-center space-y-6"
+      >
         <div className="space-y-3 max-w-2xl mx-auto">
-          <span className="text-xs font-mono uppercase tracking-widest text-[#aaa3ff] font-semibold">
+          <span className="text-xs font-mono uppercase tracking-widest text-sky-400 font-semibold">
             Lead in Your Industry
           </span>
           <h2 className="text-3xl sm:text-5xl font-display font-extrabold text-white tracking-tight leading-tight">
@@ -796,7 +868,7 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
         <p className="text-xs text-neutral-400 font-mono">
           Direct Liaison: contact@iyenomaosazee.com • Abuja, Federal Capital Territory, Nigeria
         </p>
-      </section>
+      </motion.section>
 
       {/* Case Study Modal */}
       <CaseStudyModal
