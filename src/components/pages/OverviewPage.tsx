@@ -30,7 +30,10 @@ import {
   Clock,
   Quote,
   Star,
-  Activity
+  Activity,
+  Calendar,
+  AlertTriangle,
+  ArrowDownUp
 } from 'lucide-react';
 
 interface OverviewPageProps {
@@ -43,6 +46,7 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
   onOpenBookingModal
 }) => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [timelineOrder, setTimelineOrder] = useState<'desc' | 'asc'>('desc');
   const [activeCaseStudy, setActiveCaseStudy] = useState<Megaproject | null>(null);
   const [activeServiceTab, setActiveServiceTab] = useState<number>(0);
   const [card1Key, setCard1Key] = useState<number>(0);
@@ -59,10 +63,16 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
     { id: 'Statutory Governance', label: 'Statutory Governance' }
   ];
 
-  const filteredProjects = SIGNATURE_WORKS.filter((p) => {
-    if (selectedCategory === 'all') return true;
-    return p.category === selectedCategory;
-  });
+  const filteredProjects = [...SIGNATURE_WORKS]
+    .filter((p) => {
+      if (selectedCategory === 'all') return true;
+      return p.category === selectedCategory;
+    })
+    .sort((a, b) => {
+      return timelineOrder === 'desc' 
+        ? b.startYear - a.startYear 
+        : a.startYear - b.startYear;
+    });
 
   const services = [
     {
@@ -239,57 +249,6 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
             </span>
           </div>
         </div>
-
-        {/* Hero Interactive Showcase Stage: Signature Megaprojects Teaser Cards */}
-        <div className="mt-14 max-w-6xl mx-auto">
-          <div className="p-4 sm:p-6 rounded-3xl bg-[#08080d]/80 border border-white/10 backdrop-blur-xl shadow-2xl space-y-4">
-            <div className="flex items-center justify-between px-2 text-xs font-mono text-neutral-400 border-b border-white/10 pb-3">
-              <span className="flex items-center gap-2 text-neutral-200 uppercase tracking-wider">
-                <span className="w-2 h-2 rounded-full bg-sky-400 animate-pulse"></span>
-                Operational Command Snapshot • Live Federal Works
-              </span>
-              <span className="hidden sm:inline text-neutral-400">
-                Julius Berger Nigeria PLC Engineering Infrastructure
-              </span>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {SIGNATURE_WORKS.slice(0, 3).map((work) => (
-                <div 
-                  key={work.id}
-                  onClick={() => setActiveCaseStudy(work)}
-                  className="group p-5 rounded-2xl bg-white/[0.02] hover:bg-white/[0.06] border border-white/10 hover:border-white/20 transition-all cursor-pointer flex flex-col justify-between space-y-3"
-                >
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between text-[11px] font-mono">
-                      <span className="text-sky-300 px-2.5 py-0.5 rounded-full bg-sky-400/10 border border-sky-400/20 font-medium">
-                        {work.category}
-                      </span>
-                      <span className="text-neutral-400">{work.metrics[0].value}</span>
-                    </div>
-
-                    <h3 className="text-base font-display font-bold text-white group-hover:text-sky-300 transition-colors line-clamp-1">
-                      {work.title}
-                    </h3>
-                    <p className="text-xs text-neutral-400 line-clamp-2 leading-relaxed">
-                      {work.summary}
-                    </p>
-                  </div>
-
-                  <div className="pt-2 border-t border-white/5 flex items-center justify-between text-xs font-mono text-neutral-300">
-                    <span className="text-[11px] text-sky-300/90 font-medium truncate max-w-[180px]" title={work.safetyRecord}>
-                      {work.safetyRecord}
-                    </span>
-                    <span className="flex items-center gap-1 group-hover:translate-x-0.5 transition-transform text-white shrink-0">
-                      Inspect
-                      <ArrowUpRight className="w-3 h-3" />
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
       </motion.section>
 
       {/* 2. KEY PERFORMANCE INDICATORS ("Numbers That Just Make Sense" - Dialedweb Pattern) */}
@@ -457,104 +416,205 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
         </div>
       </motion.section>
 
-      {/* 3. SIGNATURE WORKS & MEGAPROJECTS (Dialedweb Style: Filterable Showcase with Interactive Case Study Trigger) */}
+      {/* 3. SIGNATURE WORKS & MEGAPROJECTS: BASED TIMELINE */}
       <motion.section 
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-60px" }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         id="signature-works-section" 
-        className="space-y-8 scroll-mt-28"
+        className="space-y-10 scroll-mt-28"
       >
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-white/10 pb-6">
+        {/* Section Header & Direction Controls */}
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 border-b border-white/10 pb-6">
           <div className="space-y-2">
-            <span className="text-xs font-mono uppercase tracking-widest text-sky-400 font-semibold">
-              Signature Works
-            </span>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-400/10 border border-sky-400/20 text-sky-400 text-xs font-mono">
+              <Calendar className="w-3.5 h-3.5" />
+              <span>Chronological Project Timeline • 2002 – 2025</span>
+            </div>
             <h2 className="text-3xl sm:text-4xl font-display font-extrabold text-white tracking-tight">
               Featured Infrastructure Projects
             </h2>
-            <p className="text-xs sm:text-sm text-neutral-400 font-mono">
-              Operational case studies across mega-bridges, metropolitan expressways, environmental bioreactors, and parliamentary reforms.
+            <p className="text-xs sm:text-sm text-neutral-400 font-mono max-w-2xl">
+              Chronological milestones of landmark federal engineering operations, cross-river marine structures, metropolitan expressways, and statutory reforms.
             </p>
           </div>
 
-          {/* Category Filter Pills */}
-          <div className="flex flex-wrap items-center gap-1.5">
-            {categories.map((cat) => (
+          {/* Timeline Controls: Sorting */}
+          <div className="flex flex-wrap items-center gap-2.5">
+            <div className="inline-flex items-center p-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono">
               <button
-                key={cat.id}
-                onClick={() => setSelectedCategory(cat.id)}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all ${
-                  selectedCategory === cat.id
-                    ? 'bg-white text-black font-semibold shadow-md'
-                    : 'bg-white/5 text-neutral-300 hover:text-white hover:bg-white/10 border border-white/5'
+                type="button"
+                onClick={() => setTimelineOrder('desc')}
+                className={`px-3 py-1.5 rounded-full transition-all flex items-center gap-1.5 ${
+                  timelineOrder === 'desc'
+                    ? 'bg-sky-400 text-black font-semibold shadow-sm'
+                    : 'text-neutral-400 hover:text-white'
                 }`}
+                title="Latest projects first (2025 → 2002)"
               >
-                {cat.label}
+                <ArrowDownUp className="w-3 h-3" />
+                Latest First
               </button>
-            ))}
+              <button
+                type="button"
+                onClick={() => setTimelineOrder('asc')}
+                className={`px-3 py-1.5 rounded-full transition-all flex items-center gap-1.5 ${
+                  timelineOrder === 'asc'
+                    ? 'bg-sky-400 text-black font-semibold shadow-sm'
+                    : 'text-neutral-400 hover:text-white'
+                }`}
+                title="Earliest projects first (2002 → 2025)"
+              >
+                <Clock className="w-3 h-3" />
+                Earliest First
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* Projects Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredProjects.map((work) => (
-            <article
-              key={work.id}
-              onClick={() => setActiveCaseStudy(work)}
-              className="group relative p-6 sm:p-7 rounded-3xl bg-[#08080d] border border-white/10 hover:border-white/25 transition-all duration-300 flex flex-col justify-between space-y-5 cursor-pointer shadow-lg hover:shadow-[0_10px_30px_rgba(0,0,0,0.8)]"
+        {/* Category Filter Pills */}
+        <div className="flex flex-wrap items-center gap-1.5">
+          <span className="text-xs font-mono uppercase tracking-wider text-neutral-500 mr-2">
+            Filter:
+          </span>
+          {categories.map((cat) => (
+            <button
+              key={cat.id}
+              onClick={() => setSelectedCategory(cat.id)}
+              className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all ${
+                selectedCategory === cat.id
+                  ? 'bg-white text-black font-semibold shadow-md'
+                  : 'bg-white/5 text-neutral-300 hover:text-white hover:bg-white/10 border border-white/5'
+              }`}
             >
-              <div className="space-y-4">
-                {/* Meta Header */}
-                <div className="flex items-center justify-between gap-2">
-                  <span className="text-[11px] font-mono px-3 py-1 rounded-full bg-sky-400/10 text-sky-300 border border-sky-400/20 font-medium">
-                    {work.category}
-                  </span>
-                  <span className="text-xs font-mono text-neutral-400 flex items-center gap-1">
-                    <Clock className="w-3 h-3 text-neutral-400" />
-                    {work.period}
+              {cat.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Vertical Timeline Track & Milestone Cards */}
+        <div className="relative pl-6 sm:pl-10 md:pl-12 lg:pl-14 space-y-10 sm:space-y-12 pt-2">
+          {/* Continuous vertical timeline track spine */}
+          <div className="absolute left-[11px] sm:left-[19px] md:left-[23px] lg:left-[27px] top-6 bottom-6 w-[2px] bg-gradient-to-b from-sky-400 via-sky-400/35 to-white/10" />
+
+          {filteredProjects.map((work, index) => (
+            <motion.div 
+              key={work.id} 
+              initial={{ opacity: 0, y: 32 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ 
+                duration: 0.65, 
+                delay: (index % 3) * 0.08, 
+                ease: [0.22, 1, 0.36, 1] 
+              }}
+              className="relative group"
+            >
+              {/* Timeline Marker Node on the track */}
+              <div className="absolute -left-[27px] sm:-left-[35px] md:-left-[39px] lg:-left-[43px] top-6 z-10">
+                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#08080d] border-2 border-sky-400/80 group-hover:border-white group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(56,189,248,0.6)] transition-all flex items-center justify-center">
+                  <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-sky-400 group-hover:bg-white transition-colors" />
+                </div>
+              </div>
+
+              {/* Timeline Card */}
+              <article 
+                onClick={() => setActiveCaseStudy(work)}
+                className="p-6 sm:p-8 rounded-3xl bg-[#08080d] border border-white/10 hover:border-white/25 transition-all duration-300 shadow-xl hover:shadow-[0_12px_36px_rgba(0,0,0,0.8)] cursor-pointer space-y-6"
+              >
+                {/* Timeline Header Strip */}
+                <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/5 pb-4">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-400/10 border border-sky-400/25 text-sky-300 font-mono text-xs font-semibold">
+                      <Clock className="w-3.5 h-3.5 text-sky-400" />
+                      {work.timelineDate}
+                    </span>
+                    <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-neutral-300 font-mono text-xs">
+                      {work.category}
+                    </span>
+                  </div>
+
+                  <span className="inline-flex items-center gap-1.5 text-xs font-mono text-emerald-300 bg-emerald-950/40 border border-emerald-500/20 px-3 py-1 rounded-full">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                    {work.safetyRecord}
                   </span>
                 </div>
 
-                {/* Title */}
-                <div>
-                  <h3 className="text-xl font-display font-bold text-white group-hover:text-sky-300 transition-colors leading-snug">
+                {/* Title & Metadata */}
+                <div className="space-y-2">
+                  <h3 className="text-xl sm:text-2xl lg:text-3xl font-display font-extrabold text-white group-hover:text-sky-300 transition-colors tracking-tight leading-snug">
                     {work.title}
                   </h3>
-                  <p className="text-xs text-neutral-400 font-mono mt-1 flex items-center gap-1">
-                    <MapPin className="w-3 h-3" />
-                    {work.location}
-                  </p>
+                  <div className="flex flex-wrap items-center gap-x-5 gap-y-1.5 text-xs font-mono text-neutral-400">
+                    <span className="flex items-center gap-1.5 text-neutral-300">
+                      <Building2 className="w-3.5 h-3.5 text-sky-400" />
+                      {work.client}
+                    </span>
+                    <span className="flex items-center gap-1.5">
+                      <MapPin className="w-3.5 h-3.5 text-neutral-500" />
+                      {work.location}
+                    </span>
+                  </div>
                 </div>
 
-                {/* Brief Narrative */}
-                <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed line-clamp-3">
+                {/* Narrative Summary */}
+                <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed max-w-4xl">
                   {work.summary}
                 </p>
 
-                {/* Key Metrics Strip */}
-                <div className="grid grid-cols-2 gap-2 pt-2 border-t border-white/5">
-                  <div className="p-2.5 rounded-xl bg-white/[0.02] border border-white/5">
-                    <span className="text-[10px] font-mono uppercase text-neutral-400 block">Safe Hours</span>
-                    <strong className="text-xs font-display font-bold text-white">{work.metrics[0].value}</strong>
+                {/* Engineering Challenge & Solution Dual Cards */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 pt-1">
+                  <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5 space-y-1.5">
+                    <span className="text-[10px] font-mono uppercase tracking-wider text-neutral-400 font-semibold flex items-center gap-1.5">
+                      <AlertTriangle className="w-3.5 h-3.5 text-amber-400" />
+                      High-Consequence Risk & Challenge
+                    </span>
+                    <p className="text-xs text-neutral-300 leading-relaxed">
+                      {work.challenge}
+                    </p>
                   </div>
-                  <div className="p-2.5 rounded-xl bg-white/[0.02] border border-white/5">
-                    <span className="text-[10px] font-mono uppercase text-neutral-400 block">Outcome</span>
-                    <strong className="text-xs font-display font-bold text-sky-300 truncate block">{work.metrics[3].value}</strong>
+
+                  <div className="p-4 rounded-2xl bg-sky-950/20 border border-sky-500/20 space-y-1.5">
+                    <span className="text-[10px] font-mono uppercase tracking-wider text-sky-300 font-semibold flex items-center gap-1.5">
+                      <ShieldCheck className="w-3.5 h-3.5 text-sky-400" />
+                      Engineered HSE Intervention
+                    </span>
+                    <p className="text-xs text-neutral-200 leading-relaxed">
+                      {work.hseSolution}
+                    </p>
                   </div>
                 </div>
-              </div>
 
-              {/* Bottom Action */}
-              <div className="pt-3 border-t border-white/10 flex items-center justify-between text-xs font-mono text-neutral-300">
-                <span className="text-neutral-400">{work.client.split('/')[0]}</span>
-                <span className="flex items-center gap-1 text-white font-semibold group-hover:translate-x-1 transition-transform">
-                  View Full Case Study
-                  <ArrowUpRight className="w-3.5 h-3.5" />
-                </span>
-              </div>
-            </article>
+                {/* Key Metrics Strip & CTA */}
+                <div className="pt-4 border-t border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 flex-1">
+                    {work.metrics.map((m, mIdx) => (
+                      <div key={mIdx} className="p-2.5 rounded-xl bg-white/[0.02] border border-white/5">
+                        <span className="text-[10px] font-mono uppercase text-neutral-400 block truncate">
+                          {m.label}
+                        </span>
+                        <strong className="text-xs sm:text-sm font-display font-bold text-white block truncate">
+                          {m.value}
+                        </strong>
+                      </div>
+                    ))}
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setActiveCaseStudy(work);
+                    }}
+                    className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 hover:bg-sky-400 hover:text-black border border-white/10 hover:border-sky-400 text-xs font-mono font-medium text-white transition-all shrink-0 self-end sm:self-center group/btn"
+                  >
+                    <span>Inspect Case Study</span>
+                    <ArrowUpRight className="w-3.5 h-3.5 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
+                  </button>
+                </div>
+              </article>
+            </motion.div>
           ))}
         </div>
       </motion.section>

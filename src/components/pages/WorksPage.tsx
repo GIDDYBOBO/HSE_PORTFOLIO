@@ -14,7 +14,11 @@ import {
   Layers,
   ChevronRight,
   Filter,
-  Activity
+  Activity,
+  Calendar,
+  AlertTriangle,
+  ArrowDownUp,
+  LayoutGrid
 } from 'lucide-react';
 
 interface WorksPageProps {
@@ -27,6 +31,8 @@ export const WorksPage: React.FC<WorksPageProps> = ({
   onOpenBookingModal
 }) => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [viewMode, setViewMode] = useState<'timeline' | 'grid'>('timeline');
+  const [timelineOrder, setTimelineOrder] = useState<'desc' | 'asc'>('desc');
   const [activeCaseStudy, setActiveCaseStudy] = useState<Megaproject | null>(null);
 
   const categories = [
@@ -38,10 +44,16 @@ export const WorksPage: React.FC<WorksPageProps> = ({
     { id: 'Statutory Governance', label: 'Statutory Governance' }
   ];
 
-  const filteredProjects = SIGNATURE_WORKS.filter((p) => {
-    if (selectedCategory === 'all') return true;
-    return p.category === selectedCategory;
-  });
+  const filteredProjects = [...SIGNATURE_WORKS]
+    .filter((p) => {
+      if (selectedCategory === 'all') return true;
+      return p.category === selectedCategory;
+    })
+    .sort((a, b) => {
+      return timelineOrder === 'desc' 
+        ? b.startYear - a.startYear 
+        : a.startYear - b.startYear;
+    });
 
   return (
     <div className="space-y-16 pt-24 sm:pt-28 pb-16">
@@ -64,7 +76,7 @@ export const WorksPage: React.FC<WorksPageProps> = ({
         </p>
       </motion.section>
 
-      {/* 2. Filter Tabs (Dialedweb Pill Style) */}
+      {/* 2. Filter & Timeline Controls */}
       <motion.section 
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -72,125 +84,305 @@ export const WorksPage: React.FC<WorksPageProps> = ({
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         className="space-y-8"
       >
-        <div className="flex items-center justify-between flex-wrap gap-4 border-b border-white/10 pb-4">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-white/10 pb-4">
           <div className="flex items-center space-x-2">
             <Filter className="w-4 h-4 text-sky-400" />
             <span className="text-xs font-mono uppercase tracking-wider text-neutral-400">
-              Filter by Engineering Classification:
+              Engineering Classification:
             </span>
           </div>
-          <div className="flex items-center gap-1.5 flex-wrap">
-            {categories.map((cat) => (
-              <button
-                key={cat.id}
-                onClick={() => setSelectedCategory(cat.id)}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-mono transition-all ${
-                  selectedCategory === cat.id
-                    ? 'bg-white text-black font-semibold shadow-md'
-                    : 'bg-white/5 hover:bg-white/10 text-neutral-300 hover:text-white border border-white/5'
-                }`}
-              >
-                {cat.label}
-              </button>
-            ))}
+
+          <div className="flex flex-wrap items-center justify-between lg:justify-end gap-3 w-full lg:w-auto">
+            {/* View Mode & Order Switcher */}
+            <div className="flex items-center gap-2">
+              <div className="inline-flex items-center p-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono">
+                <button
+                  type="button"
+                  onClick={() => setViewMode('timeline')}
+                  className={`px-3 py-1 rounded-full transition-all flex items-center gap-1.5 ${
+                    viewMode === 'timeline'
+                      ? 'bg-sky-400 text-black font-semibold shadow-sm'
+                      : 'text-neutral-400 hover:text-white'
+                  }`}
+                >
+                  <Calendar className="w-3 h-3" />
+                  Timeline
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setViewMode('grid')}
+                  className={`px-3 py-1 rounded-full transition-all flex items-center gap-1.5 ${
+                    viewMode === 'grid'
+                      ? 'bg-sky-400 text-black font-semibold shadow-sm'
+                      : 'text-neutral-400 hover:text-white'
+                  }`}
+                >
+                  <LayoutGrid className="w-3 h-3" />
+                  Grid
+                </button>
+              </div>
+
+              <div className="inline-flex items-center p-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono">
+                <button
+                  type="button"
+                  onClick={() => setTimelineOrder(timelineOrder === 'desc' ? 'asc' : 'desc')}
+                  className="px-2.5 py-1 rounded-full text-neutral-300 hover:text-white transition-all flex items-center gap-1.5"
+                  title="Toggle Chronological Direction"
+                >
+                  <ArrowDownUp className="w-3 h-3 text-sky-400" />
+                  <span>{timelineOrder === 'desc' ? '2025 → 2002' : '2002 → 2025'}</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Category Pills */}
+            <div className="flex items-center gap-1.5 flex-wrap">
+              {categories.map((cat) => (
+                <button
+                  key={cat.id}
+                  onClick={() => setSelectedCategory(cat.id)}
+                  className={`px-3 py-1.5 rounded-full text-xs font-mono transition-all ${
+                    selectedCategory === cat.id
+                      ? 'bg-white text-black font-semibold shadow-md'
+                      : 'bg-white/5 hover:bg-white/10 text-neutral-300 hover:text-white border border-white/5'
+                  }`}
+                >
+                  {cat.label}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 
-        {/* 3. Megaprojects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {filteredProjects.map((project) => (
-            <div
-              key={project.id}
-              className="group p-6 sm:p-8 rounded-3xl bg-[#08080d] border border-white/10 hover:border-white/20 transition-all flex flex-col justify-between space-y-6 relative overflow-hidden"
-            >
-              <div className="space-y-4">
-                {/* Meta Header */}
-                <div className="flex flex-wrap items-center justify-between gap-2">
-                  <span className="px-2.5 py-1 rounded-full text-[10px] font-mono tracking-wider uppercase bg-sky-400/10 text-sky-300 border border-sky-400/20">
-                    {project.category}
-                  </span>
-                  <div className="flex items-center space-x-2 text-xs font-mono text-sky-300 bg-sky-400/10 px-2.5 py-1 rounded-full border border-sky-400/20">
-                    <CheckCircle2 className="w-3.5 h-3.5" />
-                    <span>{project.safetyRecord}</span>
+        {/* 3. Projects View: Timeline vs Grid */}
+        {viewMode === 'timeline' ? (
+          <div className="relative pl-6 sm:pl-10 md:pl-12 lg:pl-14 space-y-10 sm:space-y-12 pt-2">
+            {/* Continuous vertical timeline track spine */}
+            <div className="absolute left-[11px] sm:left-[19px] md:left-[23px] lg:left-[27px] top-6 bottom-6 w-[2px] bg-gradient-to-b from-sky-400 via-sky-400/35 to-white/10" />
+
+            {filteredProjects.map((project, index) => (
+              <motion.div 
+                key={project.id} 
+                initial={{ opacity: 0, y: 32 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ 
+                  duration: 0.65, 
+                  delay: (index % 3) * 0.08, 
+                  ease: [0.22, 1, 0.36, 1] 
+                }}
+                className="relative group"
+              >
+                {/* Timeline Marker Node */}
+                <div className="absolute -left-[27px] sm:-left-[35px] md:-left-[39px] lg:-left-[43px] top-6 z-10">
+                  <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#08080d] border-2 border-sky-400/80 group-hover:border-white group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(56,189,248,0.6)] transition-all flex items-center justify-center">
+                    <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-sky-400 group-hover:bg-white transition-colors" />
                   </div>
                 </div>
 
-                {/* Title & Scope */}
-                <div className="space-y-2">
-                  <h2 className="text-xl sm:text-2xl font-display font-bold text-white group-hover:text-neutral-200 transition-colors">
-                    {project.title}
-                  </h2>
-                  <div className="flex flex-wrap items-center gap-y-1 gap-x-3 text-xs text-neutral-400 font-mono">
-                    <span className="flex items-center gap-1">
-                      <Building2 className="w-3 h-3 text-neutral-300" />
-                      {project.client}
-                    </span>
-                    <span>•</span>
-                    <span className="flex items-center gap-1">
-                      <MapPin className="w-3 h-3 text-neutral-300" />
-                      {project.location}
-                    </span>
-                    <span>•</span>
-                    <span className="flex items-center gap-1">
-                      <Clock className="w-3 h-3 text-neutral-300" />
-                      {project.period}
-                    </span>
-                  </div>
-                </div>
-
-                <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed">
-                  {project.summary}
-                </p>
-
-                {/* Key Metrics Grid */}
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2 border-t border-white/5">
-                  {project.metrics.map((metric, idx) => (
-                    <div key={idx} className="p-2.5 rounded-xl bg-white/[0.02] border border-white/5">
-                      <span className="text-[10px] font-mono text-neutral-400 block truncate">
-                        {metric.label}
+                {/* Timeline Card */}
+                <article 
+                  onClick={() => setActiveCaseStudy(project)}
+                  className="p-6 sm:p-8 rounded-3xl bg-[#08080d] border border-white/10 hover:border-white/25 transition-all duration-300 shadow-xl hover:shadow-[0_12px_36px_rgba(0,0,0,0.8)] cursor-pointer space-y-6"
+                >
+                  {/* Timeline Header Strip */}
+                  <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/5 pb-4">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-400/10 border border-sky-400/25 text-sky-300 font-mono text-xs font-semibold">
+                        <Clock className="w-3.5 h-3.5 text-sky-400" />
+                        {project.timelineDate}
                       </span>
-                      <span className="text-xs font-mono font-bold text-white block mt-0.5">
-                        {metric.value}
+                      <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-neutral-300 font-mono text-xs">
+                        {project.category}
                       </span>
                     </div>
-                  ))}
-                </div>
 
-                {/* Technical Challenge & HSE Solution Snapshot */}
-                <div className="p-3.5 rounded-2xl bg-white/[0.03] border border-white/5 space-y-2 text-xs">
-                  <div className="space-y-0.5">
-                    <span className="font-mono text-[10px] uppercase tracking-wider text-sky-300/90 font-semibold block">
-                      Critical Risk Challenge:
+                    <span className="inline-flex items-center gap-1.5 text-xs font-mono text-emerald-300 bg-emerald-950/40 border border-emerald-500/20 px-3 py-1 rounded-full">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                      {project.safetyRecord}
                     </span>
-                    <p className="text-neutral-300 leading-relaxed text-[11px]">
-                      {project.challenge}
-                    </p>
                   </div>
-                  <div className="space-y-0.5 pt-1.5 border-t border-white/5">
-                    <span className="font-mono text-[10px] uppercase tracking-wider text-sky-300 font-semibold block">
-                      HSE Engineering Solution:
-                    </span>
-                    <p className="text-neutral-300 leading-relaxed text-[11px]">
-                      {project.hseSolution}
-                    </p>
-                  </div>
-                </div>
-              </div>
 
-              {/* Action Button: Trigger Technical Case Study Modal */}
-              <button
-                onClick={() => setActiveCaseStudy(project)}
-                className="w-full py-3 px-4 rounded-2xl bg-white/5 hover:bg-white/10 text-neutral-200 hover:text-white font-medium text-xs border border-white/10 transition-all flex items-center justify-between group/btn cursor-pointer"
+                  {/* Title & Metadata */}
+                  <div className="space-y-2">
+                    <h3 className="text-xl sm:text-2xl lg:text-3xl font-display font-extrabold text-white group-hover:text-sky-300 transition-colors tracking-tight leading-snug">
+                      {project.title}
+                    </h3>
+                    <div className="flex flex-wrap items-center gap-x-5 gap-y-1.5 text-xs font-mono text-neutral-400">
+                      <span className="flex items-center gap-1.5 text-neutral-300">
+                        <Building2 className="w-3.5 h-3.5 text-sky-400" />
+                        {project.client}
+                      </span>
+                      <span className="flex items-center gap-1.5">
+                        <MapPin className="w-3.5 h-3.5 text-neutral-500" />
+                        {project.location}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Summary */}
+                  <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed max-w-4xl">
+                    {project.summary}
+                  </p>
+
+                  {/* Dual Risk & Engineering Interventions */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 pt-1">
+                    <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5 space-y-1.5">
+                      <span className="text-[10px] font-mono uppercase tracking-wider text-neutral-400 font-semibold flex items-center gap-1.5">
+                        <AlertTriangle className="w-3.5 h-3.5 text-amber-400" />
+                        Critical Risk Challenge
+                      </span>
+                      <p className="text-xs text-neutral-300 leading-relaxed">
+                        {project.challenge}
+                      </p>
+                    </div>
+
+                    <div className="p-4 rounded-2xl bg-sky-950/20 border border-sky-500/20 space-y-1.5">
+                      <span className="text-[10px] font-mono uppercase tracking-wider text-sky-300 font-semibold flex items-center gap-1.5">
+                        <ShieldCheck className="w-3.5 h-3.5 text-sky-400" />
+                        HSE Engineering Solution
+                      </span>
+                      <p className="text-xs text-neutral-200 leading-relaxed">
+                        {project.hseSolution}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Key Metrics Strip & CTA */}
+                  <div className="pt-4 border-t border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 flex-1">
+                      {project.metrics.map((m, mIdx) => (
+                        <div key={mIdx} className="p-2.5 rounded-xl bg-white/[0.02] border border-white/5">
+                          <span className="text-[10px] font-mono uppercase text-neutral-400 block truncate">
+                            {m.label}
+                          </span>
+                          <strong className="text-xs sm:text-sm font-display font-bold text-white block truncate">
+                            {m.value}
+                          </strong>
+                        </div>
+                      ))}
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setActiveCaseStudy(project);
+                      }}
+                      className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 hover:bg-sky-400 hover:text-black border border-white/10 hover:border-sky-400 text-xs font-mono font-medium text-white transition-all shrink-0 self-end sm:self-center group/btn"
+                    >
+                      <span>Inspect Technical Case Study</span>
+                      <ArrowUpRight className="w-3.5 h-3.5 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
+                    </button>
+                  </div>
+                </article>
+              </motion.div>
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {filteredProjects.map((project, index) => (
+              <motion.div
+                key={project.id}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ 
+                  duration: 0.55, 
+                  delay: (index % 2) * 0.08, 
+                  ease: [0.22, 1, 0.36, 1] 
+                }}
+                className="group p-6 sm:p-8 rounded-3xl bg-[#08080d] border border-white/10 hover:border-white/20 transition-all flex flex-col justify-between space-y-6 relative overflow-hidden"
               >
-                <span className="flex items-center gap-2">
-                  <Layers className="w-3.5 h-3.5 text-sky-400" />
-                  <span>Inspect Technical Case Study</span>
-                </span>
-                <ChevronRight className="w-4 h-4 text-neutral-400 group-hover/btn:translate-x-1 transition-transform" />
-              </button>
-            </div>
-          ))}
-        </div>
+                <div className="space-y-4">
+                  {/* Meta Header */}
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <span className="px-2.5 py-1 rounded-full text-[10px] font-mono tracking-wider uppercase bg-sky-400/10 text-sky-300 border border-sky-400/20">
+                      {project.category}
+                    </span>
+                    <div className="flex items-center space-x-2 text-xs font-mono text-sky-300 bg-sky-400/10 px-2.5 py-1 rounded-full border border-sky-400/20">
+                      <CheckCircle2 className="w-3.5 h-3.5" />
+                      <span>{project.safetyRecord}</span>
+                    </div>
+                  </div>
+
+                  {/* Title & Scope */}
+                  <div className="space-y-2">
+                    <h2 className="text-xl sm:text-2xl font-display font-bold text-white group-hover:text-neutral-200 transition-colors">
+                      {project.title}
+                    </h2>
+                    <div className="flex flex-wrap items-center gap-y-1 gap-x-3 text-xs text-neutral-400 font-mono">
+                      <span className="flex items-center gap-1">
+                        <Building2 className="w-3 h-3 text-neutral-300" />
+                        {project.client}
+                      </span>
+                      <span>•</span>
+                      <span className="flex items-center gap-1">
+                        <MapPin className="w-3 h-3 text-neutral-300" />
+                        {project.location}
+                      </span>
+                      <span>•</span>
+                      <span className="flex items-center gap-1">
+                        <Clock className="w-3 h-3 text-sky-400" />
+                        {project.timelineDate}
+                      </span>
+                    </div>
+                  </div>
+
+                  <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed">
+                    {project.summary}
+                  </p>
+
+                  {/* Key Metrics Grid */}
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2 border-t border-white/5">
+                    {project.metrics.map((metric, idx) => (
+                      <div key={idx} className="p-2.5 rounded-xl bg-white/[0.02] border border-white/5">
+                        <span className="text-[10px] font-mono text-neutral-400 block truncate">
+                          {metric.label}
+                        </span>
+                        <span className="text-xs font-mono font-bold text-white block mt-0.5">
+                          {metric.value}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Technical Challenge & HSE Solution Snapshot */}
+                  <div className="p-3.5 rounded-2xl bg-white/[0.03] border border-white/5 space-y-2 text-xs">
+                    <div className="space-y-0.5">
+                      <span className="font-mono text-[10px] uppercase tracking-wider text-sky-300/90 font-semibold block">
+                        Critical Risk Challenge:
+                      </span>
+                      <p className="text-neutral-300 leading-relaxed text-[11px]">
+                        {project.challenge}
+                      </p>
+                    </div>
+                    <div className="space-y-0.5 pt-1.5 border-t border-white/5">
+                      <span className="font-mono text-[10px] uppercase tracking-wider text-sky-300 font-semibold block">
+                        HSE Engineering Solution:
+                      </span>
+                      <p className="text-neutral-300 leading-relaxed text-[11px]">
+                        {project.hseSolution}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Action Button: Trigger Technical Case Study Modal */}
+                <button
+                  onClick={() => setActiveCaseStudy(project)}
+                  className="w-full py-3 px-4 rounded-2xl bg-white/5 hover:bg-white/10 text-neutral-200 hover:text-white font-medium text-xs border border-white/10 transition-all flex items-center justify-between group/btn cursor-pointer"
+                >
+                  <span className="flex items-center gap-2">
+                    <Layers className="w-3.5 h-3.5 text-sky-400" />
+                    <span>Inspect Technical Case Study</span>
+                  </span>
+                  <ChevronRight className="w-4 h-4 text-neutral-400 group-hover/btn:translate-x-1 transition-transform" />
+                </button>
+              </motion.div>
+            ))}
+          </div>
+        )}
       </motion.section>
 
       {/* 4. High-Consequence Safety Protocol Callout */}
