@@ -74,3 +74,276 @@
 .animate-float-badge {
   animation: floatBadge 4s ease-in-out infinite;
 }
+
+/* ==========================================================================
+   Subtle Scroll Fade-Up Animation (CSS Transitions)
+   - Triggers only once as element scrolls into view via IntersectionObserver
+   - Subtle translateY (16px) for a premium, non-excessive movement
+   - Smooth cubic-bezier acceleration curve
+   - Hardware accelerated with will-change
+   - Fully respects prefers-reduced-motion
+   ========================================================================== */
+.fade-up-section {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.fade-up-section.is-visible,
+.fade-up-section.no-fade,
+.fade-up-section:first-of-type {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-up-section {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* ==========================================================================
+   High-Contrast Accessible Light Theme (.light-theme)
+   - Exceeds WCAG AAA/AA accessibility standards (7:1+ body, 15:1+ headings)
+   - Crisp slate & pure white background hierarchy
+   - Inverted dark badges to high-contrast ink-on-tint badges
+   - Accessible form controls, modals, and navigation
+   ========================================================================== */
+html.light-theme,
+.light-theme {
+  color-scheme: light;
+}
+
+html.light-theme body,
+.light-theme body {
+  background-color: #f8fafc;
+  color: #0f172a;
+}
+
+/* Base Light Mode Text Mappings */
+.light-theme .text-white,
+.light-theme .text-neutral-100,
+.light-theme .text-neutral-200 {
+  color: #0f172a !important;
+}
+
+.light-theme .text-neutral-300 {
+  color: #334155 !important;
+}
+
+.light-theme .text-neutral-400 {
+  color: #475569 !important;
+}
+
+.light-theme .text-neutral-500 {
+  color: #64748b !important;
+}
+
+/* High Contrast Accent Text */
+.light-theme .text-sky-400,
+.light-theme .text-sky-300 {
+  color: #0284c7 !important;
+}
+
+.light-theme .text-emerald-400,
+.light-theme .text-emerald-300 {
+  color: #047857 !important;
+}
+
+.light-theme .text-amber-400,
+.light-theme .text-amber-300 {
+  color: #b45309 !important;
+}
+
+/* Light Mode Background & Surface Inversions */
+.light-theme .bg-\[\#030305\],
+.light-theme .bg-\[\#060609\],
+.light-theme .bg-\[\#08080c\],
+.light-theme .bg-\[\#08080d\],
+.light-theme .bg-\[\#08080e\],
+.light-theme .bg-\[\#09090e\],
+.light-theme .bg-\[\#090910\],
+.light-theme .bg-\[\#090912\],
+.light-theme .bg-\[\#090d16\],
+.light-theme .bg-\[\#06080e\],
+.light-theme .bg-\[\#0b0b10\],
+.light-theme .bg-\[\#0d0d14\],
+.light-theme .bg-\[\#111118\],
+.light-theme .bg-neutral-950,
+.light-theme .bg-neutral-900,
+.light-theme [class*="bg-neutral-900/"],
+.light-theme [class*="bg-neutral-950/"] {
+  background-color: #ffffff !important;
+  color: #0f172a;
+}
+
+.light-theme .bg-white\/\[0\.02\],
+.light-theme .bg-white\/\[0\.03\],
+.light-theme .bg-white\/5 {
+  background-color: #f8fafc !important;
+  border-color: #e2e8f0 !important;
+}
+
+.light-theme .bg-white\/10,
+.light-theme .bg-white\/15 {
+  background-color: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+}
+
+.light-theme .bg-black\/40,
+.light-theme .bg-black\/50,
+.light-theme .bg-black\/70,
+.light-theme .bg-black\/75,
+.light-theme .bg-black\/80,
+.light-theme .bg-black\/85,
+.light-theme .bg-black\/90 {
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+}
+
+/* Maintain legibility over dark photography image overlays */
+.light-theme .absolute.inset-0 .text-white,
+.light-theme .absolute.inset-0 h3,
+.light-theme .absolute.inset-0 .drop-shadow {
+  color: #ffffff !important;
+}
+.light-theme .absolute.inset-0 .text-neutral-300,
+.light-theme .absolute.inset-0 .text-neutral-200 {
+  color: #e2e8f0 !important;
+}
+.light-theme .absolute.inset-0 .bg-black\/70,
+.light-theme .absolute.inset-0 .bg-black\/75,
+.light-theme .absolute.inset-0 .bg-black\/80 {
+  background-color: rgba(0, 0, 0, 0.75) !important;
+  color: #ffffff !important;
+}
+
+/* High Contrast Borders */
+.light-theme .border-white\/5,
+.light-theme .border-white\/10,
+.light-theme .border-white\/15,
+.light-theme .border-white\/20,
+.light-theme .border-neutral-800 {
+  border-color: #cbd5e1 !important;
+}
+
+/* Floating Navbar Capsule in Light Mode */
+.light-theme header > div {
+  background-color: rgba(255, 255, 255, 0.94) !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.08), 0 0 1px 1px rgba(0, 0, 0, 0.04) !important;
+}
+
+.light-theme header nav {
+  background-color: #f1f5f9 !important;
+  border-color: #e2e8f0 !important;
+}
+
+.light-theme header nav button {
+  color: #334155 !important;
+}
+
+.light-theme header nav button:hover {
+  background-color: #e2e8f0 !important;
+  color: #0f172a !important;
+}
+
+.light-theme header nav button.bg-white\/15 {
+  background-color: #0f172a !important;
+  color: #ffffff !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) !important;
+}
+
+.light-theme #nav-brand-logo .w-8.h-8 {
+  background-color: #0f172a !important;
+  color: #ffffff !important;
+}
+
+.light-theme #btn-header-book-call {
+  background-color: #0f172a !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15) !important;
+}
+
+.light-theme #btn-header-book-call:hover {
+  background-color: #1e293b !important;
+}
+
+.light-theme #btn-mobile-menu-toggle {
+  background-color: #f1f5f9 !important;
+  color: #0f172a !important;
+  border: 1px solid #cbd5e1 !important;
+}
+
+/* Mobile Menu Fullscreen Overlay in Light Mode */
+.light-theme #mobile-nav-fullscreen-overlay {
+  background-color: rgba(255, 255, 255, 0.98) !important;
+  color: #0f172a !important;
+}
+
+.light-theme #mobile-nav-fullscreen-overlay .border-b,
+.light-theme #mobile-nav-fullscreen-overlay .border-t {
+  border-color: #e2e8f0 !important;
+  background-color: rgba(248, 250, 252, 0.8) !important;
+}
+
+.light-theme #btn-mobile-menu-close,
+.light-theme #btn-mobile-theme-toggle {
+  background-color: #f1f5f9 !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+}
+
+.light-theme #btn-mobile-book-call {
+  background-color: #0f172a !important;
+  color: #ffffff !important;
+}
+
+/* Form Controls & Modals in Light Mode */
+.light-theme input:not([type="checkbox"]):not([type="radio"]),
+.light-theme textarea,
+.light-theme select {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #94a3b8 !important;
+}
+
+.light-theme input::placeholder,
+.light-theme textarea::placeholder {
+  color: #64748b !important;
+}
+
+/* Light Mode Custom Scrollbar */
+.light-theme ::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+.light-theme ::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+}
+.light-theme ::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Glow Inversion */
+.light-theme .dialed-glow {
+  background: radial-gradient(circle at 50% 0%, rgba(2, 132, 199, 0.08) 0%, rgba(248, 250, 252, 0) 70%) !important;
+}
+
+/* Side Ribbon in Light Mode */
+.light-theme #distinction-ribbon > div {
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1) !important;
+}
+
+.light-theme #distinction-ribbon span {
+  color: #334155 !important;
+}
+
+.light-theme #distinction-ribbon:hover span {
+  color: #0f172a !important;
+}
+

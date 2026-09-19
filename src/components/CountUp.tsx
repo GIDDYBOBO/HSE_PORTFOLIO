@@ -88,9 +88,6 @@ export const CountUp: React.FC<CountUpProps> = ({
           if (entry.isIntersecting) {
             startAnimation();
             hasTriggered = true;
-          } else if (hasTriggered) {
-            // Reset to start so scrolling back into view runs the animation again
-            setDisplayCount(start);
           }
         }
       },

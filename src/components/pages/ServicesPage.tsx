@@ -31,12 +31,22 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
     fullName: '',
     organization: '',
     email: '',
+    inquiryReason: 'hse_consultation',
     serviceType: 'mega_infrastructure',
     timeframe: 'immediate',
     message: ''
   });
   const [submitted, setSubmitted] = useState(false);
   const [inquiryId, setInquiryId] = useState<string>('');
+
+  const INQUIRY_REASONS = [
+    { id: 'hse_consultation', label: 'HSE Consultation' },
+    { id: 'speaking_training', label: 'Speaking Engagement' },
+    { id: 'book_enquiry', label: 'Book & Research Enquiry' },
+    { id: 'iso_audit', label: 'ISO 45001 / 14001 Audit' },
+    { id: 'professional_opportunity', label: 'Professional Opportunity' },
+    { id: 'general_enquiry', label: 'General Enquiry' }
+  ];
 
   const services = [
     {
@@ -120,6 +130,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
       fullName: '',
       organization: '',
       email: '',
+      inquiryReason: 'advisory',
       serviceType: 'mega_infrastructure',
       timeframe: 'immediate',
       message: ''
@@ -129,23 +140,66 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
 
   return (
     <div className="space-y-16 pt-24 sm:pt-28 pb-16">
-      {/* 1. Page Header */}
+      {/* 1. Page Header with Advisory Leadership Visual */}
       <motion.section 
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-        className="space-y-4 max-w-4xl"
+        className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center"
       >
-        <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-white/10 border border-white/10 text-sky-400 text-xs font-mono">
-          <Briefcase className="w-3.5 h-3.5 text-white" />
-          <span>Executive Services • Engineering & Safety Advisory</span>
+        <div className="lg:col-span-7 space-y-4 sm:space-y-5">
+          <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-white/10 border border-white/10 text-sky-400 text-xs font-mono">
+            <Briefcase className="w-3.5 h-3.5 text-white" />
+            <span>Executive Services • Engineering &amp; Safety Advisory</span>
+          </div>
+          <h1 className="text-3xl sm:text-5xl font-display font-extrabold text-white tracking-tight">
+            Safety &amp; Advisory Services Powerhouse
+          </h1>
+          <p className="text-neutral-300 text-base sm:text-lg leading-relaxed">
+            Uniting twenty-two years of high-consequence site command at Julius Berger PLC with peer-reviewed environmental science and international statutory credentials. Bespoke advisory for boards, mega-infrastructure ventures, and institutional authorities.
+          </p>
+
+          <div className="flex flex-wrap items-center gap-2 pt-1 text-[11px] font-mono text-neutral-300">
+            <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10">ISO 45001 &amp; 14001 Auditing</span>
+            <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10">Major Infrastructure Safety</span>
+            <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10">Executive Mentorship</span>
+          </div>
         </div>
-        <h1 className="text-3xl sm:text-5xl font-display font-extrabold text-white tracking-tight">
-          Safety & Advisory Services Powerhouse
-        </h1>
-        <p className="text-neutral-300 text-base sm:text-lg leading-relaxed">
-          Uniting twenty-two years of high-consequence site command at Julius Berger PLC with peer-reviewed environmental science and international statutory credentials. Bespoke advisory for boards, mega-infrastructure ventures, and institutional authorities.
-        </p>
+
+        {/* Advisory & Systems Governance Showcase Card */}
+        <div className="lg:col-span-5 w-full">
+          <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden border border-white/15 bg-neutral-900 shadow-2xl group">
+            <div className="relative h-64 sm:h-80 lg:h-[380px] w-full overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1200&q=80"
+                alt="Executive Civil Engineering Safety Blueprint Analysis and Regulatory Systems Audit"
+                referrerPolicy="no-referrer"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 brightness-[0.80] contrast-[1.08]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#08080d] via-black/40 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-transparent" />
+            </div>
+
+            <div className="absolute inset-0 p-5 sm:p-6 flex flex-col justify-between pointer-events-none">
+              <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-black/70 backdrop-blur-md border border-white/15 text-white text-[11px] font-mono self-start">
+                <span className="w-2 h-2 rounded-full bg-sky-400 animate-pulse" />
+                <span>COREN Reg. Civil Engineer • IRCA Lead Auditor</span>
+              </div>
+
+              <div className="space-y-1 text-left">
+                <span className="text-[10px] sm:text-xs font-mono text-sky-400 uppercase tracking-wider font-semibold">
+                  Systems Architecture &amp; Governance
+                </span>
+                <h3 className="text-base sm:text-lg font-display font-bold text-white drop-shadow">
+                  Statutory &amp; Institutional Oversight
+                </h3>
+                <p className="text-xs text-neutral-300 font-sans line-clamp-2 drop-shadow">
+                  Eliminating catastrophic single-point risk across complex multi-contractor environments.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </motion.section>
 
       {/* 2. Interactive Tabbed Service Powerhouse */}
@@ -323,6 +377,32 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
+                {/* Review Item #9: Audience Segmentation Selector */}
+                <div className="space-y-2 pb-2">
+                  <label className="text-xs font-mono uppercase text-sky-400 font-semibold block tracking-wider">
+                    What are you contacting me about? *
+                  </label>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                    {INQUIRY_REASONS.map((r) => {
+                      const isSelected = formData.inquiryReason === r.id;
+                      return (
+                        <button
+                          type="button"
+                          key={r.id}
+                          onClick={() => setFormData({ ...formData, inquiryReason: r.id })}
+                          className={`p-3 rounded-xl text-xs font-mono text-left border transition-all ${
+                            isSelected
+                              ? 'bg-white text-black font-bold border-white shadow-sm'
+                              : 'bg-white/5 text-neutral-300 border-white/5 hover:border-white/20'
+                          }`}
+                        >
+                          <span className="block truncate">{r.label}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-1.5">
                     <label className="text-xs font-mono uppercase text-neutral-300 block">

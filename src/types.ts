@@ -1,4 +1,4 @@
-export type PageId = 'overview' | 'works' | 'services' | 'publications' | 'leadership' | 'advisory';
+export type PageId = 'overview' | 'about' | 'books' | 'works' | 'services' | 'publications' | 'leadership' | 'advisory';
 
 export interface Credential {
   id: string;
@@ -9,6 +9,68 @@ export interface Credential {
   credentialId?: string;
   description: string;
   highlight?: boolean;
+  verificationStatus?: 'Verified' | 'Chartered' | 'Active Fellow' | 'Lead Auditor';
+  verificationUrl?: string;
+}
+
+export interface BookItem {
+  id: string;
+  title: string;
+  subtitle: string;
+  authors: string[];
+  coverGradient: string;
+  accentColor: string;
+  badge: string;
+  publishedYear: string;
+  publisherOrJournal: string;
+  doiOrRef?: string;
+  pagesOrLength: string;
+  abstract: string;
+  whatYoullLearn: string[];
+  whoIsThisFor: string[];
+  keyTopics: string[];
+  authorsNote: string;
+  accessUrl?: string;
+  citation: string;
+  format: 'Technical Monograph' | 'Peer-Reviewed Paper' | 'Guidance Standard' | 'Congress Paper';
+  imageUrl?: string;
+  imageAlt?: string;
+}
+
+export type InquirySegment = 
+  | 'hse_consultation' 
+  | 'speaking_training' 
+  | 'book_enquiry' 
+  | 'iso_audit' 
+  | 'professional_opportunity' 
+  | 'general_enquiry';
+
+export interface InquiryMessage {
+  id: string;
+  date: string;
+  name: string;
+  organization: string;
+  email: string;
+  phone?: string;
+  segment: InquirySegment;
+  timeframe: string;
+  message: string;
+  status: 'new' | 'reviewed' | 'archived';
+}
+
+export interface SiteProfileData {
+  fullName: string;
+  primaryTitle: string;
+  organization: string;
+  location: string;
+  statement: string;
+  bioOverview: string;
+  email: string;
+  phone: string;
+  yearsExperience: string;
+  totalAudits: string;
+  projectsSupervised: string;
+  availabilityStatus: string;
 }
 
 export interface CareerMilestone {

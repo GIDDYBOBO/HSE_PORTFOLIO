@@ -185,7 +185,7 @@ export const Footer: React.FC<FooterProps> = ({ onSelectPage, onOpenBookingModal
             <h4 className="text-xs font-mono uppercase tracking-widest text-white font-semibold">
               NAVIGATION
             </h4>
-            <ul className="space-y-2.5 text-xs">
+            <ul className="space-y-2 text-xs">
               <li>
                 <button
                   id="footer-nav-overview"
@@ -197,11 +197,29 @@ export const Footer: React.FC<FooterProps> = ({ onSelectPage, onOpenBookingModal
               </li>
               <li>
                 <button
+                  id="footer-nav-about"
+                  onClick={() => handleNav('about')}
+                  className="text-neutral-300 hover:text-white transition-colors text-left"
+                >
+                  About & Background
+                </button>
+              </li>
+              <li>
+                <button
+                  id="footer-nav-books"
+                  onClick={() => handleNav('books')}
+                  className="text-neutral-300 hover:text-white transition-colors text-left"
+                >
+                  Published Books & Papers
+                </button>
+              </li>
+              <li>
+                <button
                   id="footer-nav-works"
                   onClick={() => handleNav('works')}
                   className="text-neutral-300 hover:text-white transition-colors text-left"
                 >
-                  Signature Megaprojects (Works)
+                  Signature Megaprojects
                 </button>
               </li>
               <li>
@@ -219,7 +237,7 @@ export const Footer: React.FC<FooterProps> = ({ onSelectPage, onOpenBookingModal
                   onClick={() => handleNav('publications')}
                   className="text-neutral-300 hover:text-white transition-colors text-left"
                 >
-                  Research Papers & WBGT Tool
+                  Thermal Research & WBGT Tool
                 </button>
               </li>
               <li>
@@ -228,7 +246,7 @@ export const Footer: React.FC<FooterProps> = ({ onSelectPage, onOpenBookingModal
                   onClick={() => handleNav('leadership')}
                   className="text-neutral-300 hover:text-white transition-colors text-left"
                 >
-                  Institutional Leadership & Honors
+                  Leadership & Honors
                 </button>
               </li>
             </ul>
@@ -247,7 +265,7 @@ export const Footer: React.FC<FooterProps> = ({ onSelectPage, onOpenBookingModal
               <button
                 id="footer-btn-book-consultation"
                 onClick={handleConsultationClick}
-                className="w-full py-3 px-5 rounded-full bg-white hover:bg-neutral-200 text-black font-semibold text-xs transition-all flex items-center justify-center space-x-1.5 shadow-md cursor-pointer"
+                className="w-full py-3 px-5 rounded-full bg-white hover:bg-neutral-200 text-black font-semibold text-xs transition-all flex items-center justify-center space-x-1.5 shadow-md cursor-pointer min-h-[44px]"
               >
                 <span>Book a Consultation Call</span>
                 <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
@@ -256,17 +274,20 @@ export const Footer: React.FC<FooterProps> = ({ onSelectPage, onOpenBookingModal
               <button
                 id="footer-btn-written-inquiry"
                 onClick={handleInquiryClick}
-                className="w-full py-3 px-5 rounded-full bg-[#181820] hover:bg-[#20202c] text-white font-medium text-xs border border-white/10 transition-colors text-center cursor-pointer"
+                className="w-full py-3 px-5 rounded-full bg-[#181820] hover:bg-[#20202c] text-white font-medium text-xs border border-white/10 transition-colors text-center cursor-pointer min-h-[44px] flex items-center justify-center"
               >
-                Submit Formal Written Inquiry
+                <span>Submit Formal Written Inquiry</span>
               </button>
             </div>
           </div>
         </div>
 
-        {/* Minimal Bottom Bar */}
+        {/* Minimal Bottom Bar with Developer Credit (Review Item #10) */}
         <div className="pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] font-mono text-neutral-400">
           <p>© {new Date().getFullYear()} Engr. Iyenoma ThankGod Osazee. All rights reserved.</p>
+          <p className="text-neutral-300">
+            Website designed &amp; developed by <span className="text-white font-medium">Gideon Ogunyemi</span>
+          </p>
           <button
             onClick={scrollToTop}
             className="flex items-center space-x-1.5 text-neutral-400 hover:text-white transition-colors cursor-pointer"

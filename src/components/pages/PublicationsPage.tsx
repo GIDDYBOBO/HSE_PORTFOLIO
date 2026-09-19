@@ -49,23 +49,66 @@ export const PublicationsPage: React.FC = () => {
 
   return (
     <div className="space-y-16 pt-24 sm:pt-28 pb-16">
-      {/* Header Section */}
+      {/* Header Section with Research Visual */}
       <motion.section 
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-        className="space-y-4 max-w-4xl"
+        className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center"
       >
-        <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-white/10 border border-white/10 text-sky-400 text-xs font-mono">
-          <BookOpen className="w-3.5 h-3.5 text-white" />
-          <span>Peer-Reviewed Science & Technical Contributions</span>
+        <div className="lg:col-span-7 space-y-4 sm:space-y-5">
+          <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-white/10 border border-white/10 text-sky-400 text-xs font-mono">
+            <BookOpen className="w-3.5 h-3.5 text-white" />
+            <span>Peer-Reviewed Science &amp; Technical Contributions</span>
+          </div>
+          <h1 className="text-3xl sm:text-5xl font-display font-extrabold text-white tracking-tight">
+            Research Papers &amp; Technical Publications
+          </h1>
+          <p className="text-neutral-300 text-base sm:text-lg leading-relaxed">
+            Engr. Iyenoma ThankGod Osazee approaches health, safety, and environmental protection not merely as corporate compliance, but as an empirical discipline. His research spans landfill gas kinetics, leachate mitigation, bioclimatic thermal hazards (WBGT), and safety frameworks for developing-world construction SMEs.
+          </p>
+
+          <div className="flex flex-wrap items-center gap-2 pt-1 text-[11px] font-mono text-neutral-300">
+            <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10">11+ Scholarly Papers</span>
+            <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10">Landfill Kinetic Modeling</span>
+            <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10">World Congress Proceedings</span>
+          </div>
         </div>
-        <h1 className="text-3xl sm:text-5xl font-display font-extrabold text-white tracking-tight">
-          Research Papers & Technical Publications
-        </h1>
-        <p className="text-neutral-300 text-base sm:text-lg leading-relaxed">
-          Engr. Iyenoma ThankGod Osazee approaches health, safety, and environmental protection not merely as corporate compliance, but as an empirical discipline. His research spans landfill gas kinetics, leachate mitigation, bioclimatic thermal hazards (WBGT), and safety frameworks for developing-world construction SMEs.
-        </p>
+
+        {/* Environmental Scientific Laboratory Showcase Card */}
+        <div className="lg:col-span-5 w-full">
+          <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden border border-white/15 bg-neutral-900 shadow-2xl group">
+            <div className="relative h-64 sm:h-80 lg:h-[380px] w-full overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=1200&q=80"
+                alt="Environmental Chemistry and Empirical Laboratory Research Instrumentation"
+                referrerPolicy="no-referrer"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 brightness-[0.80] contrast-[1.08]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#08080d] via-black/40 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-transparent" />
+            </div>
+
+            <div className="absolute inset-0 p-5 sm:p-6 flex flex-col justify-between pointer-events-none">
+              <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-black/70 backdrop-blur-md border border-white/15 text-white text-[11px] font-mono self-start">
+                <span className="w-2 h-2 rounded-full bg-sky-400 animate-pulse" />
+                <span>Empirical Environmental Analytics</span>
+              </div>
+
+              <div className="space-y-1 text-left">
+                <span className="text-[10px] sm:text-xs font-mono text-sky-400 uppercase tracking-wider font-semibold">
+                  M.Sc. Environmental Science Research
+                </span>
+                <h3 className="text-base sm:text-lg font-display font-bold text-white drop-shadow">
+                  Thermodynamic &amp; Biohazard Modeling
+                </h3>
+                <p className="text-xs text-neutral-300 font-sans line-clamp-2 drop-shadow">
+                  Quantitative groundwater contaminant migration simulation and municipal landfill gas emissions analysis.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </motion.section>
 
       {/* Embedded Live Tool: Thermal Stress & WBGT Field Calculator */}

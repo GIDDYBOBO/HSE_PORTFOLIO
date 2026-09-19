@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { PageId } from '../types';
+import { useTheme } from '../context/ThemeContext';
 import { 
   ArrowUpRight, 
   Menu, 
@@ -12,7 +13,12 @@ import {
   PhoneCall,
   Layers,
   Calendar,
-  ChevronRight
+  ChevronRight,
+  BookOpen,
+  User,
+  GraduationCap,
+  Sun,
+  Moon
 } from 'lucide-react';
 
 interface NavbarProps {
@@ -26,6 +32,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onSelectPage,
   onOpenBookingModal
 }) => {
+  const { theme, toggleTheme } = useTheme();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Prevent background scrolling and handle Escape key when mobile menu is open
@@ -57,16 +64,32 @@ export const Navbar: React.FC<NavbarProps> = ({
       icon: <ShieldCheck className="w-5 h-5 text-sky-400" />
     },
     {
-      id: 'works' as PageId,
+      id: 'about' as PageId,
       number: '02',
+      label: 'About & Pedigree',
+      tag: 'Dual Master’s • FISPON',
+      desc: '22+ Years Leadership Dossier & Engineering Background',
+      icon: <GraduationCap className="w-5 h-5 text-sky-400" />
+    },
+    {
+      id: 'works' as PageId,
+      number: '03',
       label: 'Works',
       tag: 'Megaprojects',
       desc: 'Chronological Timeline & River Marine Schemes',
       icon: <Briefcase className="w-5 h-5 text-sky-400" />
     },
     {
+      id: 'books' as PageId,
+      number: '04',
+      label: 'Books & Research',
+      tag: 'Scientific Authorship',
+      desc: 'Thermal Ergonomics Monographs & Landfill Kinetics',
+      icon: <BookOpen className="w-5 h-5 text-sky-400" />
+    },
+    {
       id: 'services' as PageId,
-      number: '03',
+      number: '05',
       label: 'Services',
       tag: 'Advisory Practice',
       desc: 'Statutory Audits, Risk Mitigation & High-Consequence HSE',
@@ -74,15 +97,15 @@ export const Navbar: React.FC<NavbarProps> = ({
     },
     {
       id: 'publications' as PageId,
-      number: '04',
-      label: 'Research & WBGT',
+      number: '06',
+      label: 'WBGT Calculator',
       tag: 'Science & Modeling',
       desc: 'Empirical Wet Bulb Heat Stress Modeling & Case Papers',
       icon: <FileText className="w-5 h-5 text-sky-400" />
     },
     {
       id: 'leadership' as PageId,
-      number: '05',
+      number: '07',
       label: 'Leadership',
       tag: 'Honors & Fellowships',
       desc: 'CMIOSH UK Chartered Status & Global Keynotes',
@@ -139,7 +162,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <button
               id="nav-link-overview"
               onClick={() => handleNavClick('overview')}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all ${
+              className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all cursor-pointer ${
                 currentPage === 'overview'
                   ? 'bg-white/15 text-white font-semibold shadow-inner'
                   : 'text-neutral-300 hover:text-white hover:bg-white/5'
@@ -149,9 +172,21 @@ export const Navbar: React.FC<NavbarProps> = ({
             </button>
 
             <button
+              id="nav-link-about"
+              onClick={() => handleNavClick('about')}
+              className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all cursor-pointer ${
+                currentPage === 'about'
+                  ? 'bg-white/15 text-white font-semibold shadow-inner'
+                  : 'text-neutral-300 hover:text-white hover:bg-white/5'
+              }`}
+            >
+              About
+            </button>
+
+            <button
               id="nav-link-works"
               onClick={() => handleNavClick('works')}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all ${
+              className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all cursor-pointer ${
                 currentPage === 'works'
                   ? 'bg-white/15 text-white font-semibold shadow-inner'
                   : 'text-neutral-300 hover:text-white hover:bg-white/5'
@@ -161,9 +196,21 @@ export const Navbar: React.FC<NavbarProps> = ({
             </button>
 
             <button
+              id="nav-link-books"
+              onClick={() => handleNavClick('books')}
+              className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all cursor-pointer ${
+                currentPage === 'books'
+                  ? 'bg-white/15 text-white font-semibold shadow-inner'
+                  : 'text-neutral-300 hover:text-white hover:bg-white/5'
+              }`}
+            >
+              Books
+            </button>
+
+            <button
               id="nav-link-services"
               onClick={() => handleNavClick('services')}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all ${
+              className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all cursor-pointer ${
                 currentPage === 'services' || currentPage === 'advisory'
                   ? 'bg-white/15 text-white font-semibold shadow-inner'
                   : 'text-neutral-300 hover:text-white hover:bg-white/5'
@@ -175,19 +222,19 @@ export const Navbar: React.FC<NavbarProps> = ({
             <button
               id="nav-link-publications"
               onClick={() => handleNavClick('publications')}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all ${
+              className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all cursor-pointer ${
                 currentPage === 'publications'
                   ? 'bg-white/15 text-white font-semibold shadow-inner'
                   : 'text-neutral-300 hover:text-white hover:bg-white/5'
               }`}
             >
-              Research & WBGT
+              Research &amp; WBGT
             </button>
 
             <button
               id="nav-link-leadership"
               onClick={() => handleNavClick('leadership')}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all ${
+              className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all cursor-pointer ${
                 currentPage === 'leadership'
                   ? 'bg-white/15 text-white font-semibold shadow-inner'
                   : 'text-neutral-300 hover:text-white hover:bg-white/5'
@@ -197,8 +244,30 @@ export const Navbar: React.FC<NavbarProps> = ({
             </button>
           </nav>
 
-          {/* Right Action: Dialedweb Style "Book a call" Pill */}
-          <div className="flex items-center space-x-2">
+          {/* Right Action: Theme Switcher & "Book a call" Pill */}
+          <div className="flex items-center space-x-1.5 sm:space-x-2">
+            {/* Theme Toggle Button */}
+            <button
+              id="theme-switcher-toggle"
+              type="button"
+              role="switch"
+              aria-checked={theme === 'light'}
+              onClick={toggleTheme}
+              className={`p-2 rounded-full border transition-all duration-200 flex items-center justify-center min-w-[36px] min-h-[36px] cursor-pointer focus:outline-none focus:ring-2 focus:ring-sky-400/50 ${
+                theme === 'light'
+                  ? 'bg-slate-100 hover:bg-slate-200 border-slate-300 text-slate-800 shadow-sm'
+                  : 'bg-white/10 hover:bg-white/20 border-white/10 text-amber-300 hover:text-amber-200'
+              }`}
+              title={theme === 'dark' ? 'Switch to High-Contrast Light Mode' : 'Switch to Dark Mode'}
+              aria-label={theme === 'dark' ? 'Switch to High-Contrast Light Mode' : 'Switch to Dark Mode'}
+            >
+              {theme === 'dark' ? (
+                <Sun className="w-4 h-4 stroke-[2.2]" />
+              ) : (
+                <Moon className="w-4 h-4 stroke-[2.2]" />
+              )}
+            </button>
+
             <button
               id="btn-header-book-call"
               onClick={() => {
@@ -208,7 +277,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   handleNavClick('advisory');
                 }
               }}
-              className="flex items-center space-x-1.5 px-4 sm:px-5 py-2 rounded-full bg-white hover:bg-neutral-200 text-black font-semibold text-xs transition-all shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_25px_rgba(255,255,255,0.4)]"
+              className="flex items-center space-x-1.5 px-3 sm:px-5 py-2 rounded-full bg-white hover:bg-neutral-200 text-black font-semibold text-xs transition-all shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_25px_rgba(255,255,255,0.4)] whitespace-nowrap min-h-[36px]"
             >
               <span>Book a call</span>
               <ArrowUpRight className="w-3.5 h-3.5 stroke-[2.5]" />
@@ -218,7 +287,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <button
               id="btn-mobile-menu-toggle"
               onClick={() => setMobileMenuOpen(true)}
-              className="md:hidden p-2 rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors"
+              className="md:hidden p-2 rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors min-w-[36px] min-h-[36px] flex items-center justify-center"
               aria-label="Open navigation menu"
             >
               <Menu className="w-4 h-4" />
@@ -243,7 +312,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <div className="absolute bottom-0 left-0 w-80 h-80 rounded-full bg-indigo-500/10 blur-3xl pointer-events-none" />
 
             {/* Overlay Top Bar */}
-            <div className="relative z-10 flex items-center justify-between px-6 pt-6 pb-4 border-b border-white/10 bg-[#08080c]/50 backdrop-blur-xl shrink-0">
+            <div className="relative z-10 flex items-center justify-between px-5 sm:px-6 pt-5 sm:pt-6 pb-4 border-b border-white/10 bg-[#08080c]/50 backdrop-blur-xl shrink-0">
               <button
                 type="button"
                 onClick={() => handleNavClick('overview')}
@@ -263,22 +332,39 @@ export const Navbar: React.FC<NavbarProps> = ({
                 </div>
               </button>
 
-              <button
-                type="button"
-                id="btn-mobile-menu-close"
-                onClick={() => setMobileMenuOpen(false)}
-                className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 active:scale-95 text-white flex items-center justify-center transition-all border border-white/15"
-                aria-label="Close navigation menu"
-              >
-                <X className="w-5 h-5" />
-              </button>
+              <div className="flex items-center space-x-2">
+                <button
+                  type="button"
+                  id="btn-mobile-theme-toggle"
+                  onClick={toggleTheme}
+                  className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 active:scale-95 text-white flex items-center justify-center transition-all border border-white/15"
+                  aria-label={theme === 'dark' ? 'Switch to High-Contrast Light Mode' : 'Switch to Dark Mode'}
+                  title={theme === 'dark' ? 'Switch to High-Contrast Light Mode' : 'Switch to Dark Mode'}
+                >
+                  {theme === 'dark' ? (
+                    <Sun className="w-5 h-5 text-amber-300" />
+                  ) : (
+                    <Moon className="w-5 h-5 text-slate-800" />
+                  )}
+                </button>
+
+                <button
+                  type="button"
+                  id="btn-mobile-menu-close"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 active:scale-95 text-white flex items-center justify-center transition-all border border-white/15"
+                  aria-label="Close navigation menu"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
             </div>
 
             {/* Navigation Link Index List */}
-            <div className="relative z-10 px-5 sm:px-6 py-6 space-y-2.5 my-auto">
+            <div className="relative z-10 px-4 sm:px-6 py-4 sm:py-6 space-y-2 sm:space-y-2.5 my-auto">
               <div className="flex items-center justify-between text-[11px] font-mono uppercase tracking-widest text-sky-400/80 mb-2 px-1">
                 <span>Executive Navigation</span>
-                <span className="text-neutral-500">5 Sections</span>
+                <span className="text-neutral-500">{mobileNavItems.length} Modules</span>
               </div>
 
               {mobileNavItems.map((item, idx) => {

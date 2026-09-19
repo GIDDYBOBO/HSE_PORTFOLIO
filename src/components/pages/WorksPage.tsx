@@ -57,23 +57,72 @@ export const WorksPage: React.FC<WorksPageProps> = ({
 
   return (
     <div className="space-y-16 pt-24 sm:pt-28 pb-16">
-      {/* 1. Header Section */}
+      {/* 1. Header Section with Landmark Megaprojects Visual */}
       <motion.section 
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-        className="space-y-4 max-w-4xl"
+        className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center"
       >
-        <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-white/10 border border-white/10 text-sky-400 text-xs font-mono">
-          <Building2 className="w-3.5 h-3.5 text-white" />
-          <span>Frontline Portfolio • Mega-Infrastructure Safety</span>
+        <div className="lg:col-span-7 space-y-4 sm:space-y-5">
+          <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-white/10 border border-white/10 text-sky-400 text-xs font-mono">
+            <Building2 className="w-3.5 h-3.5 text-white" />
+            <span>Frontline Portfolio • Mega-Infrastructure Safety</span>
+          </div>
+          <h1 className="text-3xl sm:text-5xl font-display font-extrabold text-white tracking-tight">
+            Signature Works &amp; Landmark Megaprojects
+          </h1>
+          <p className="text-neutral-300 text-base sm:text-lg leading-relaxed">
+            Over two decades directing executive HSE frameworks for high-consequence civil engineering schemes across West Africa. From multi-billion naira trans-Niger marine corridors to high-density capital expressways and sovereign institutional towers.
+          </p>
+
+          <div className="flex flex-wrap items-center gap-3 pt-1 text-[11px] font-mono text-neutral-400">
+            <div className="px-3 py-1 rounded-full bg-white/5 border border-white/10">
+              <span className="text-sky-300 font-semibold">6</span> Signature Megaprojects
+            </div>
+            <div className="px-3 py-1 rounded-full bg-white/5 border border-white/10">
+              <span className="text-emerald-400 font-semibold">18M+</span> Man-Hours Governed
+            </div>
+            <div className="px-3 py-1 rounded-full bg-white/5 border border-white/10">
+              <span className="text-amber-300 font-semibold">0</span> Overwater LTI Record
+            </div>
+          </div>
         </div>
-        <h1 className="text-3xl sm:text-5xl font-display font-extrabold text-white tracking-tight">
-          Signature Works & Landmark Megaprojects
-        </h1>
-        <p className="text-neutral-300 text-base sm:text-lg leading-relaxed">
-          Over two decades directing executive HSE frameworks for high-consequence civil engineering schemes across West Africa. From multi-billion naira trans-Niger marine corridors to high-density capital expressways and sovereign institutional towers.
-        </p>
+
+        {/* Megaproject Civil Infrastructure Showcase Card */}
+        <div className="lg:col-span-5 w-full">
+          <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden border border-white/15 bg-neutral-900 shadow-2xl group">
+            <div className="relative h-64 sm:h-80 lg:h-[380px] w-full overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80"
+                alt="Second River Niger Bridge Heavy Civil Infrastructure and Marine Foundation Works"
+                referrerPolicy="no-referrer"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 brightness-[0.80] contrast-[1.08]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#08080d] via-black/40 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-transparent" />
+            </div>
+
+            <div className="absolute inset-0 p-5 sm:p-6 flex flex-col justify-between pointer-events-none">
+              <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-black/70 backdrop-blur-md border border-white/15 text-white text-[11px] font-mono self-start">
+                <span className="w-2 h-2 rounded-full bg-sky-400 animate-pulse" />
+                <span>Second River Niger Bridge Corridor</span>
+              </div>
+
+              <div className="space-y-1 text-left">
+                <span className="text-[10px] sm:text-xs font-mono text-sky-400 uppercase tracking-wider font-semibold">
+                  Trans-Niger Marine Foundation
+                </span>
+                <h3 className="text-base sm:text-lg font-display font-bold text-white drop-shadow">
+                  High-Risk Waterborne Civil Safety Regimes
+                </h3>
+                <p className="text-xs text-neutral-300 font-sans line-clamp-2 drop-shadow">
+                  Sub-surface drilling, marine vessel traffic management, and zero fatal drowning incidents.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </motion.section>
 
       {/* 2. Filter & Timeline Controls */}
@@ -183,8 +232,29 @@ export const WorksPage: React.FC<WorksPageProps> = ({
                 {/* Timeline Card */}
                 <article 
                   onClick={() => setActiveCaseStudy(project)}
-                  className="p-6 sm:p-8 rounded-3xl bg-[#08080d] border border-white/10 hover:border-white/25 transition-all duration-300 shadow-xl hover:shadow-[0_12px_36px_rgba(0,0,0,0.8)] cursor-pointer space-y-6"
+                  className="p-6 sm:p-8 rounded-3xl bg-[#08080d] border border-white/10 hover:border-white/25 transition-all duration-300 shadow-xl hover:shadow-[0_12px_36px_rgba(0,0,0,0.8)] cursor-pointer space-y-6 overflow-hidden"
                 >
+                  {/* Project Image Header */}
+                  {project.imageUrl && (
+                    <div className="relative h-44 sm:h-60 -mx-6 sm:-mx-8 -mt-6 sm:-mt-8 overflow-hidden group/img">
+                      <img
+                        src={project.imageUrl}
+                        alt={project.title}
+                        referrerPolicy="no-referrer"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 brightness-[0.80] contrast-[1.05]"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#08080d] via-black/30 to-transparent" />
+                      <div className="absolute top-4 left-4 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/75 backdrop-blur-md border border-white/20 text-white text-[11px] font-mono">
+                        <span className="w-1.5 h-1.5 rounded-full bg-sky-400" />
+                        <span>{project.category}</span>
+                      </div>
+                      <div className="absolute bottom-3 right-4 inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-black/75 backdrop-blur-md border border-white/10 text-neutral-300 text-[10px] font-mono">
+                        <MapPin className="w-3 h-3 text-sky-400" />
+                        <span>{project.location}</span>
+                      </div>
+                    </div>
+                  )}
+
                   {/* Timeline Header Strip */}
                   <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/5 pb-4">
                     <div className="flex flex-wrap items-center gap-2">
@@ -294,6 +364,23 @@ export const WorksPage: React.FC<WorksPageProps> = ({
                 }}
                 className="group p-6 sm:p-8 rounded-3xl bg-[#08080d] border border-white/10 hover:border-white/20 transition-all flex flex-col justify-between space-y-6 relative overflow-hidden"
               >
+                {/* Grid Card Project Image */}
+                {project.imageUrl && (
+                  <div className="relative h-44 -mx-6 sm:-mx-8 -mt-6 sm:-mt-8 overflow-hidden">
+                    <img
+                      src={project.imageUrl}
+                      alt={project.title}
+                      referrerPolicy="no-referrer"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 brightness-[0.80] contrast-[1.05]"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#08080d] via-black/30 to-transparent" />
+                    <div className="absolute top-3 left-3 inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-black/75 backdrop-blur-md border border-white/20 text-white text-[10px] font-mono">
+                      <span className="w-1.5 h-1.5 rounded-full bg-sky-400" />
+                      <span>{project.category}</span>
+                    </div>
+                  </div>
+                )}
+
                 <div className="space-y-4">
                   {/* Meta Header */}
                   <div className="flex flex-wrap items-center justify-between gap-2">

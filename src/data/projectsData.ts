@@ -15,6 +15,7 @@ export interface Megaproject {
   hseSolution: string;
   metrics: { label: string; value: string }[];
   tags: string[];
+  imageUrl?: string;
 }
 
 export const SIGNATURE_WORKS: Megaproject[] = [
@@ -39,7 +40,8 @@ export const SIGNATURE_WORKS: Megaproject[] = [
       { label: 'Statutory Body', value: 'ISPON Act 2014' },
       { label: 'Outcome', value: 'Unified National Council' }
     ],
-    tags: ['National Assembly', 'Statutory Regulation', 'ISPON Act 2014', 'Governance Reform']
+    tags: ['National Assembly', 'Statutory Regulation', 'ISPON Act 2014', 'Governance Reform'],
+    imageUrl: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80'
   },
   {
     id: 'engineered-landfill-bioreactor',
@@ -62,7 +64,8 @@ export const SIGNATURE_WORKS: Megaproject[] = [
       { label: 'Methane Capture', value: '92% Fugitive Control' },
       { label: 'Peer Review', value: 'EJGEO Publication' }
     ],
-    tags: ['Environmental Hygiene', 'Methane Extraction', 'Leachate Attenuation', 'Published Research']
+    tags: ['Environmental Hygiene', 'Methane Extraction', 'Leachate Attenuation', 'Published Research'],
+    imageUrl: 'https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&w=1200&q=80'
   },
   {
     id: 'second-river-niger-bridge',
@@ -85,7 +88,8 @@ export const SIGNATURE_WORKS: Megaproject[] = [
       { label: 'Approach Roads', value: '10.3 km Corridors' },
       { label: 'Marine LTIFR', value: '0.00' }
     ],
-    tags: ['Marine Engineering', 'Deep Foundations', 'High-Altitude Slipform', 'Zero Incident']
+    tags: ['Marine Engineering', 'Deep Foundations', 'High-Altitude Slipform', 'Zero Incident'],
+    imageUrl: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80'
   },
   {
     id: 'bodo-bonny-pioneer-corridor',
@@ -108,7 +112,8 @@ export const SIGNATURE_WORKS: Megaproject[] = [
       { label: 'Major Bridges', value: '3 Major Creek Bridges' },
       { label: 'Vector Incidents', value: 'Zero Serious' }
     ],
-    tags: ['Mangrove Swampland', 'Marine Piling', 'Extreme Humidity', 'NLNG Corridor']
+    tags: ['Mangrove Swampland', 'Marine Piling', 'Extreme Humidity', 'NLNG Corridor'],
+    imageUrl: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=80'
   },
   {
     id: 'abuja-expressway-corridors',
@@ -131,7 +136,8 @@ export const SIGNATURE_WORKS: Megaproject[] = [
       { label: 'Peak Workforce', value: '1,850 Personnel' },
       { label: 'LTIFR', value: '0.00' }
     ],
-    tags: ['Civil Megaproject', 'High-Density Traffic', 'Thermal Stress (WBGT)', 'Julius Berger PLC']
+    tags: ['Civil Megaproject', 'High-Density Traffic', 'Thermal Stress (WBGT)', 'Julius Berger PLC'],
+    imageUrl: 'https://images.unsplash.com/photo-1541888946425-d0fbb186c5f8?auto=format&fit=crop&w=1200&q=80'
   },
   {
     id: 'cbn-headquarters-highrise',
@@ -154,6 +160,7 @@ export const SIGNATURE_WORKS: Megaproject[] = [
       { label: 'Safety Award', value: 'AFRISAFE 2000' },
       { label: 'Fall Incidents', value: 'Zero' }
     ],
-    tags: ['High-Rise Engineering', 'Deep Basements', 'Tower Crane Rigging', 'AFRISAFE Award']
+    tags: ['High-Rise Engineering', 'Deep Basements', 'Tower Crane Rigging', 'AFRISAFE Award'],
+    imageUrl: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1200&q=80'
   }
 ];

@@ -19,23 +19,66 @@ export const LeadershipPage: React.FC = () => {
 
   return (
     <div className="space-y-16 pt-24 sm:pt-28 pb-16">
-      {/* Header Section */}
+      {/* Header Section with Executive Governance Visual */}
       <motion.section 
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-        className="space-y-4 max-w-4xl"
+        className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center"
       >
-        <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-white/10 border border-white/10 text-sky-400 text-xs font-mono">
-          <Award className="w-3.5 h-3.5 text-white" />
-          <span>Statutory Governance & International Presence</span>
+        <div className="lg:col-span-7 space-y-4 sm:space-y-5">
+          <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-white/10 border border-white/10 text-sky-400 text-xs font-mono">
+            <Award className="w-3.5 h-3.5 text-white" />
+            <span>Statutory Governance &amp; International Presence</span>
+          </div>
+          <h1 className="text-3xl sm:text-5xl font-display font-extrabold text-white tracking-tight">
+            Institutional Leadership, Governance &amp; Speaking
+          </h1>
+          <p className="text-neutral-300 text-base sm:text-lg leading-relaxed">
+            Beyond his corporate executive duties at Julius Berger Nigeria PLC, Engr. Osazee plays a central role in shaping national safety legislation, superintending international professional elections, mentoring chartered safety aspirants, and addressing global symposiums.
+          </p>
+
+          <div className="flex flex-wrap items-center gap-2 pt-1 text-[11px] font-mono text-neutral-300">
+            <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10">National Assembly Assignment</span>
+            <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10">IOSH UK Electoral Scrutineer</span>
+            <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10">ISPON Fellow #004</span>
+          </div>
         </div>
-        <h1 className="text-3xl sm:text-5xl font-display font-extrabold text-white tracking-tight">
-          Institutional Leadership, Governance & Speaking
-        </h1>
-        <p className="text-neutral-300 text-base sm:text-lg leading-relaxed">
-          Beyond his corporate executive duties at Julius Berger Nigeria PLC, Engr. Osazee plays a central role in shaping national safety legislation, superintending international professional elections, mentoring chartered safety aspirants, and addressing global symposiums.
-        </p>
+
+        {/* Executive Governance & International Summit Showcase Card */}
+        <div className="lg:col-span-5 w-full">
+          <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden border border-white/15 bg-neutral-900 shadow-2xl group">
+            <div className="relative h-64 sm:h-80 lg:h-[380px] w-full overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1200&q=80"
+                alt="Executive Institutional Assembly, Statutory Hearing, and International Keynote Symposium"
+                referrerPolicy="no-referrer"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 brightness-[0.80] contrast-[1.08]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#08080d] via-black/40 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-transparent" />
+            </div>
+
+            <div className="absolute inset-0 p-5 sm:p-6 flex flex-col justify-between pointer-events-none">
+              <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-black/70 backdrop-blur-md border border-white/15 text-white text-[11px] font-mono self-start">
+                <span className="w-2 h-2 rounded-full bg-sky-400 animate-pulse" />
+                <span>Statutory Parliamentary Mandate</span>
+              </div>
+
+              <div className="space-y-1 text-left">
+                <span className="text-[10px] sm:text-xs font-mono text-sky-400 uppercase tracking-wider font-semibold">
+                  National Assembly Resolution
+                </span>
+                <h3 className="text-base sm:text-lg font-display font-bold text-white drop-shadow">
+                  High-Level Statutory &amp; Institutional Authority
+                </h3>
+                <p className="text-xs text-neutral-300 font-sans line-clamp-2 drop-shadow">
+                  National Assembly resolution of the 10-year ISPON leadership dispute and international CMIOSH peer mentorship.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </motion.section>
 
       {/* Feature Spotlight: National Assembly & ISPON Legislative Reform */}

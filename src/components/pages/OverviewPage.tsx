@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { PageId } from '../../types';
+import { FadeUpSection } from '../common/FadeUpSection';
 import { 
   CREDENTIALS, 
   ACADEMIC_QUALIFICATIONS, 
-  CAREER_HISTORY,
-  PROFILE_SUMMARY 
+  CAREER_HISTORY, 
+  PROFILE_SUMMARY
 } from '../../data/profileData';
 import { SIGNATURE_WORKS, Megaproject } from '../../data/projectsData';
+import { BOOKS_AND_PUBLICATIONS } from '../../data/booksData';
 import { ThermalCalculator } from '../tools/ThermalCalculator';
 import { CaseStudyModal } from '../modals/CaseStudyModal';
 import { CountUp } from '../CountUp';
@@ -33,17 +35,28 @@ import {
   Activity,
   Calendar,
   AlertTriangle,
-  ArrowDownUp
+  ArrowDownUp,
+  BookOpen,
+  Library,
+  Compass,
+  Check,
+  Search,
+  BadgeCheck,
+  UserCheck
 } from 'lucide-react';
 
 interface OverviewPageProps {
   onSelectPage: (page: PageId) => void;
   onOpenBookingModal: () => void;
+  onOpenCredentialsModal?: () => void;
+  onSelectBook?: (bookId: string) => void;
 }
 
 export const OverviewPage: React.FC<OverviewPageProps> = ({ 
   onSelectPage,
-  onOpenBookingModal
+  onOpenBookingModal,
+  onOpenCredentialsModal,
+  onSelectBook
 }) => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [timelineOrder, setTimelineOrder] = useState<'desc' | 'asc'>('desc');
@@ -170,93 +183,100 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
   ];
 
   return (
-    <div className="space-y-24 sm:space-y-32 pt-24 pb-20">
+    <div className="space-y-16 sm:space-y-24 md:space-y-32 pt-20 sm:pt-24 pb-16 sm:pb-20">
       
-      {/* 1. HERO SECTION (Dialedweb Style: Sleek Glow, Big Typography, Status Pill, Dual CTAs, Interactive Stage) */}
-      <motion.section 
-        initial={{ opacity: 0, y: 24 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-        className="relative pt-6 sm:pt-12"
+      {/* 1. HERO SECTION (Refined for < 768px with Strong Readable Hierarchy & Fade-Up CSS Transition) */}
+      <FadeUpSection 
+        as="section"
+        className="relative pt-2 sm:pt-6 md:pt-10"
       >
         {/* Subtle Ambient Radial Glow */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-5xl h-[500px] dialed-glow pointer-events-none -z-10" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-5xl h-[420px] sm:h-[520px] dialed-glow pointer-events-none -z-10" />
 
-        <div className="space-y-8 max-w-4xl mx-auto text-center">
-          {/* Live Status Pill (Dialedweb Signature) */}
-          <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-neutral-900/80 backdrop-blur-md border border-white/10 text-neutral-200 text-xs font-mono shadow-lg">
-            <span className="w-2 h-2 rounded-full bg-sky-400 animate-ping" />
-            <span className="w-2 h-2 rounded-full bg-sky-400 -ml-4" />
-            <span className="tracking-wide">Available for Strategic Advisory & Global Keynotes</span>
-            <span className="text-neutral-500">•</span>
-            <span className="text-sky-400 font-semibold">Julius Berger PLC</span>
+        <div className="space-y-4 sm:space-y-6 md:space-y-8 max-w-4xl mx-auto text-center px-3 sm:px-4">
+          {/* Institutional Affiliation & Distinction Pill - Single line, non-wrapping */}
+          <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-neutral-900/90 backdrop-blur-md border border-white/10 text-neutral-200 text-[11px] sm:text-xs font-mono shadow-md">
+            <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse shrink-0" />
+            <span className="font-semibold text-white tracking-wide">Julius Berger PLC</span>
+            <span className="text-neutral-600">•</span>
+            <span className="text-sky-300 font-medium">CMIOSH #100175</span>
+            <span className="text-neutral-600 hidden sm:inline">•</span>
+            <span className="text-neutral-400 hidden sm:inline">Fellow ISPON</span>
           </div>
 
-          {/* Main Hero Headline (Dialedweb Typography: Large, Bold, Tight Tracking) */}
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-display font-extrabold text-white tracking-tight leading-[1.08]">
-            Engineered Safety That Protects <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-neutral-200 to-neutral-500">Megaprojects & Human Lives</span>.
-          </h1>
+          {/* Name & Professional Headline Hierarchy (Specially tuned for < 768px) */}
+          <div className="space-y-2 sm:space-y-3">
+            {/* Executive Name with Clear Authority */}
+            <div className="inline-block">
+              <h2 className="text-xs sm:text-sm md:text-base font-mono uppercase tracking-wider text-sky-400 font-bold">
+                Engr. Iyenoma ThankGod Osazee
+              </h2>
+              <p className="text-[11px] sm:text-xs text-neutral-400 font-mono tracking-tight mt-0.5">
+                Chartered Safety Professional • Civil Engineer • Author
+              </p>
+            </div>
 
-          {/* Hero Subtitle & Strategic Narrative */}
-          <p className="text-sm sm:text-base lg:text-lg text-neutral-300 max-w-3xl mx-auto leading-relaxed font-normal">
-            Safety isn&apos;t just a hard hat or a compliance checklist—it is the invisible engineering that allows humanity to dare the impossible. When thousands of tonnes of steel hang mid-air and live traffic roars beneath, true safety transforms raw peril into flawless execution. Drawing on over two decades of high-consequence HSEQ leadership across premier civil engineering corridors, partnering with corporate boards, government authorities, and industrial contractors across Africa and international jurisdictions to fortify safety governance, mitigate critical business risks, and embed resilient management systems that generate enduring value.
+            {/* Professional Headline - responsive font size avoiding awkward wrap and vertical bloat */}
+            <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-display font-extrabold text-white tracking-tight leading-[1.2] sm:leading-[1.12] max-w-3xl mx-auto">
+              Advancing safer workplaces through <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-neutral-100 to-sky-300">professional HSE practice</span>, engineering expertise, and knowledge sharing.
+            </h1>
+          </div>
+
+          {/* Strategic Narrative / Grounded Authority */}
+          <p className="text-xs sm:text-sm md:text-base lg:text-lg text-neutral-300 max-w-2xl mx-auto leading-relaxed font-normal px-2">
+            Directing enterprise safety architecture across Nigeria&apos;s landmark civil engineering megaprojects at Julius Berger PLC. Bridging high-consequence site realities with international scholarly research, bioclimatic heat stress modeling, and chartered standards.
           </p>
 
-          {/* Hero Action Buttons (Dialedweb Style: White Pill with Arrow + Glass Frosted Capsule) */}
-          <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+          {/* Clear Authoritative Actions - Stack cleanly on mobile without awkward gaps */}
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-2.5 sm:gap-3.5 pt-0.5 w-full max-w-xs sm:max-w-none mx-auto">
             <a
               href="#signature-works-section"
-              className="flex items-center space-x-2 px-7 py-3.5 rounded-full bg-white hover:bg-neutral-200 text-black font-bold text-sm tracking-tight transition-all shadow-[0_0_25px_rgba(255,255,255,0.25)] hover:scale-[1.02]"
+              className="flex items-center justify-center space-x-2 px-6 py-2.5 sm:py-3.5 rounded-full bg-white hover:bg-neutral-200 text-black font-bold text-xs sm:text-sm tracking-tight transition-all shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:scale-[1.02]"
             >
-              <span>Explore Signature Works</span>
+              <span>Explore My Work</span>
               <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
             </a>
 
             <button
-              onClick={() => {
-                const el = document.getElementById('interactive-wbgt-section');
-                if (el) el.scrollIntoView({ behavior: 'smooth' });
-              }}
-              className="flex items-center space-x-2 px-6 py-3.5 rounded-full bg-white/10 hover:bg-white/15 text-white font-semibold text-sm border border-white/15 transition-all backdrop-blur-md"
+              type="button"
+              onClick={() => onSelectPage('books')}
+              className="flex items-center justify-center space-x-2 px-5 py-2.5 sm:py-3.5 rounded-full bg-white/10 hover:bg-white/15 text-white font-semibold text-xs sm:text-sm border border-white/15 transition-all backdrop-blur-md cursor-pointer"
             >
-              <Activity className="w-4 h-4 text-sky-400" />
-              <span>Test WBGT Field Calculator</span>
+              <BookOpen className="w-4 h-4 text-sky-400" />
+              <span>View Books &amp; Research</span>
             </button>
 
             <button
+              type="button"
               onClick={onOpenBookingModal}
-              className="flex items-center space-x-2 px-6 py-3.5 rounded-full bg-transparent hover:bg-white/5 text-neutral-300 hover:text-white font-medium text-sm transition-all"
+              className="flex items-center justify-center space-x-2 px-5 py-2.5 sm:py-3.5 rounded-full bg-neutral-900/90 hover:bg-neutral-800 text-neutral-200 hover:text-white font-medium text-xs sm:text-sm border border-white/10 transition-all cursor-pointer"
             >
+              <Calendar className="w-4 h-4 text-sky-400" />
               <span>Book Consultation</span>
             </button>
           </div>
 
-          {/* Institutional Trust Badges Strip */}
-          <div className="pt-6 flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs font-mono text-neutral-400">
-            <span className="flex items-center gap-1.5 text-neutral-300">
-              <CheckCircle2 className="w-3.5 h-3.5 text-white" />
-              CMIOSH Credential #100175
-            </span>
-            <span className="text-neutral-700">•</span>
-            <span className="flex items-center gap-1.5 text-neutral-300">
-              <CheckCircle2 className="w-3.5 h-3.5 text-white" />
-              ISO 45001 Lead Auditor #423290
-            </span>
-            <span className="text-neutral-700">•</span>
-            <span className="flex items-center gap-1.5 text-neutral-300">
-              <CheckCircle2 className="w-3.5 h-3.5 text-white" />
-              Fellow of the Institute (ISPON)
-            </span>
+          {/* Institutional Standing / Verification Ribbon - compact and tidy on mobile */}
+          <div className="pt-1 flex flex-wrap items-center justify-center gap-1.5 sm:gap-3 text-[10px] sm:text-xs font-mono text-neutral-400">
+            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/[0.03] border border-white/5">
+              <ShieldCheck className="w-3.5 h-3.5 text-sky-400 shrink-0" />
+              <span className="text-neutral-200">CMIOSH UK (#100175)</span>
+            </div>
+            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/[0.03] border border-white/5">
+              <Award className="w-3.5 h-3.5 text-sky-400 shrink-0" />
+              <span className="text-neutral-200">ISO 45001 Lead Auditor</span>
+            </div>
+            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/[0.03] border border-white/5">
+              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+              <span className="text-neutral-200">Fellow ISPON (#004)</span>
+            </div>
           </div>
         </div>
-      </motion.section>
+      </FadeUpSection>
 
       {/* 2. KEY PERFORMANCE INDICATORS ("Numbers That Just Make Sense" - Dialedweb Pattern) */}
-      <motion.section 
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-60px" }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      <FadeUpSection 
+        as="section"
         id="kpi-metrics-section" 
         className="space-y-8 scroll-mt-24"
       >
@@ -414,14 +434,329 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
             Registered Professional Engineer (MNSE)
           </span>
         </div>
-      </motion.section>
+      </FadeUpSection>
+
+      {/* 2B. EXECUTIVE PROFILE SCANNING GRID (Review Item #4: Visual Chunks) */}
+      <FadeUpSection
+        as="section"
+        className="space-y-8"
+      >
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/10 pb-6">
+          <div className="space-y-2">
+            <span className="text-xs font-mono uppercase tracking-widest text-sky-400 font-semibold">
+              Executive Profile
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-display font-extrabold text-white tracking-tight">
+              A Record of Leadership &amp; Rigor
+            </h2>
+            <p className="text-xs sm:text-sm text-neutral-400 font-mono max-w-xl">
+              Rapid visual overview of professional experience, chartered accreditations, dual master’s degrees, and technical publications.
+            </p>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => onSelectPage('about')}
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/10 hover:bg-white/15 text-white text-xs font-mono font-medium transition-all shrink-0 self-start sm:self-end border border-white/10 cursor-pointer"
+          >
+            <span>Read Full Biography</span>
+            <ChevronRight className="w-3.5 h-3.5" />
+          </button>
+        </div>
+
+        {/* 6 Visual Chunks Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {/* Chunk 1: Professional Experience */}
+          <div className="p-6 rounded-3xl bg-[#08080d] border border-white/10 hover:border-white/20 transition-all space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-white/5">
+              <span className="text-xs font-mono uppercase text-sky-400 font-semibold">01 • Experience</span>
+              <Building2 className="w-4 h-4 text-neutral-400" />
+            </div>
+            <h3 className="text-lg font-display font-bold text-white">22+ Years Heavy Civil HSE</h3>
+            <p className="text-xs text-neutral-300 leading-relaxed">
+              Leading corporate safety architecture at Julius Berger Nigeria PLC across high-consequence river bridges, metropolitan expressways, deep piling, and industrial facilities.
+            </p>
+            <div className="text-[11px] font-mono text-neutral-400 pt-2 border-t border-white/5">
+              Zero-fatal incident protocols across 50M+ exposure hours.
+            </div>
+          </div>
+
+          {/* Chunk 2: Dual Master's Degrees */}
+          <div className="p-6 rounded-3xl bg-[#08080d] border border-white/10 hover:border-white/20 transition-all space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-white/5">
+              <span className="text-xs font-mono uppercase text-sky-400 font-semibold">02 • Education</span>
+              <GraduationCap className="w-4 h-4 text-neutral-400" />
+            </div>
+            <h3 className="text-lg font-display font-bold text-white">Dual British Postgraduates</h3>
+            <p className="text-xs text-neutral-300 leading-relaxed">
+              MSc Civil Engineering &amp; Construction Management (Heriot-Watt University, Edinburgh) and MSc Occupational &amp; Environmental Health Safety (University of Portsmouth, UK).
+            </p>
+            <div className="text-[11px] font-mono text-neutral-400 pt-2 border-t border-white/5">
+              Bridge structural science united with industrial hygiene.
+            </div>
+          </div>
+
+          {/* Chunk 3: Chartered Certifications */}
+          <div className="p-6 rounded-3xl bg-[#08080d] border border-white/10 hover:border-white/20 transition-all space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-white/5">
+              <span className="text-xs font-mono uppercase text-sky-400 font-semibold">03 • Certifications</span>
+              <ShieldCheck className="w-4 h-4 text-neutral-400" />
+            </div>
+            <h3 className="text-lg font-display font-bold text-white">CMIOSH &amp; Lead Auditor</h3>
+            <p className="text-xs text-neutral-300 leading-relaxed">
+              Chartered Safety and Health Professional (CMIOSH UK #100175), certified ISO 45001 / ISO 14001 Lead Auditor (#423290), and COREN Registered Engineer.
+            </p>
+            <div className="text-[11px] font-mono text-neutral-400 pt-2 border-t border-white/5">
+              Qualified peer assessor for chartered membership.
+            </div>
+          </div>
+
+          {/* Chunk 4: Professional Memberships */}
+          <div className="p-6 rounded-3xl bg-[#08080d] border border-white/10 hover:border-white/20 transition-all space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-white/5">
+              <span className="text-xs font-mono uppercase text-sky-400 font-semibold">04 • Memberships</span>
+              <Award className="w-4 h-4 text-neutral-400" />
+            </div>
+            <h3 className="text-lg font-display font-bold text-white">Institutional Fellowships</h3>
+            <p className="text-xs text-neutral-300 leading-relaxed">
+              Fellow of the Institute of Safety Professionals of Nigeria (FISPON #004), Member of the Nigerian Society of Engineers (MNSE #21200), and IOSH UK.
+            </p>
+            <div className="text-[11px] font-mono text-neutral-400 pt-2 border-t border-white/5">
+              Active legislative mediator for parliamentary standards.
+            </div>
+          </div>
+
+          {/* Chunk 5: Publications & Thought Leadership */}
+          <div className="p-6 rounded-3xl bg-[#08080d] border border-white/10 hover:border-white/20 transition-all space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-white/5">
+              <span className="text-xs font-mono uppercase text-sky-400 font-semibold">05 • Publications</span>
+              <BookOpen className="w-4 h-4 text-neutral-400" />
+            </div>
+            <h3 className="text-lg font-display font-bold text-white">Books &amp; Scientific Research</h3>
+            <p className="text-xs text-neutral-300 leading-relaxed">
+              Author of published monographs on thermal ergonomics (WBGT modeling), municipal landfill kinetics, and 23rd World Congress Sydney speaker.
+            </p>
+            <div className="text-[11px] font-mono text-neutral-400 pt-2 border-t border-white/5">
+              ResearchGate Monograph Series &amp; European Journal papers.
+            </div>
+          </div>
+
+          {/* Chunk 6: Areas of Expertise */}
+          <div className="p-6 rounded-3xl bg-[#08080d] border border-white/10 hover:border-white/20 transition-all space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-white/5">
+              <span className="text-xs font-mono uppercase text-sky-400 font-semibold">06 • Core Practice</span>
+              <Layers className="w-4 h-4 text-neutral-400" />
+            </div>
+            <h3 className="text-lg font-display font-bold text-white">Specialized Consulting</h3>
+            <p className="text-xs text-neutral-300 leading-relaxed">
+              Executive board safety directorship, ISO management system diagnostics, construction SME capacity coaching, and statutory regulatory defense.
+            </p>
+            <div className="text-[11px] font-mono text-neutral-400 pt-2 border-t border-white/5">
+              Bespoke advisory formulations for enterprise clients.
+            </div>
+          </div>
+        </div>
+      </FadeUpSection>
+
+      {/* 2C. FEATURED CERTIFICATIONS EVIDENCE SYSTEM (Review Item #6) */}
+      <FadeUpSection
+        as="section"
+        className="space-y-8"
+      >
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/10 pb-6">
+          <div className="space-y-2">
+            <span className="text-xs font-mono uppercase tracking-widest text-sky-400 font-semibold">
+              Evidence System
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-display font-extrabold text-white tracking-tight">
+              Featured Professional Certifications
+            </h2>
+            <p className="text-xs sm:text-sm text-neutral-400 font-mono max-w-2xl">
+              An evidence-backed registry of statutory licenses, international peer-reviewed charters, and diagnostic auditor accreditations.
+            </p>
+          </div>
+
+          {onOpenCredentialsModal && (
+            <button
+              type="button"
+              onClick={onOpenCredentialsModal}
+              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-white hover:bg-neutral-200 text-black text-xs font-semibold font-mono transition-all shrink-0 self-start sm:self-end shadow-md cursor-pointer"
+            >
+              <span>View All 12+ Certifications</span>
+              <ArrowUpRight className="w-3.5 h-3.5 stroke-[2.5]" />
+            </button>
+          )}
+        </div>
+
+        {/* 4 Featured Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {[
+            {
+              code: "CMIOSH #100175",
+              title: "Chartered Safety and Health Professional",
+              issuer: "Institution of Occupational Safety and Health (IOSH UK)",
+              year: "Chartered 2021",
+              detail: "Highest tier of global safety practice. Qualified IOSH Peer Review Interview Panelist."
+            },
+            {
+              code: "IRCA #423290",
+              title: "ISO 45001:2018 Lead Auditor",
+              issuer: "CQI / International Register of Certificated Auditors",
+              year: "Certified 2021",
+              detail: "Comprehensive OHSMS certification auditing and high-consequence enterprise gap analysis."
+            },
+            {
+              code: "FISPON #004",
+              title: "Fellow of the Institute (FISPON)",
+              issuer: "Institute of Safety Professionals of Nigeria",
+              year: "Conferred 2022",
+              detail: "Highest statutory professional grade established under Federal Act No. 2 of 2014."
+            },
+            {
+              code: "BOHS Sydney",
+              title: "Overseas Conference Bursary Award",
+              issuer: "British Occupational Hygiene Society (BOHS)",
+              year: "Awarded 2023",
+              detail: "Selected for pioneering empirical research presented at the 23rd World Congress in Sydney."
+            }
+          ].map((cred, idx) => (
+            <div
+              key={idx}
+              className="p-6 rounded-3xl bg-[#08080d] border border-white/10 hover:border-white/20 transition-all flex flex-col justify-between space-y-4"
+            >
+              <div className="space-y-2.5">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-mono font-semibold px-2.5 py-0.5 rounded-full bg-sky-400/10 text-sky-300 border border-sky-400/20">
+                    {cred.code}
+                  </span>
+                  <span className="text-[11px] font-mono text-neutral-400">{cred.year}</span>
+                </div>
+                <h3 className="text-base font-display font-bold text-white leading-snug">
+                  {cred.title}
+                </h3>
+                <p className="text-xs font-mono text-neutral-400">
+                  {cred.issuer}
+                </p>
+                <p className="text-xs text-neutral-300 leading-relaxed pt-1">
+                  {cred.detail}
+                </p>
+              </div>
+
+              <div className="text-[10px] font-mono text-emerald-400 flex items-center gap-1.5 pt-3 border-t border-white/5">
+                <ShieldCheck className="w-3.5 h-3.5" />
+                <span>Verified Regulatory Standing</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </FadeUpSection>
+
+      {/* 2D. FEATURED BOOKS & PUBLICATIONS (Review Item #7) */}
+      <FadeUpSection
+        as="section"
+        className="space-y-8"
+      >
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/10 pb-6">
+          <div className="space-y-2">
+            <span className="text-xs font-mono uppercase tracking-widest text-sky-400 font-semibold">
+              Thought Leadership
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-display font-extrabold text-white tracking-tight">
+              Authored Books &amp; Scientific Research
+            </h2>
+            <p className="text-xs sm:text-sm text-neutral-400 font-mono max-w-2xl">
+              Contributing empirical science and actionable frameworks to international industrial ergonomics and environmental engineering.
+            </p>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => onSelectPage('books')}
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/10 hover:bg-white/15 text-white text-xs font-mono font-medium transition-all shrink-0 self-start sm:self-end border border-white/10 cursor-pointer"
+          >
+            <Library className="w-3.5 h-3.5 text-sky-400" />
+            <span>Browse Full Library &amp; Papers</span>
+          </button>
+        </div>
+
+        {/* Featured 2 Books Display */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {BOOKS_AND_PUBLICATIONS.slice(0, 2).map((book) => (
+            <article
+              key={book.id}
+              className="p-6 sm:p-8 rounded-3xl bg-[#08080d] border border-white/10 hover:border-white/20 transition-all flex flex-col justify-between space-y-6 group"
+            >
+              <div className="space-y-5">
+                <div className="flex items-center justify-between border-b border-white/5 pb-3">
+                  <span className="text-[10px] font-mono px-3 py-1 rounded-full bg-sky-400/10 text-sky-300 border border-sky-400/20 font-semibold">
+                    {book.badge}
+                  </span>
+                  <span className="text-xs font-mono text-neutral-400">{book.publishedYear}</span>
+                </div>
+
+                <div className="space-y-2">
+                  <h3 className="text-xl sm:text-2xl font-display font-bold text-white group-hover:text-sky-300 transition-colors leading-snug">
+                    {book.title}
+                  </h3>
+                  <p className="text-xs font-mono text-neutral-400 leading-relaxed">
+                    {book.subtitle}
+                  </p>
+                </div>
+
+                {/* What You'll Learn Bullet Points (Review Item #7) */}
+                <div className="space-y-2.5 pt-1">
+                  <span className="text-xs font-mono uppercase tracking-wider text-sky-400/90 font-semibold block">
+                    Key Practical Knowledge &amp; Takeaways:
+                  </span>
+                  <ul className="space-y-2">
+                    {book.whatYoullLearn.slice(0, 3).map((point, pIdx) => (
+                      <li key={pIdx} className="flex items-start space-x-2.5 text-xs text-neutral-300">
+                        <span className="w-4 h-4 rounded-full bg-sky-400/10 text-sky-400 flex items-center justify-center shrink-0 mt-0.5 text-[10px] font-bold">
+                          ✓
+                        </span>
+                        <span className="leading-relaxed">{point}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-3">
+                <span className="text-[11px] font-mono text-neutral-400">
+                  {book.publisherOrJournal}
+                </span>
+
+                <div className="flex items-center gap-2">
+                  {onSelectBook ? (
+                    <button
+                      type="button"
+                      onClick={() => onSelectBook(book.id)}
+                      className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white hover:bg-neutral-200 text-black text-xs font-semibold transition-all shadow-sm cursor-pointer"
+                    >
+                      <BookOpen className="w-3.5 h-3.5" />
+                      <span>Inspect Details &amp; Chapters</span>
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => onSelectPage('books')}
+                      className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white hover:bg-neutral-200 text-black text-xs font-semibold transition-all shadow-sm cursor-pointer"
+                    >
+                      <BookOpen className="w-3.5 h-3.5" />
+                      <span>View Book Details</span>
+                    </button>
+                  )}
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </FadeUpSection>
 
       {/* 3. SIGNATURE WORKS & MEGAPROJECTS: BASED TIMELINE */}
-      <motion.section 
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-60px" }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      <FadeUpSection 
+        as="section"
         id="signature-works-section" 
         className="space-y-10 scroll-mt-28"
       >
@@ -521,8 +856,29 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
               {/* Timeline Card */}
               <article 
                 onClick={() => setActiveCaseStudy(work)}
-                className="p-6 sm:p-8 rounded-3xl bg-[#08080d] border border-white/10 hover:border-white/25 transition-all duration-300 shadow-xl hover:shadow-[0_12px_36px_rgba(0,0,0,0.8)] cursor-pointer space-y-6"
+                className="p-6 sm:p-8 rounded-3xl bg-[#08080d] border border-white/10 hover:border-white/25 transition-all duration-300 shadow-xl hover:shadow-[0_12px_36px_rgba(0,0,0,0.8)] cursor-pointer space-y-6 overflow-hidden"
               >
+                {/* Project Image Header */}
+                {work.imageUrl && (
+                  <div className="relative h-44 sm:h-56 -mx-6 sm:-mx-8 -mt-6 sm:-mt-8 overflow-hidden group/img">
+                    <img
+                      src={work.imageUrl}
+                      alt={work.title}
+                      referrerPolicy="no-referrer"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 brightness-[0.80] contrast-[1.05]"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#08080d] via-black/30 to-transparent" />
+                    <div className="absolute top-4 left-4 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/75 backdrop-blur-md border border-white/20 text-white text-[11px] font-mono">
+                      <span className="w-1.5 h-1.5 rounded-full bg-sky-400" />
+                      <span>{work.category}</span>
+                    </div>
+                    <div className="absolute bottom-3 right-4 inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-black/75 backdrop-blur-md border border-white/10 text-neutral-300 text-[10px] font-mono">
+                      <MapPin className="w-3 h-3 text-sky-400" />
+                      <span>{work.location}</span>
+                    </div>
+                  </div>
+                )}
+
                 {/* Timeline Header Strip */}
                 <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/5 pb-4">
                   <div className="flex flex-wrap items-center gap-2">
@@ -617,14 +973,11 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
             </motion.div>
           ))}
         </div>
-      </motion.section>
+      </FadeUpSection>
 
       {/* 4. OUR SERVICES: YOUR SAFETY & ENGINEERING POWERHOUSE (Dialedweb "Our Services: Your Digital Powerhouse") */}
-      <motion.section 
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-60px" }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      <FadeUpSection 
+        as="section"
         id="services-powerhouse-section" 
         className="space-y-8 scroll-mt-28"
       >
@@ -736,34 +1089,31 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
             </div>
           </div>
         </div>
-      </motion.section>
+      </FadeUpSection>
 
       {/* 5. INTERACTIVE APPLIED SCIENCE: WBGT & THERMAL HAZARDS FIELD CALCULATOR */}
-      <motion.section 
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-60px" }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      <FadeUpSection 
+        as="section"
         id="interactive-wbgt-section" 
         className="space-y-6 scroll-mt-28"
       >
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/10 pb-4">
-          <div>
-            <div className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-sky-400 text-xs font-mono mb-2">
+          <div className="space-y-1.5 max-w-3xl">
+            <div className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-sky-400 text-xs font-mono mb-1">
               <Activity className="w-3.5 h-3.5 text-sky-400" />
-              <span>Applied Research Implementation</span>
+              <span className="whitespace-nowrap">Applied Research Implementation</span>
             </div>
-            <h2 className="text-2xl sm:text-4xl font-display font-extrabold text-white tracking-tight">
+            <h2 className="text-2xl sm:text-4xl font-display font-extrabold text-white tracking-tight leading-snug">
               Thermal Environment & WBGT Field Calculator
             </h2>
-            <p className="text-xs sm:text-sm text-neutral-400 font-mono mt-1">
+            <p className="text-xs sm:text-sm text-neutral-400 font-mono">
               Field ergonomics tool based on Engr. Osazee&apos;s BOHS bursary research and Julius Berger tropical site protocols.
             </p>
           </div>
 
           <button
             onClick={() => onSelectPage('publications')}
-            className="text-xs font-mono text-neutral-300 hover:text-white flex items-center gap-1 shrink-0"
+            className="text-xs font-mono text-neutral-300 hover:text-white flex items-center gap-1 shrink-0 min-h-[40px]"
           >
             <span>View All Research Papers</span>
             <ChevronRight className="w-3.5 h-3.5" />
@@ -772,14 +1122,11 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
 
         {/* Live Calculator Component */}
         <ThermalCalculator />
-      </motion.section>
+      </FadeUpSection>
 
       {/* 6. TESTIMONIALS & INSTITUTIONAL WORDS (Dialedweb Pattern: What Our Partners Say) */}
-      <motion.section 
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-60px" }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      <FadeUpSection 
+        as="section"
         className="space-y-8"
       >
         <div className="space-y-2 text-center max-w-2xl mx-auto">
@@ -825,25 +1172,22 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
             </div>
           ))}
         </div>
-      </motion.section>
+      </FadeUpSection>
 
       {/* 7. ABOUT / ACADEMIC & INSTITUTIONAL LEADERSHIP (Dialedweb Style: "Our Global Team / About Us") */}
-      <motion.section 
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-60px" }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className="p-8 sm:p-12 rounded-3xl bg-[#08080d] border border-white/10 space-y-10"
+      <FadeUpSection 
+        as="section"
+        className="p-5 sm:p-10 md:p-12 rounded-3xl bg-[#08080d] border border-white/10 space-y-8 sm:space-y-10"
       >
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 border-b border-white/10 pb-8">
           <div className="space-y-2 max-w-2xl">
             <span className="text-xs font-mono uppercase tracking-widest text-sky-400 font-semibold">
               Institutional Pedigree
             </span>
-            <h2 className="text-3xl sm:text-4xl font-display font-extrabold text-white tracking-tight">
+            <h2 className="text-2xl sm:text-4xl font-display font-extrabold text-white tracking-tight leading-snug">
               Dual-Master Engineer, Chartered Fellow & Legislative Mediator
             </h2>
-            <p className="text-sm text-neutral-300 leading-relaxed font-normal">
+            <p className="text-xs sm:text-sm md:text-base text-neutral-300 leading-relaxed font-normal">
               Engr. Osazee unites structural civil fundamentals with occupational health, environmental microbiology, and parliamentary safety governance.
             </p>
           </div>
@@ -851,7 +1195,7 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
           <div className="flex items-center space-x-3">
             <button
               onClick={() => onSelectPage('leadership')}
-              className="px-6 py-3 rounded-full bg-white/10 hover:bg-white/20 text-white text-xs font-semibold font-mono border border-white/15 transition-all"
+              className="w-full sm:w-auto px-6 py-3 rounded-full bg-white/10 hover:bg-white/20 text-white text-xs font-semibold font-mono border border-white/15 transition-all text-center min-h-[44px] flex items-center justify-center"
             >
               Explore Full Leadership Dossier
             </button>
@@ -859,11 +1203,11 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
         </div>
 
         {/* Qualifications & Career Highlights Bento */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
           {ACADEMIC_QUALIFICATIONS.map((acad, idx) => (
             <div 
               key={idx}
-              className="p-6 rounded-2xl bg-white/[0.02] border border-white/10 flex flex-col justify-between space-y-3"
+              className="p-5 sm:p-6 rounded-2xl bg-white/[0.02] border border-white/10 flex flex-col justify-between space-y-3"
             >
               <div className="space-y-2">
                 <span className="text-[10px] font-mono uppercase px-2.5 py-0.5 rounded-full bg-sky-400/10 text-sky-300 border border-sky-400/20 font-semibold">
@@ -886,32 +1230,29 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
             </div>
           ))}
         </div>
-      </motion.section>
+      </FadeUpSection>
 
       {/* 8. HIGH-IMPACT BOTTOM CTA BANNER (Dialedweb Pattern: "Grow Your Digital Presence / Let's Build Something Extraordinary") */}
-      <motion.section 
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-60px" }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className="relative p-8 sm:p-14 rounded-3xl bg-gradient-to-b from-[#0e0e18] to-black border border-white/15 shadow-[0_20px_70px_rgba(0,0,0,0.8)] overflow-hidden text-center space-y-6"
+      <FadeUpSection 
+        as="section"
+        className="relative p-6 sm:p-10 md:p-14 rounded-3xl bg-gradient-to-b from-[#0e0e18] to-black border border-white/15 shadow-[0_20px_70px_rgba(0,0,0,0.8)] overflow-hidden text-center space-y-5 sm:space-y-6"
       >
         <div className="space-y-3 max-w-2xl mx-auto">
           <span className="text-xs font-mono uppercase tracking-widest text-sky-400 font-semibold">
             Lead in Your Industry
           </span>
-          <h2 className="text-3xl sm:text-5xl font-display font-extrabold text-white tracking-tight leading-tight">
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-display font-extrabold text-white tracking-tight leading-tight">
             Ready to Build an Uncompromising Standard of Safety?
           </h2>
-          <p className="text-sm sm:text-base text-neutral-300 leading-relaxed font-normal">
+          <p className="text-xs sm:text-sm md:text-base text-neutral-300 leading-relaxed font-normal">
             Available for executive safety directorship, ISO management system audits, high-consequence infrastructure bid advisory, and international keynote presentations.
           </p>
         </div>
 
-        <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 pt-2 w-full max-w-md sm:max-w-none mx-auto">
           <button
             onClick={onOpenBookingModal}
-            className="flex items-center space-x-2 px-8 py-4 rounded-full bg-white hover:bg-neutral-200 text-black font-bold text-sm tracking-tight transition-all shadow-[0_0_30px_rgba(255,255,255,0.3)] hover:scale-105"
+            className="w-full sm:w-auto flex items-center justify-center space-x-2 px-8 py-3.5 sm:py-4 rounded-full bg-white hover:bg-neutral-200 text-black font-bold text-xs sm:text-sm tracking-tight transition-all shadow-[0_0_30px_rgba(255,255,255,0.3)] hover:scale-105 min-h-[44px]"
           >
             <span>Book an Advisory Consultation</span>
             <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
@@ -919,16 +1260,16 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
 
           <button
             onClick={() => onSelectPage('services')}
-            className="px-7 py-4 rounded-full bg-white/10 hover:bg-white/15 text-white font-semibold text-sm border border-white/15 transition-all backdrop-blur-md"
+            className="w-full sm:w-auto px-7 py-3.5 sm:py-4 rounded-full bg-white/10 hover:bg-white/15 text-white font-semibold text-xs sm:text-sm border border-white/15 transition-all backdrop-blur-md min-h-[44px] flex items-center justify-center"
           >
             Submit Detailed Project Dossier
           </button>
         </div>
 
-        <p className="text-xs text-neutral-400 font-mono">
+        <p className="text-[11px] sm:text-xs text-neutral-400 font-mono">
           Direct Liaison: contact@iyenomaosazee.com • Abuja, Federal Capital Territory, Nigeria
         </p>
-      </motion.section>
+      </FadeUpSection>
 
       {/* Case Study Modal */}
       <CaseStudyModal

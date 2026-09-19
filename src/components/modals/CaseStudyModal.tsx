@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Megaproject } from '../../data/projectsData';
 import { 
   X, 
@@ -22,43 +22,97 @@ export const CaseStudyModal: React.FC<CaseStudyModalProps> = ({
   onClose,
   onBookAdvisory
 }) => {
+  useEffect(() => {
+    if (project) {
+      document.body.style.overflow = 'hidden';
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') onClose();
+      };
+      window.addEventListener('keydown', handleKeyDown);
+      return () => {
+        document.body.style.overflow = '';
+        window.removeEventListener('keydown', handleKeyDown);
+      };
+    } else {
+      document.body.style.overflow = '';
+    }
+  }, [project, onClose]);
+
   if (!project) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-black/85 backdrop-blur-xl animate-fadeIn">
+    <div 
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-black/85 backdrop-blur-xl animate-fadeIn"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
+    >
       <div 
         className="relative w-full max-w-4xl rounded-3xl bg-[#09090e] border border-white/15 shadow-[0_25px_80px_rgba(0,0,0,0.9)] overflow-hidden my-8"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Modal Header */}
-        <div className="relative p-6 sm:p-8 border-b border-white/10 bg-gradient-to-r from-neutral-900/80 via-black to-[#0d0d14]">
-          <div className="flex items-center justify-between gap-4">
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="px-3 py-1 rounded-full bg-sky-400/10 text-sky-300 text-xs font-mono font-medium border border-sky-400/20">
-                {project.category}
-              </span>
-              <span className="text-xs font-mono text-neutral-400 flex items-center gap-1">
-                <Clock className="w-3.5 h-3.5" />
-                {project.period}
-              </span>
-            </div>
-
+        {/* Project Image Hero Banner */}
+        {project.imageUrl ? (
+          <div className="relative h-52 sm:h-64 w-full overflow-hidden">
+            <img
+              src={project.imageUrl}
+              alt={project.title}
+              referrerPolicy="no-referrer"
+              className="w-full h-full object-cover brightness-[0.78] contrast-[1.08]"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#09090e] via-black/40 to-transparent" />
+            
             <button
               onClick={onClose}
-              className="p-2 rounded-full bg-white/10 hover:bg-white/20 text-neutral-300 hover:text-white transition-colors"
+              className="absolute top-4 right-4 p-2 rounded-full bg-black/60 backdrop-blur-md hover:bg-black/85 text-neutral-200 hover:text-white transition-colors border border-white/15 z-10"
               aria-label="Close modal"
             >
               <X className="w-5 h-5" />
             </button>
-          </div>
 
-          <h2 className="text-2xl sm:text-3xl font-display font-bold text-white tracking-tight mt-4">
+            <div className="absolute bottom-4 left-6 sm:left-8 flex flex-wrap items-center gap-2">
+              <span className="px-3 py-1 rounded-full bg-sky-400/20 backdrop-blur-md text-sky-300 text-xs font-mono font-medium border border-sky-400/30">
+                {project.category}
+              </span>
+              <span className="text-xs font-mono text-neutral-200 bg-black/60 backdrop-blur-md px-3 py-1 rounded-full border border-white/10 flex items-center gap-1">
+                <Clock className="w-3.5 h-3.5 text-sky-400" />
+                {project.period}
+              </span>
+            </div>
+          </div>
+        ) : null}
+
+        {/* Modal Header */}
+        <div className={`relative p-6 sm:p-8 border-b border-white/10 bg-gradient-to-r from-neutral-900/80 via-black to-[#0d0d14] ${project.imageUrl ? 'pt-4' : ''}`}>
+          {!project.imageUrl && (
+            <div className="flex items-center justify-between gap-4">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="px-3 py-1 rounded-full bg-sky-400/10 text-sky-300 text-xs font-mono font-medium border border-sky-400/20">
+                  {project.category}
+                </span>
+                <span className="text-xs font-mono text-neutral-400 flex items-center gap-1">
+                  <Clock className="w-3.5 h-3.5" />
+                  {project.period}
+                </span>
+              </div>
+
+              <button
+                onClick={onClose}
+                className="p-2 rounded-full bg-white/10 hover:bg-white/20 text-neutral-300 hover:text-white transition-colors"
+                aria-label="Close modal"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+          )}
+
+          <h2 className="text-2xl sm:text-3xl font-display font-bold text-white tracking-tight mt-2">
             {project.title}
           </h2>
 
           <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-neutral-300 mt-2">
             <span className="flex items-center gap-1 text-neutral-300">
-              <Building2 className="w-3.5 h-3.5 text-neutral-400" />
+              <Building2 className="w-3.5 h-3.5 text-sky-400" />
               {project.client}
             </span>
             <span className="flex items-center gap-1 text-neutral-400">
