@@ -161,10 +161,10 @@ export const ClientAdminModal: React.FC<ClientAdminModalProps> = ({
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.96, y: 16 }}
         transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-        className="relative w-full max-w-6xl h-[92vh] rounded-3xl bg-[#090910] border border-white/15 text-white shadow-2xl flex flex-col overflow-hidden"
+        className="relative w-full max-w-6xl h-[92vh] rounded-3xl bg-[#1e1f20] border border-white/15 text-white shadow-2xl flex flex-col overflow-hidden"
       >
         {/* Top App Bar */}
-        <div className="px-6 py-4 border-b border-white/10 bg-[#0c0c16] flex items-center justify-between shrink-0">
+        <div className="px-6 py-4 border-b border-white/10 bg-[#282a2c] flex items-center justify-between shrink-0">
           <div className="flex items-center space-x-3">
             <div className="w-8 h-8 rounded-xl bg-white text-black flex items-center justify-center font-bold text-xs tracking-tight shadow-md">
               CMS
@@ -205,7 +205,7 @@ export const ClientAdminModal: React.FC<ClientAdminModalProps> = ({
         <div className="flex-1 flex flex-col md:flex-row overflow-hidden">
           
           {/* Sidebar Navigation */}
-          <div className="w-full md:w-64 border-b md:border-b-0 md:border-r border-white/10 bg-[#08080e] p-3 sm:p-4 space-y-1.5 shrink-0 overflow-y-auto">
+          <div className="w-full md:w-64 border-b md:border-b-0 md:border-r border-white/10 bg-[#0e0e11] p-3 sm:p-4 space-y-1.5 shrink-0 overflow-y-auto">
             <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-500 px-3 py-1 block">
               Management Modules
             </span>
@@ -263,13 +263,13 @@ export const ClientAdminModal: React.FC<ClientAdminModalProps> = ({
           </div>
 
           {/* Main Content Pane */}
-          <div className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 bg-[#090910]">
+          <div className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 bg-[#1e1f20]">
             
             {/* 1. OVERVIEW TAB */}
             {activeTab === 'overview' && (
               <div className="space-y-6 max-w-4xl">
                 <div className="space-y-1">
-                  <h2 className="text-2xl font-display font-bold text-white">Executive Command Overview</h2>
+                  <h2 className="text-2xl font-display font-bold text-white leading-snug sm:leading-tight">Executive Command Overview</h2>
                   <p className="text-xs text-neutral-400 font-mono">
                     Real-time digital portfolio status, engagement metrics, and pending client communications.
                   </p>
@@ -305,7 +305,7 @@ export const ClientAdminModal: React.FC<ClientAdminModalProps> = ({
                 {/* Recent Inquiries Quick Table */}
                 <div className="space-y-3 pt-4">
                   <div className="flex items-center justify-between">
-                    <h3 className="text-sm font-display font-bold text-white uppercase tracking-wider">
+                    <h3 className="text-sm font-display font-bold text-white uppercase tracking-wider leading-snug">
                       Recent Inbound Inquiries
                     </h3>
                     <button
@@ -320,7 +320,7 @@ export const ClientAdminModal: React.FC<ClientAdminModalProps> = ({
                     {messages.slice(0, 3).map((m) => (
                       <div
                         key={m.id}
-                        className="p-4 rounded-2xl bg-[#0d0d16] border border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3"
+                        className="p-4 rounded-2xl bg-[#282a2c] border border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3"
                       >
                         <div className="space-y-1">
                           <div className="flex items-center space-x-2">
@@ -391,7 +391,7 @@ export const ClientAdminModal: React.FC<ClientAdminModalProps> = ({
               <form onSubmit={handleSaveProfile} className="space-y-6 max-w-3xl">
                 <div className="flex items-center justify-between">
                   <div>
-                    <h2 className="text-2xl font-display font-bold text-white">Profile & Identity Architecture</h2>
+                    <h2 className="text-2xl font-display font-bold text-white leading-snug sm:leading-tight">Profile & Identity Architecture</h2>
                     <p className="text-xs text-neutral-400 font-mono">
                       Modify biographical facts, executive titles, and public liaison coordinates.
                     </p>
@@ -516,7 +516,7 @@ export const ClientAdminModal: React.FC<ClientAdminModalProps> = ({
               <div className="space-y-6 max-w-4xl">
                 <div className="flex items-center justify-between">
                   <div>
-                    <h2 className="text-2xl font-display font-bold text-white">Books & Research Repository</h2>
+                    <h2 className="text-2xl font-display font-bold text-white leading-snug sm:leading-tight">Books & Research Repository</h2>
                     <p className="text-xs text-neutral-400 font-mono">
                       Curate published volumes, monographs, and international congress submissions.
                     </p>
@@ -530,7 +530,7 @@ export const ClientAdminModal: React.FC<ClientAdminModalProps> = ({
                   {booksList.map((book) => (
                     <div
                       key={book.id}
-                      className="p-5 rounded-2xl bg-[#0c0c16] border border-white/10 hover:border-white/20 transition-all space-y-2"
+                      className="p-5 rounded-2xl bg-[#282a2c] border border-white/10 hover:border-white/20 transition-all space-y-2"
                     >
                       <div className="flex flex-wrap items-center justify-between gap-2">
                         <span className="px-2.5 py-0.5 rounded-full bg-white/10 text-sky-400 text-[10px] font-mono uppercase">
@@ -541,7 +541,7 @@ export const ClientAdminModal: React.FC<ClientAdminModalProps> = ({
                         </span>
                       </div>
 
-                      <h3 className="text-base font-display font-bold text-white">
+                      <h3 className="text-base font-display font-bold text-white leading-snug">
                         {book.title}
                       </h3>
 
@@ -569,7 +569,7 @@ export const ClientAdminModal: React.FC<ClientAdminModalProps> = ({
               <div className="space-y-6 max-w-4xl">
                 <div className="flex items-center justify-between">
                   <div>
-                    <h2 className="text-2xl font-display font-bold text-white">Professional Credentials Registry</h2>
+                    <h2 className="text-2xl font-display font-bold text-white leading-snug sm:leading-tight">Professional Credentials Registry</h2>
                     <p className="text-xs text-neutral-400 font-mono">
                       Manage official chartered registrations, auditor IDs, and verification records.
                     </p>
@@ -583,7 +583,7 @@ export const ClientAdminModal: React.FC<ClientAdminModalProps> = ({
                   {credentialsList.map((cred) => (
                     <div
                       key={cred.id}
-                      className="p-4 rounded-2xl bg-[#0c0c16] border border-white/10 space-y-2"
+                      className="p-4 rounded-2xl bg-[#282a2c] border border-white/10 space-y-2"
                     >
                       <div className="flex items-center justify-between">
                         <span className="text-xs font-bold text-sky-400 font-mono">
@@ -596,7 +596,7 @@ export const ClientAdminModal: React.FC<ClientAdminModalProps> = ({
                         )}
                       </div>
 
-                      <h3 className="text-sm font-display font-bold text-white">
+                      <h3 className="text-sm font-display font-bold text-white leading-snug">
                         {cred.title}
                       </h3>
 
@@ -618,7 +618,7 @@ export const ClientAdminModal: React.FC<ClientAdminModalProps> = ({
               <div className="space-y-6 max-w-4xl">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                   <div>
-                    <h2 className="text-2xl font-display font-bold text-white">Client Inbound Inquiries</h2>
+                    <h2 className="text-2xl font-display font-bold text-white leading-snug sm:leading-tight">Client Inbound Inquiries</h2>
                     <p className="text-xs text-neutral-400 font-mono">
                       Structured audience-segmented leads and consultation requests.
                     </p>
@@ -665,8 +665,8 @@ export const ClientAdminModal: React.FC<ClientAdminModalProps> = ({
                       key={m.id}
                       className={`p-5 rounded-2xl border transition-all space-y-3 ${
                         m.status === 'new'
-                          ? 'bg-[#10101c] border-sky-400/30'
-                          : 'bg-[#0a0a10] border-white/5 opacity-85'
+                          ? 'bg-[#1e1f20] border-sky-400/30'
+                          : 'bg-[#040520] border-white/5 opacity-85'
                       }`}
                     >
                       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/10 pb-3">
@@ -716,14 +716,14 @@ export const ClientAdminModal: React.FC<ClientAdminModalProps> = ({
             {activeTab === 'settings' && (
               <div className="space-y-6 max-w-3xl">
                 <div className="space-y-1">
-                  <h2 className="text-2xl font-display font-bold text-white">Production Settings & Domain Mapping</h2>
+                  <h2 className="text-2xl font-display font-bold text-white leading-snug sm:leading-tight">Production Settings & Domain Mapping</h2>
                   <p className="text-xs text-neutral-400 font-mono">
                     Professional DNS routing, Search Engine Optimization (SEO), and portfolio attribution.
                   </p>
                 </div>
 
                 <div className="p-5 rounded-2xl bg-white/[0.02] border border-white/10 space-y-3">
-                  <h3 className="text-sm font-bold text-white">Custom Domain Status (Review Item #12)</h3>
+                  <h3 className="text-sm font-bold text-white leading-snug">Custom Domain Status (Review Item #12)</h3>
                   <p className="text-xs text-neutral-300 leading-relaxed">
                     Primary Production Route configured for <span className="text-sky-400 font-mono font-bold">iyenomaosazee.com</span> with automatic SSL TLS v1.3 encryption and Netlify edge reverse proxying.
                   </p>
@@ -734,7 +734,7 @@ export const ClientAdminModal: React.FC<ClientAdminModalProps> = ({
                 </div>
 
                 <div className="p-5 rounded-2xl bg-white/[0.02] border border-white/10 space-y-3">
-                  <h3 className="text-sm font-bold text-white">Author & Developer Attribution (Review Item #10)</h3>
+                  <h3 className="text-sm font-bold text-white leading-snug">Author & Developer Attribution (Review Item #10)</h3>
                   <div className="p-3 rounded-xl bg-black/40 border border-white/5 font-mono text-xs text-neutral-300">
                     Website designed & developed by <span className="text-white font-bold">Gideon Ogunyemi</span>
                   </div>
@@ -744,7 +744,7 @@ export const ClientAdminModal: React.FC<ClientAdminModalProps> = ({
                 </div>
 
                 <div className="p-5 rounded-2xl bg-white/[0.02] border border-white/10 space-y-3">
-                  <h3 className="text-sm font-bold text-white">Structured SEO & OpenGraph Payload</h3>
+                  <h3 className="text-sm font-bold text-white leading-snug">Structured SEO & OpenGraph Payload</h3>
                   <div className="space-y-1.5 text-xs font-mono text-neutral-300">
                     <div className="flex items-center justify-between py-1 border-b border-white/5">
                       <span>Schema.org Type:</span>

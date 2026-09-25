@@ -148,27 +148,27 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
         className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center"
       >
         <div className="lg:col-span-7 space-y-4 sm:space-y-5">
-          <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-white/10 border border-white/10 text-sky-400 text-xs font-mono">
-            <Briefcase className="w-3.5 h-3.5 text-white" />
+          <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-neutral-100 dark:bg-white/10 border border-neutral-200 dark:border-[#333538] text-neutral-800 dark:text-neutral-200 text-xs font-mono">
+            <Briefcase className="w-3.5 h-3.5 text-black dark:text-white" />
             <span>Executive Services • Engineering &amp; Safety Advisory</span>
           </div>
-          <h1 className="text-3xl sm:text-5xl font-display font-extrabold text-white tracking-tight">
+          <h1 className="text-3xl sm:text-5xl font-display font-bold text-black dark:text-white tracking-tight leading-snug sm:leading-tight">
             Safety &amp; Advisory Services Powerhouse
           </h1>
-          <p className="text-neutral-300 text-base sm:text-lg leading-relaxed">
+          <p className="text-neutral-600 dark:text-neutral-300 text-base sm:text-lg leading-relaxed">
             Uniting twenty-two years of high-consequence site command at Julius Berger PLC with peer-reviewed environmental science and international statutory credentials. Bespoke advisory for boards, mega-infrastructure ventures, and institutional authorities.
           </p>
 
-          <div className="flex flex-wrap items-center gap-2 pt-1 text-[11px] font-mono text-neutral-300">
-            <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10">ISO 45001 &amp; 14001 Auditing</span>
-            <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10">Major Infrastructure Safety</span>
-            <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10">Executive Mentorship</span>
+          <div className="flex flex-wrap items-center gap-2 pt-1 text-[11px] font-mono text-neutral-700 dark:text-neutral-300">
+            <span className="px-3 py-1 rounded-full bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-[#333538]">ISO 45001 &amp; 14001 Auditing</span>
+            <span className="px-3 py-1 rounded-full bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-[#333538]">Major Infrastructure Safety</span>
+            <span className="px-3 py-1 rounded-full bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-[#333538]">Executive Mentorship</span>
           </div>
         </div>
 
         {/* Advisory & Systems Governance Showcase Card */}
         <div className="lg:col-span-5 w-full">
-          <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden border border-white/15 bg-neutral-900 shadow-2xl group">
+          <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden border border-neutral-200 dark:border-[#3c4043] bg-neutral-100 dark:bg-neutral-900 shadow-xl group">
             <div className="relative h-64 sm:h-80 lg:h-[380px] w-full overflow-hidden">
               <img
                 src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1200&q=80"
@@ -176,21 +176,21 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
                 referrerPolicy="no-referrer"
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 brightness-[0.80] contrast-[1.08]"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#08080d] via-black/40 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
               <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-transparent" />
             </div>
 
             <div className="absolute inset-0 p-5 sm:p-6 flex flex-col justify-between pointer-events-none">
-              <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-black/70 backdrop-blur-md border border-white/15 text-white text-[11px] font-mono self-start">
-                <span className="w-2 h-2 rounded-full bg-sky-400 animate-pulse" />
+              <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-black/70 backdrop-blur-md border border-white/20 text-white text-[11px] font-mono self-start">
+                <span className="w-2 h-2 rounded-full bg-white" />
                 <span>COREN Reg. Civil Engineer • IRCA Lead Auditor</span>
               </div>
 
               <div className="space-y-1 text-left">
-                <span className="text-[10px] sm:text-xs font-mono text-sky-400 uppercase tracking-wider font-semibold">
+                <span className="text-[10px] sm:text-xs font-mono text-neutral-300 uppercase tracking-wider font-semibold">
                   Systems Architecture &amp; Governance
                 </span>
-                <h3 className="text-base sm:text-lg font-display font-bold text-white drop-shadow">
+                <h3 className="text-base sm:text-lg font-display font-bold text-white drop-shadow leading-snug">
                   Statutory &amp; Institutional Oversight
                 </h3>
                 <p className="text-xs text-neutral-300 font-sans line-clamp-2 drop-shadow">
@@ -210,11 +210,11 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         className="space-y-8"
       >
-        <div className="flex items-center justify-between flex-wrap gap-4 border-b border-white/10 pb-4">
-          <span className="text-xs font-mono uppercase tracking-widest text-sky-400 font-semibold">
+        <div className="flex items-center justify-between flex-wrap gap-4 border-b border-neutral-200 dark:border-[#333538] pb-4">
+          <span className="text-xs font-mono uppercase tracking-widest text-neutral-800 dark:text-neutral-200 font-semibold">
             Select Core Domain
           </span>
-          <span className="text-xs font-mono text-neutral-400">
+          <span className="text-xs font-mono text-neutral-500 dark:text-neutral-400">
             5 Executive Advisory Capabilities
           </span>
         </div>
@@ -227,19 +227,23 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
               onClick={() => setActiveServiceTab(idx)}
               className={`p-5 rounded-2xl text-left border transition-all flex flex-col justify-between space-y-4 cursor-pointer ${
                 activeServiceTab === idx
-                  ? 'bg-white/10 border-white/30 shadow-[0_0_30px_rgba(255,255,255,0.08)]'
-                  : 'bg-[#08080d] border-white/10 hover:border-white/20 text-neutral-300'
+                  ? 'bg-white text-[#131314] border-white shadow-[0_10px_30px_rgba(255,255,255,0.25)] font-bold'
+                  : 'dialed-glass-card hover:border-white/30 text-white'
               }`}
             >
               <div className="flex items-center justify-between w-full">
-                <span className="text-xs font-mono font-bold text-sky-300">
+                <span className={`text-xs font-mono font-bold ${activeServiceTab === idx ? 'text-[#131314]' : 'text-[#a8c7fa]'}`}>
                   {srv.number}
                 </span>
-                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-neutral-300">
+                <span className={`text-[10px] font-mono px-2 py-0.5 rounded-full border ${
+                  activeServiceTab === idx
+                    ? 'bg-neutral-200 text-black border-transparent'
+                    : 'dialed-glass-pill text-[#c4c7c5]'
+                }`}>
                   {srv.tag}
                 </span>
               </div>
-              <h3 className={`text-sm font-display font-bold leading-snug ${activeServiceTab === idx ? 'text-white' : 'text-neutral-200'}`}>
+              <h3 className={`text-sm font-display font-bold leading-snug ${activeServiceTab === idx ? 'text-[#131314]' : 'text-white'}`}>
                 {srv.title}
               </h3>
             </button>
@@ -247,30 +251,30 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
         </div>
 
         {/* Active Tab Showcase Box */}
-        <div className="p-8 sm:p-12 rounded-3xl bg-[#08080d] border border-white/15 shadow-2xl relative overflow-hidden">
+        <div className="p-8 sm:p-12 rounded-3xl dialed-glass-card text-white relative overflow-hidden">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             <div className="lg:col-span-7 space-y-6">
               <div className="space-y-2">
-                <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-sky-400">
-                  <ShieldCheck className="w-3.5 h-3.5" />
+                <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full dialed-glass-pill text-[#a8c7fa] text-xs font-mono">
+                  <ShieldCheck className="w-3.5 h-3.5 text-[#a8c7fa]" />
                   <span>{services[activeServiceTab].tag}</span>
                 </div>
-                <h2 className="text-2xl sm:text-3xl font-display font-bold text-white tracking-tight">
+                <h2 className="text-2xl sm:text-3xl font-display font-bold text-white tracking-tight leading-snug sm:leading-tight">
                   {services[activeServiceTab].title}
                 </h2>
-                <p className="text-sm sm:text-base text-neutral-300 leading-relaxed pt-1">
+                <p className="text-sm sm:text-base text-[#c4c7c5] leading-relaxed pt-1">
                   {services[activeServiceTab].desc}
                 </p>
               </div>
 
               <div className="space-y-3 pt-2 border-t border-white/10">
-                <span className="text-xs font-mono uppercase tracking-wider text-neutral-400 block">
+                <span className="text-xs font-mono uppercase tracking-wider text-[#a8c7fa] block font-semibold">
                   Mandatory Key Deliverables & Scopes:
                 </span>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {services[activeServiceTab].deliverables.map((item, i) => (
-                    <div key={i} className="flex items-start space-x-2 text-xs text-neutral-200">
-                      <CheckCircle2 className="w-4 h-4 text-sky-400 shrink-0 mt-0.5" />
+                    <div key={i} className="flex items-start space-x-2 text-xs text-[#c4c7c5]">
+                      <CheckCircle2 className="w-4 h-4 text-[#a8c7fa] shrink-0 mt-0.5" />
                       <span className="leading-snug">{item}</span>
                     </div>
                   ))}
@@ -280,14 +284,14 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
               <div className="pt-4 flex flex-wrap items-center gap-3">
                 <button
                   onClick={onOpenBookingModal}
-                  className="flex items-center space-x-2 px-6 py-3 rounded-full bg-white hover:bg-neutral-200 text-black font-semibold text-xs transition-all shadow-md"
+                  className="flex items-center space-x-2 px-6 py-3 rounded-full bg-white hover:bg-[#f0f4f9] text-[#131314] font-semibold text-xs transition-all shadow-md cursor-pointer"
                 >
                   <span>Book Advisory Session</span>
                   <ArrowUpRight className="w-3.5 h-3.5 stroke-[2.5]" />
                 </button>
                 <a
                   href="#inquiry-form-section"
-                  className="px-5 py-3 rounded-full bg-white/5 hover:bg-white/10 text-neutral-300 hover:text-white font-medium text-xs border border-white/10 transition-colors"
+                  className="px-5 py-3 rounded-full dialed-glass-pill hover:bg-white/10 text-white font-medium text-xs transition-colors cursor-pointer"
                 >
                   Submit Written Project Brief
                 </a>
@@ -295,11 +299,11 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
             </div>
 
             {/* Strategic Value Card */}
-            <div className="lg:col-span-5 p-6 rounded-2xl bg-white/[0.02] border border-white/10 space-y-4">
-              <span className="text-xs font-mono uppercase text-sky-400 font-semibold block">
+            <div className="lg:col-span-5 p-6 rounded-2xl dialed-glass-elevated space-y-4">
+              <span className="text-xs font-mono uppercase text-white font-semibold block">
                 Standard of Rigor
               </span>
-              <div className="space-y-3 text-xs text-neutral-300 leading-relaxed">
+              <div className="space-y-3 text-xs text-[#c4c7c5] leading-relaxed">
                 <p>
                   Engr. Osazee holds chartered status with the Institution of Occupational Safety and Health (CMIOSH #100175) and certified Lead Auditor status under IRCA (#423290).
                 </p>
@@ -308,15 +312,15 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
                 </p>
               </div>
 
-              <div className="p-4 rounded-xl bg-white/[0.03] border border-white/5 space-y-2">
-                <div className="text-[11px] font-mono text-neutral-400 uppercase">
+              <div className="p-4 rounded-xl dialed-glass-pill space-y-2">
+                <div className="text-[11px] font-mono text-[#8e918f] uppercase">
                   Liaison Channel
                 </div>
                 <div className="text-xs font-mono text-white font-semibold flex items-center gap-2">
-                  <Mail className="w-3.5 h-3.5 text-sky-400" />
+                  <Mail className="w-3.5 h-3.5 text-[#a8c7fa]" />
                   <span>contact@iyenomaosazee.com</span>
                 </div>
-                <div className="text-[11px] text-neutral-400">
+                <div className="text-[11px] text-[#8e918f]">
                   Abuja, Federal Capital Territory, Nigeria
                 </div>
               </div>
@@ -335,41 +339,41 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
         className="space-y-8 scroll-mt-28"
       >
         <div className="space-y-2 max-w-2xl">
-          <span className="text-xs font-mono uppercase tracking-widest text-sky-400 font-semibold">
+          <span className="text-xs font-mono uppercase tracking-widest text-[#a8c7fa] font-semibold">
             Direct Briefing Desk
           </span>
-          <h2 className="text-2xl sm:text-4xl font-display font-bold text-white tracking-tight">
+          <h2 className="text-2xl sm:text-4xl font-display font-bold text-white tracking-tight leading-snug sm:leading-tight">
             Submit a Formal Project Inquiry
           </h2>
-          <p className="text-sm text-neutral-300 leading-relaxed">
+          <p className="text-sm text-[#c4c7c5] leading-relaxed">
             Provide the parameters of your planned infrastructure venture, audit mandate, or conference keynote. You will receive an immediate reference receipt and direct follow-up.
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Form */}
-          <div className="lg:col-span-8 p-6 sm:p-10 rounded-3xl bg-[#08080d] border border-white/10 shadow-xl">
+          <div className="lg:col-span-8 p-6 sm:p-10 rounded-3xl dialed-glass-card-elevated border border-white/20">
             {submitted ? (
-              <div className="p-8 rounded-2xl bg-sky-400/10 border border-sky-400/20 text-center space-y-4 animate-fadeIn">
-                <div className="w-12 h-12 rounded-full bg-sky-400/20 text-sky-300 flex items-center justify-center mx-auto">
+              <div className="p-8 rounded-2xl bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-[#444746] text-center space-y-4 animate-fadeIn">
+                <div className="w-12 h-12 rounded-full bg-black dark:bg-white text-white dark:text-black flex items-center justify-center mx-auto">
                   <CheckCircle2 className="w-6 h-6" />
                 </div>
-                <h3 className="text-xl font-display font-bold text-white">
+                <h3 className="text-xl font-display font-bold text-black dark:text-white leading-snug">
                   Inquiry Dispatched Successfully
                 </h3>
-                <p className="text-xs sm:text-sm text-neutral-300 max-w-md mx-auto leading-relaxed">
+                <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-300 max-w-md mx-auto leading-relaxed">
                   Your project dossier has been registered with reference ID:
                 </p>
-                <div className="p-3 rounded-xl bg-black/60 border border-white/10 font-mono text-sm text-sky-300 font-bold inline-block">
+                <div className="p-3 rounded-xl bg-neutral-100 text-neutral-900 dark:bg-[#282a2c] dark:text-white font-mono text-sm font-bold inline-block border border-neutral-300 dark:border-neutral-700">
                   {inquiryId}
                 </div>
-                <p className="text-xs text-neutral-400">
+                <p className="text-xs text-neutral-500 dark:text-neutral-400">
                   Engr. Osazee&apos;s executive liaison team will review your requirements and respond via email within 24 business hours.
                 </p>
                 <div className="pt-4">
                   <button
                     onClick={handleReset}
-                    className="px-6 py-2.5 rounded-full bg-white text-black font-semibold text-xs hover:bg-neutral-200 transition-colors"
+                    className="px-6 py-2.5 rounded-full bg-black hover:bg-neutral-800 text-white dark:bg-white dark:hover:bg-neutral-200 dark:text-black font-semibold text-xs transition-colors cursor-pointer"
                   >
                     Submit Another Inquiry
                   </button>
@@ -377,9 +381,8 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
-                {/* Review Item #9: Audience Segmentation Selector */}
                 <div className="space-y-2 pb-2">
-                  <label className="text-xs font-mono uppercase text-sky-400 font-semibold block tracking-wider">
+                  <label className="text-xs font-mono uppercase text-black dark:text-white font-semibold block tracking-wider">
                     What are you contacting me about? *
                   </label>
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
@@ -390,10 +393,10 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
                           type="button"
                           key={r.id}
                           onClick={() => setFormData({ ...formData, inquiryReason: r.id })}
-                          className={`p-3 rounded-xl text-xs font-mono text-left border transition-all ${
+                          className={`p-3 rounded-xl text-xs font-mono text-left border transition-all cursor-pointer ${
                             isSelected
-                              ? 'bg-white text-black font-bold border-white shadow-sm'
-                              : 'bg-white/5 text-neutral-300 border-white/5 hover:border-white/20'
+                              ? 'bg-black text-white dark:bg-white dark:text-black font-bold border-black dark:border-white shadow-sm'
+                              : 'bg-neutral-100 dark:bg-white/5 text-neutral-700 dark:text-neutral-300 border-neutral-200 dark:border-white/5 hover:border-neutral-400 dark:hover:border-white/20'
                           }`}
                         >
                           <span className="block truncate">{r.label}</span>
@@ -405,7 +408,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-1.5">
-                    <label className="text-xs font-mono uppercase text-neutral-300 block">
+                    <label className="text-xs font-mono uppercase text-neutral-700 dark:text-neutral-300 block">
                       Full Name *
                     </label>
                     <input
@@ -414,12 +417,12 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
                       value={formData.fullName}
                       onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                       placeholder="e.g., Dr. Chidi Okafor"
-                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-xs placeholder:text-neutral-500 focus:outline-none focus:border-sky-400 transition-colors"
+                      className="w-full px-4 py-3 rounded-xl bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-[#333538] text-black dark:text-white text-xs placeholder:text-neutral-500 focus:outline-none focus:border-black dark:focus:border-white transition-colors"
                     />
                   </div>
 
                   <div className="space-y-1.5">
-                    <label className="text-xs font-mono uppercase text-neutral-300 block">
+                    <label className="text-xs font-mono uppercase text-neutral-700 dark:text-neutral-300 block">
                       Organization / Agency *
                     </label>
                     <input
@@ -428,14 +431,14 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
                       value={formData.organization}
                       onChange={(e) => setFormData({ ...formData, organization: e.target.value })}
                       placeholder="e.g., Federal Ministry of Works"
-                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-xs placeholder:text-neutral-500 focus:outline-none focus:border-sky-400 transition-colors"
+                      className="w-full px-4 py-3 rounded-xl bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-[#333538] text-black dark:text-white text-xs placeholder:text-neutral-500 focus:outline-none focus:border-black dark:focus:border-white transition-colors"
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-1.5">
-                    <label className="text-xs font-mono uppercase text-neutral-300 block">
+                    <label className="text-xs font-mono uppercase text-neutral-700 dark:text-neutral-300 block">
                       Official Email *
                     </label>
                     <input
@@ -444,18 +447,18 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       placeholder="name@organization.gov.ng"
-                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-xs placeholder:text-neutral-500 focus:outline-none focus:border-sky-400 transition-colors"
+                      className="w-full px-4 py-3 rounded-xl bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-[#333538] text-black dark:text-white text-xs placeholder:text-neutral-500 focus:outline-none focus:border-black dark:focus:border-white transition-colors"
                     />
                   </div>
 
                   <div className="space-y-1.5">
-                    <label className="text-xs font-mono uppercase text-neutral-300 block">
+                    <label className="text-xs font-mono uppercase text-neutral-700 dark:text-neutral-300 block">
                       Advisory Domain *
                     </label>
                     <select
                       value={formData.serviceType}
                       onChange={(e) => setFormData({ ...formData, serviceType: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl bg-[#111118] border border-white/10 text-white text-xs focus:outline-none focus:border-sky-400 transition-colors"
+                      className="w-full px-4 py-3 rounded-xl bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-[#333538] text-black dark:text-white text-xs focus:outline-none focus:border-black dark:focus:border-white transition-colors"
                     >
                       <option value="mega_infrastructure">Mega-Infrastructure Safety Governance</option>
                       <option value="iso_audit">ISO 45001 / 14001 Auditing & Diagnostics</option>
@@ -468,7 +471,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-xs font-mono uppercase text-neutral-300 block">
+                  <label className="text-xs font-mono uppercase text-neutral-700 dark:text-neutral-300 block">
                     Execution Timeframe
                   </label>
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
@@ -482,10 +485,10 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
                         type="button"
                         key={t.id}
                         onClick={() => setFormData({ ...formData, timeframe: t.id })}
-                        className={`py-2 px-3 rounded-xl text-xs font-mono border transition-all ${
+                        className={`py-2 px-3 rounded-xl text-xs font-mono border transition-all cursor-pointer ${
                           formData.timeframe === t.id
-                            ? 'bg-white text-black font-semibold border-white'
-                            : 'bg-white/5 text-neutral-400 border-white/5 hover:border-white/20'
+                            ? 'bg-black text-white dark:bg-white dark:text-black font-semibold border-black dark:border-white'
+                            : 'bg-neutral-100 dark:bg-white/5 text-neutral-700 dark:text-neutral-400 border-neutral-200 dark:border-white/5 hover:border-neutral-400 dark:hover:border-white/20'
                         }`}
                       >
                         {t.label}
@@ -495,7 +498,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-xs font-mono uppercase text-neutral-300 block">
+                  <label className="text-xs font-mono uppercase text-neutral-700 dark:text-neutral-300 block">
                     Project Parameters & Specific Scope *
                   </label>
                   <textarea
@@ -504,17 +507,17 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     placeholder="Provide details on site location, project scale, contractor arrangements, and specific safety advisory objectives..."
-                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-xs placeholder:text-neutral-500 focus:outline-none focus:border-sky-400 transition-colors"
+                    className="w-full px-4 py-3 rounded-xl bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-[#333538] text-black dark:text-white text-xs placeholder:text-neutral-500 focus:outline-none focus:border-black dark:focus:border-white transition-colors"
                   />
                 </div>
 
                 <div className="pt-2 flex items-center justify-between flex-wrap gap-4">
-                  <p className="text-[11px] text-neutral-400 font-mono">
+                  <p className="text-[11px] text-neutral-500 dark:text-neutral-400 font-mono">
                     Official dispatches handled under strict confidentiality protocols.
                   </p>
                   <button
                     type="submit"
-                    className="flex items-center space-x-2 px-8 py-3.5 rounded-full bg-white hover:bg-neutral-200 text-black font-bold text-xs transition-all shadow-md cursor-pointer"
+                    className="flex items-center space-x-2 px-8 py-3.5 rounded-full bg-black hover:bg-neutral-800 text-white dark:bg-white dark:hover:bg-neutral-200 dark:text-black font-bold text-xs transition-all shadow-md cursor-pointer"
                   >
                     <span>Dispatch Project Dossier</span>
                     <Send className="w-3.5 h-3.5" />
@@ -526,53 +529,53 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
 
           {/* Quick Contact Information Panel */}
           <div className="lg:col-span-4 space-y-4">
-            <div className="p-6 rounded-3xl bg-[#08080d] border border-white/10 space-y-4">
-              <span className="text-xs font-mono uppercase tracking-wider text-sky-400 font-semibold">
+            <div className="p-6 rounded-3xl dialed-glass-card-elevated border border-white/20 text-white space-y-4">
+              <span className="text-xs font-mono uppercase tracking-wider text-[#a8c7fa] font-semibold">
                 Direct Executive Channels
               </span>
 
               <div className="space-y-3 pt-2">
-                <div className="p-3.5 rounded-2xl bg-white/[0.02] border border-white/5 space-y-1">
-                  <span className="text-[10px] font-mono text-neutral-400 uppercase">
+                <div className="p-3.5 rounded-2xl bg-[#282a2c] border border-[#3c4043] space-y-1">
+                  <span className="text-[10px] font-mono text-[#8e918f] uppercase">
                     Primary Office
                   </span>
                   <div className="text-xs text-white font-medium">
                     HSE Directorate, Julius Berger Nigeria PLC
                   </div>
-                  <div className="text-[11px] text-neutral-400 font-mono">
+                  <div className="text-[11px] text-[#8e918f] font-mono">
                     Abuja, Federal Capital Territory, Nigeria
                   </div>
                 </div>
 
-                <div className="p-3.5 rounded-2xl bg-white/[0.02] border border-white/5 space-y-1">
-                  <span className="text-[10px] font-mono text-neutral-400 uppercase">
+                <div className="p-3.5 rounded-2xl bg-[#282a2c] border border-[#3c4043] space-y-1">
+                  <span className="text-[10px] font-mono text-[#8e918f] uppercase">
                     Direct Email Liaison
                   </span>
                   <a
                     href="mailto:contact@iyenomaosazee.com"
-                    className="text-xs text-sky-300 font-mono block hover:underline"
+                    className="text-xs text-[#a8c7fa] font-mono block hover:underline"
                   >
                     contact@iyenomaosazee.com
                   </a>
                 </div>
 
-                <div className="p-3.5 rounded-2xl bg-white/[0.02] border border-white/5 space-y-1">
-                  <span className="text-[10px] font-mono text-neutral-400 uppercase">
+                <div className="p-3.5 rounded-2xl bg-[#282a2c] border border-[#3c4043] space-y-1">
+                  <span className="text-[10px] font-mono text-[#8e918f] uppercase">
                     Statutory Registry
                   </span>
-                  <div className="text-xs text-neutral-200">
+                  <div className="text-xs text-white">
                     Institution of Occupational Safety & Health (UK)
                   </div>
-                  <div className="text-[11px] text-neutral-400 font-mono">
+                  <div className="text-[11px] text-[#8e918f] font-mono">
                     Chartered Fellow (CMIOSH #100175)
                   </div>
                 </div>
               </div>
 
-              <div className="pt-2 border-t border-white/10">
+              <div className="pt-2 border-t border-[#333538]">
                 <button
                   onClick={onOpenBookingModal}
-                  className="w-full py-3 rounded-full bg-white/10 hover:bg-white/15 text-white font-semibold text-xs border border-white/15 transition-colors flex items-center justify-center space-x-1.5"
+                  className="w-full py-3 rounded-full bg-white hover:bg-[#f0f4f9] text-[#131314] font-semibold text-xs transition-colors flex items-center justify-center space-x-1.5 cursor-pointer shadow-sm"
                 >
                   <span>Book Consultation Call</span>
                   <ArrowUpRight className="w-3.5 h-3.5" />

@@ -48,34 +48,34 @@ export const CaseStudyModal: React.FC<CaseStudyModalProps> = ({
       }}
     >
       <div 
-        className="relative w-full max-w-4xl rounded-3xl bg-[#09090e] border border-white/15 shadow-[0_25px_80px_rgba(0,0,0,0.9)] overflow-hidden my-8"
+        className="relative w-full max-w-4xl rounded-3xl dialed-glass-card-elevated border border-white/20 shadow-2xl overflow-hidden my-8 text-white"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Project Image Hero Banner */}
         {project.imageUrl ? (
-          <div className="relative h-52 sm:h-64 w-full overflow-hidden">
+          <div className="relative h-52 sm:h-64 w-full overflow-hidden bg-neutral-100 dark:bg-neutral-900">
             <img
               src={project.imageUrl}
               alt={project.title}
               referrerPolicy="no-referrer"
               className="w-full h-full object-cover brightness-[0.78] contrast-[1.08]"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#09090e] via-black/40 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
             
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 p-2 rounded-full bg-black/60 backdrop-blur-md hover:bg-black/85 text-neutral-200 hover:text-white transition-colors border border-white/15 z-10"
+              className="absolute top-4 right-4 p-2 rounded-full bg-black/60 backdrop-blur-md hover:bg-black/85 text-white transition-colors border border-white/15 z-10 cursor-pointer"
               aria-label="Close modal"
             >
               <X className="w-5 h-5" />
             </button>
 
             <div className="absolute bottom-4 left-6 sm:left-8 flex flex-wrap items-center gap-2">
-              <span className="px-3 py-1 rounded-full bg-sky-400/20 backdrop-blur-md text-sky-300 text-xs font-mono font-medium border border-sky-400/30">
+              <span className="px-3 py-1 rounded-full bg-black/70 backdrop-blur-md text-white text-xs font-mono font-medium border border-white/20">
                 {project.category}
               </span>
               <span className="text-xs font-mono text-neutral-200 bg-black/60 backdrop-blur-md px-3 py-1 rounded-full border border-white/10 flex items-center gap-1">
-                <Clock className="w-3.5 h-3.5 text-sky-400" />
+                <Clock className="w-3.5 h-3.5 text-white" />
                 {project.period}
               </span>
             </div>
@@ -83,14 +83,14 @@ export const CaseStudyModal: React.FC<CaseStudyModalProps> = ({
         ) : null}
 
         {/* Modal Header */}
-        <div className={`relative p-6 sm:p-8 border-b border-white/10 bg-gradient-to-r from-neutral-900/80 via-black to-[#0d0d14] ${project.imageUrl ? 'pt-4' : ''}`}>
+        <div className={`relative p-6 sm:p-8 border-b border-neutral-200 dark:border-[#333538] bg-neutral-50 dark:bg-[#0e0e11] ${project.imageUrl ? 'pt-4' : ''}`}>
           {!project.imageUrl && (
             <div className="flex items-center justify-between gap-4">
               <div className="flex flex-wrap items-center gap-2">
-                <span className="px-3 py-1 rounded-full bg-sky-400/10 text-sky-300 text-xs font-mono font-medium border border-sky-400/20">
+                <span className="px-3 py-1 rounded-full bg-neutral-100 dark:bg-white/10 text-neutral-800 dark:text-neutral-200 text-xs font-mono font-medium border border-neutral-200 dark:border-[#333538]">
                   {project.category}
                 </span>
-                <span className="text-xs font-mono text-neutral-400 flex items-center gap-1">
+                <span className="text-xs font-mono text-neutral-600 dark:text-neutral-400 flex items-center gap-1">
                   <Clock className="w-3.5 h-3.5" />
                   {project.period}
                 </span>
@@ -98,7 +98,7 @@ export const CaseStudyModal: React.FC<CaseStudyModalProps> = ({
 
               <button
                 onClick={onClose}
-                className="p-2 rounded-full bg-white/10 hover:bg-white/20 text-neutral-300 hover:text-white transition-colors"
+                className="p-2 rounded-full bg-neutral-200 hover:bg-neutral-300 dark:bg-white/10 dark:hover:bg-white/20 text-black dark:text-white transition-colors cursor-pointer"
                 aria-label="Close modal"
               >
                 <X className="w-5 h-5" />
@@ -106,16 +106,16 @@ export const CaseStudyModal: React.FC<CaseStudyModalProps> = ({
             </div>
           )}
 
-          <h2 className="text-2xl sm:text-3xl font-display font-bold text-white tracking-tight mt-2">
+          <h2 className="text-2xl sm:text-3xl font-display font-bold text-black dark:text-white tracking-tight mt-2 leading-snug sm:leading-tight">
             {project.title}
           </h2>
 
-          <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-neutral-300 mt-2">
-            <span className="flex items-center gap-1 text-neutral-300">
-              <Building2 className="w-3.5 h-3.5 text-sky-400" />
+          <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-neutral-600 dark:text-neutral-300 mt-2">
+            <span className="flex items-center gap-1 text-black dark:text-neutral-200 font-medium">
+              <Building2 className="w-3.5 h-3.5 text-neutral-700 dark:text-neutral-300" />
               {project.client}
             </span>
-            <span className="flex items-center gap-1 text-neutral-400">
+            <span className="flex items-center gap-1 text-neutral-500 dark:text-neutral-400">
               <MapPin className="w-3.5 h-3.5 text-neutral-400" />
               {project.location}
             </span>
@@ -130,12 +130,12 @@ export const CaseStudyModal: React.FC<CaseStudyModalProps> = ({
             {project.metrics.map((m, idx) => (
               <div 
                 key={idx} 
-                className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 flex flex-col justify-between space-y-1"
+                className="p-4 rounded-2xl bg-neutral-50 dark:bg-neutral-800/40 border border-neutral-200 dark:border-[#333538] flex flex-col justify-between space-y-1"
               >
-                <span className="text-[11px] font-mono uppercase text-neutral-400">
+                <span className="text-[11px] font-mono uppercase text-neutral-500 dark:text-neutral-400">
                   {m.label}
                 </span>
-                <span className="text-xl sm:text-2xl font-display font-extrabold text-white tracking-tight">
+                <span className="text-xl sm:text-2xl font-display font-extrabold text-black dark:text-white tracking-tight">
                   {m.value}
                 </span>
               </div>
@@ -144,64 +144,64 @@ export const CaseStudyModal: React.FC<CaseStudyModalProps> = ({
 
           {/* Project Summary */}
           <div className="space-y-2">
-            <h3 className="text-sm font-mono uppercase tracking-wider text-neutral-400 flex items-center gap-2">
-              <TrendingUp className="w-4 h-4 text-white" />
-              Operational Scope & Strategic Mandate
+            <h3 className="text-sm font-mono uppercase tracking-wider text-neutral-700 dark:text-neutral-300 font-semibold flex items-center gap-2 leading-snug">
+              <TrendingUp className="w-4 h-4 text-black dark:text-white" />
+              Operational Scope &amp; Strategic Mandate
             </h3>
-            <p className="text-sm sm:text-base text-neutral-200 leading-relaxed">
+            <p className="text-sm sm:text-base text-neutral-700 dark:text-neutral-300 leading-relaxed">
               {project.summary}
             </p>
           </div>
 
           {/* Two-Column Challenge vs HSE Solution */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="p-5 sm:p-6 rounded-2xl bg-neutral-950/80 border border-white/10 space-y-3">
-              <span className="text-xs font-mono uppercase tracking-wider text-red-400/90 font-semibold flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-red-400"></span>
-                The Engineering & Physical Hazards
+            <div className="p-5 sm:p-6 rounded-2xl bg-neutral-50 dark:bg-[#0e0e11] border border-neutral-200 dark:border-[#333538] space-y-3">
+              <span className="text-xs font-mono uppercase tracking-wider text-neutral-800 dark:text-neutral-200 font-semibold flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-neutral-600 dark:bg-neutral-400"></span>
+                The Engineering &amp; Physical Hazards
               </span>
-              <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed">
+              <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed">
                 {project.challenge}
               </p>
             </div>
 
-            <div className="p-5 sm:p-6 rounded-2xl bg-neutral-950/80 border border-white/10 space-y-3">
-              <span className="text-xs font-mono uppercase tracking-wider text-sky-400 font-semibold flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-sky-400"></span>
+            <div className="p-5 sm:p-6 rounded-2xl bg-neutral-50 dark:bg-[#0e0e11] border border-neutral-200 dark:border-[#333538] space-y-3">
+              <span className="text-xs font-mono uppercase tracking-wider text-black dark:text-white font-semibold flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-black dark:bg-white"></span>
                 The Engineered HSE Protocol
               </span>
-              <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed">
+              <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed">
                 {project.hseSolution}
               </p>
             </div>
           </div>
 
           {/* Safety Milestone Banner */}
-          <div className="p-5 rounded-2xl bg-white/[0.03] border border-sky-400/20 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="p-5 rounded-2xl bg-neutral-100 dark:bg-neutral-800/40 border border-neutral-200 dark:border-[#444746] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="space-y-1">
-              <span className="text-[11px] font-mono uppercase text-sky-300 font-semibold flex items-center gap-1.5">
-                <Award className="w-4 h-4 text-sky-400" />
+              <span className="text-[11px] font-mono uppercase text-neutral-800 dark:text-neutral-200 font-semibold flex items-center gap-1.5">
+                <Award className="w-4 h-4 text-black dark:text-white" />
                 Verified Safety Achievement
               </span>
-              <p className="text-sm sm:text-base font-display font-semibold text-white">
+              <p className="text-sm sm:text-base font-display font-semibold text-black dark:text-white">
                 {project.safetyRecord}
               </p>
             </div>
 
             <div className="flex items-center space-x-2">
-              <ShieldCheck className="w-6 h-6 text-white" />
-              <span className="text-xs font-mono text-neutral-300">
-                Audited to ISO 45001 & IOSH Code
+              <ShieldCheck className="w-6 h-6 text-black dark:text-white" />
+              <span className="text-xs font-mono text-neutral-600 dark:text-neutral-300">
+                Audited to ISO 45001 &amp; IOSH Code
               </span>
             </div>
           </div>
 
           {/* Project Tags */}
-          <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-white/10">
+          <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-neutral-200 dark:border-[#333538]">
             {project.tags.map((t, idx) => (
               <span 
                 key={idx}
-                className="text-xs font-mono px-3 py-1 rounded-full bg-white/5 border border-white/10 text-neutral-300"
+                className="text-xs font-mono px-3 py-1 rounded-full bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-[#444746] text-neutral-700 dark:text-neutral-300"
               >
                 #{t}
               </span>
@@ -210,15 +210,15 @@ export const CaseStudyModal: React.FC<CaseStudyModalProps> = ({
         </div>
 
         {/* Modal Footer CTA */}
-        <div className="p-6 bg-black border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-neutral-400 font-mono text-center sm:text-left">
+        <div className="p-6 bg-neutral-50 dark:bg-[#0e0e11] border-t border-neutral-200 dark:border-[#333538] flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-xs text-neutral-500 dark:text-neutral-400 font-mono text-center sm:text-left">
             Need an equivalent executive HSE framework deployed on your megaproject?
           </p>
 
           <div className="flex items-center space-x-3 w-full sm:w-auto">
             <button
               onClick={onClose}
-              className="w-1/2 sm:w-auto px-5 py-2.5 rounded-full bg-white/10 hover:bg-white/20 text-neutral-200 text-xs font-medium transition-colors"
+              className="w-1/2 sm:w-auto px-5 py-2.5 rounded-full bg-neutral-200 hover:bg-neutral-300 dark:bg-white/10 dark:hover:bg-white/20 text-black dark:text-white text-xs font-medium transition-colors cursor-pointer"
             >
               Close
             </button>
@@ -227,7 +227,7 @@ export const CaseStudyModal: React.FC<CaseStudyModalProps> = ({
                 onClose();
                 onBookAdvisory();
               }}
-              className="w-1/2 sm:w-auto px-6 py-2.5 rounded-full bg-white hover:bg-neutral-200 text-black text-xs font-semibold tracking-tight transition-all shadow-md"
+              className="w-1/2 sm:w-auto px-6 py-2.5 rounded-full bg-black hover:bg-neutral-800 text-white dark:bg-white dark:hover:bg-neutral-200 dark:text-black text-xs font-semibold tracking-tight transition-all shadow-md cursor-pointer"
             >
               Request Project Advisory
             </button>

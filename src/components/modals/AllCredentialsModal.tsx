@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Credential } from '../../types';
 import { CREDENTIALS } from '../../data/profileData';
+import { subscribeToCredentials } from '../../lib/portfolioService';
 import { 
   X, 
   ShieldCheck, 
@@ -95,8 +96,18 @@ export const AllCredentialsModal: React.FC<AllCredentialsModalProps> = ({
   isOpen,
   onClose
 }) => {
-  const [searchQuery, setSearchQuery] = React.useState('');
-  const [filterType, setFilterType] = React.useState<'all' | 'chartered' | 'auditing' | 'institutional'>('all');
+  const [credentialsList, setCredentialsList] = useState<Credential[]>(EXTENDED_CREDENTIALS);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filterType, setFilterType] = useState<'all' | 'chartered' | 'auditing' | 'institutional'>('all');
+
+  useEffect(() => {
+    const unsub = subscribeToCredentials((liveCreds) => {
+      if (liveCreds && liveCreds.length > 0) {
+        setCredentialsList(liveCreds);
+      }
+    });
+    return () => unsub();
+  }, []);
 
   useEffect(() => {
     if (isOpen) {
@@ -116,7 +127,7 @@ export const AllCredentialsModal: React.FC<AllCredentialsModalProps> = ({
 
   if (!isOpen) return null;
 
-  const filteredCredentials = EXTENDED_CREDENTIALS.filter((cred) => {
+  const filteredCredentials = credentialsList.filter((cred) => {
     const matchesSearch = 
       cred.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       cred.designation.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -151,28 +162,28 @@ export const AllCredentialsModal: React.FC<AllCredentialsModalProps> = ({
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
           transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-          className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-3xl bg-[#08080d] border border-white/15 text-white shadow-2xl flex flex-col"
+          className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-3xl dialed-glass-card-elevated border border-white/20 text-white shadow-2xl flex flex-col"
         >
           {/* Header */}
-          <div className="p-6 sm:p-8 border-b border-white/10 bg-[#0c0c14] relative">
+          <div className="p-6 sm:p-8 border-b border-white/10 bg-white/[0.04] backdrop-blur-xl relative">
             <button
               id="btn-close-credentials-modal"
               onClick={onClose}
-              className="absolute top-6 right-6 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-all border border-white/10 active:scale-95"
+              className="absolute top-6 right-6 w-9 h-9 rounded-full bg-neutral-200 hover:bg-neutral-300 dark:bg-white/10 dark:hover:bg-white/20 text-black dark:text-white flex items-center justify-center transition-all border border-neutral-200 dark:border-[#333538] active:scale-95 cursor-pointer"
               aria-label="Close credentials modal"
             >
               <X className="w-5 h-5" />
             </button>
 
             <div className="space-y-2 max-w-2xl">
-              <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-sky-500/10 border border-sky-400/20 text-sky-400 text-xs font-mono">
-                <ShieldCheck className="w-3.5 h-3.5" />
-                <span>Professional Evidence & Verification Registry</span>
+              <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-neutral-100 dark:bg-white/10 border border-neutral-200 dark:border-[#333538] text-neutral-800 dark:text-neutral-200 text-xs font-mono">
+                <ShieldCheck className="w-3.5 h-3.5 text-black dark:text-white" />
+                <span>Professional Evidence &amp; Verification Registry</span>
               </div>
-              <h2 className="text-2xl sm:text-3xl font-display font-extrabold text-white tracking-tight">
-                All Professional Credentials & Certifications
+              <h2 className="text-2xl sm:text-3xl font-display font-bold text-black dark:text-white tracking-tight leading-snug sm:leading-tight">
+                All Professional Credentials &amp; Certifications
               </h2>
-              <p className="text-xs sm:text-sm text-neutral-300">
+              <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-300">
                 Verifiable institutional certifications, chartered registrations, international auditor credentials, and statutory peer appointments.
               </p>
             </div>
@@ -186,12 +197,12 @@ export const AllCredentialsModal: React.FC<AllCredentialsModalProps> = ({
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search by credential title, ID (e.g. 100175), or issuer..."
-                  className="w-full pl-10 pr-4 py-2 rounded-xl bg-white/5 border border-white/10 text-white text-xs placeholder:text-neutral-500 focus:outline-none focus:border-sky-400 transition-colors"
+                  className="w-full pl-10 pr-4 py-2 rounded-xl bg-white dark:bg-white/5 border border-neutral-200 dark:border-[#333538] text-black dark:text-white text-xs placeholder:text-neutral-500 focus:outline-none focus:border-black dark:focus:border-white transition-colors"
                 />
               </div>
 
               <div className="flex items-center gap-1.5 overflow-x-auto">
-                <Filter className="w-3.5 h-3.5 text-sky-400 shrink-0 mr-1" />
+                <Filter className="w-3.5 h-3.5 text-neutral-600 dark:text-neutral-300 shrink-0 mr-1" />
                 {[
                   { id: 'all', label: 'All (12)' },
                   { id: 'chartered', label: 'Chartered & NSE' },
@@ -201,10 +212,10 @@ export const AllCredentialsModal: React.FC<AllCredentialsModalProps> = ({
                   <button
                     key={f.id}
                     onClick={() => setFilterType(f.id as any)}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-mono whitespace-nowrap transition-all ${
+                    className={`px-3 py-1.5 rounded-xl text-xs font-mono whitespace-nowrap transition-all cursor-pointer ${
                       filterType === f.id
-                        ? 'bg-white text-black font-semibold shadow-sm'
-                        : 'bg-white/5 text-neutral-300 hover:bg-white/10 border border-white/5'
+                        ? 'bg-black text-white dark:bg-white dark:text-black font-semibold shadow-sm'
+                        : 'bg-neutral-100 dark:bg-white/5 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-white/10 border border-neutral-200 dark:border-white/5'
                     }`}
                   >
                     {f.label}
@@ -216,7 +227,7 @@ export const AllCredentialsModal: React.FC<AllCredentialsModalProps> = ({
 
           {/* Credentials Grid */}
           <div className="p-6 sm:p-8 space-y-4">
-            <div className="text-xs font-mono text-neutral-400 flex items-center justify-between pb-1">
+            <div className="text-xs font-mono text-neutral-500 dark:text-neutral-400 flex items-center justify-between pb-1">
               <span>Showing {filteredCredentials.length} verifiable credentials</span>
               <span>Evidence Standard: ISO / IOSH UK / NSE / ISPON</span>
             </div>
@@ -225,35 +236,35 @@ export const AllCredentialsModal: React.FC<AllCredentialsModalProps> = ({
               {filteredCredentials.map((cred) => (
                 <div
                   key={cred.id}
-                  className="p-5 rounded-2xl bg-[#0e0e16] border border-white/10 hover:border-white/20 transition-all flex flex-col justify-between space-y-3 group"
+                  className="p-5 rounded-2xl dialed-glass-card hover:border-[#a8c7fa]/40 transition-all flex flex-col justify-between space-y-3 group"
                 >
                   <div className="space-y-2">
                     <div className="flex items-center justify-between gap-2">
-                      <span className="px-2.5 py-0.5 rounded-full bg-sky-400/10 text-sky-300 border border-sky-400/25 text-[11px] font-mono font-bold">
+                      <span className="px-2.5 py-0.5 rounded-full bg-neutral-100 dark:bg-white/10 text-black dark:text-white border border-neutral-200 dark:border-[#333538] text-[11px] font-mono font-bold">
                         {cred.designation}
                       </span>
                       {cred.credentialId && (
-                        <span className="text-[10px] font-mono text-neutral-400 bg-white/5 px-2 py-0.5 rounded border border-white/5">
+                        <span className="text-[10px] font-mono text-neutral-500 dark:text-neutral-400 bg-neutral-100 dark:bg-white/5 px-2 py-0.5 rounded border border-neutral-200 dark:border-white/5">
                           {cred.credentialId}
                         </span>
                       )}
                     </div>
 
-                    <h3 className="text-base font-display font-bold text-white group-hover:text-sky-300 transition-colors">
+                    <h3 className="text-base font-display font-bold text-black dark:text-white transition-colors leading-snug">
                       {cred.title}
                     </h3>
 
-                    <p className="text-xs text-neutral-400 font-medium">
+                    <p className="text-xs text-neutral-600 dark:text-neutral-400 font-medium">
                       {cred.issuer}
                     </p>
 
-                    <p className="text-xs text-neutral-300 leading-relaxed pt-1">
+                    <p className="text-xs text-neutral-600 dark:text-neutral-300 leading-relaxed pt-1">
                       {cred.description}
                     </p>
                   </div>
 
-                  <div className="pt-2 border-t border-white/5 flex items-center justify-between text-[11px] font-mono text-neutral-400">
-                    <span className="flex items-center gap-1.5 text-emerald-400 font-medium">
+                  <div className="pt-2 border-t border-neutral-100 dark:border-[#333538] flex items-center justify-between text-[11px] font-mono text-neutral-500 dark:text-neutral-400">
+                    <span className="flex items-center gap-1.5 text-black dark:text-white font-medium">
                       <CheckCircle2 className="w-3.5 h-3.5" />
                       Status: Active / Certified
                     </span>
@@ -267,13 +278,13 @@ export const AllCredentialsModal: React.FC<AllCredentialsModalProps> = ({
           </div>
 
           {/* Footer */}
-          <div className="p-6 border-t border-white/10 bg-[#0a0a10] flex flex-wrap items-center justify-between gap-3">
-            <span className="text-xs font-mono text-neutral-400">
+          <div className="p-6 border-t border-neutral-200 dark:border-[#333538] bg-neutral-50 dark:bg-[#0e0e11] flex flex-wrap items-center justify-between gap-3">
+            <span className="text-xs font-mono text-neutral-500 dark:text-neutral-400">
               Direct verification queries may be dispatched through official corporate liaison channels.
             </span>
             <button
               onClick={onClose}
-              className="px-6 py-2.5 rounded-full bg-white hover:bg-neutral-200 text-black font-semibold text-xs transition-colors"
+              className="px-6 py-2.5 rounded-full bg-black hover:bg-neutral-800 text-white dark:bg-white dark:hover:bg-neutral-200 dark:text-black font-semibold text-xs transition-colors cursor-pointer"
             >
               Close Registry
             </button>

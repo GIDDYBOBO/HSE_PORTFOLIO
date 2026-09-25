@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { PageId, BookItem } from './types';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
+import { AuthProvider } from './context/AuthContext';
 import { BOOKS_AND_PUBLICATIONS } from './data/booksData';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
@@ -15,6 +16,7 @@ import { BookingModal } from './components/modals/BookingModal';
 import { AllCredentialsModal } from './components/modals/AllCredentialsModal';
 import { BookDetailModal } from './components/modals/BookDetailModal';
 import { useScrollRevealContainer } from './hooks';
+import { MorphBackground } from './components/common/MorphBackground';
 
 function PortfolioApp() {
   const { theme } = useTheme();
@@ -46,11 +48,10 @@ function PortfolioApp() {
   };
 
   return (
-    <div className={`min-h-screen flex flex-col transition-colors duration-300 ${
-      theme === 'light'
-        ? 'bg-[#f8fafc] text-slate-900 selection:bg-slate-200 selection:text-slate-900'
-        : 'bg-[#030305] text-neutral-100 selection:bg-white/20 selection:text-white'
-    }`}>
+    <div className="relative min-h-screen flex flex-col bg-transparent text-[#e3e3e3] selection:bg-[#1a73e8]/30 selection:text-white transition-colors duration-200">
+      {/* DialedWeb Signature Morphing Liquid Mesh & Glass Canvas */}
+      <MorphBackground />
+
       {/* Top Main Navigation (Floating Capsule) */}
       <Navbar
         currentPage={currentPage}
@@ -147,7 +148,9 @@ function PortfolioApp() {
 export default function App() {
   return (
     <ThemeProvider>
-      <PortfolioApp />
+      <AuthProvider>
+        <PortfolioApp />
+      </AuthProvider>
     </ThemeProvider>
   );
 }

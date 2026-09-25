@@ -1,0 +1,97 @@
+{
+  "entities": {
+    "Credential": {
+      "title": "Credential",
+      "description": "Professional engineering, safety, and auditor credentials",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "designation": { "type": "string" },
+        "issuer": { "type": "string" },
+        "year": { "type": "string" },
+        "credentialId": { "type": "string" },
+        "description": { "type": "string" },
+        "highlight": { "type": "boolean" },
+        "verificationStatus": { "type": "string" },
+        "verificationUrl": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "title", "designation", "issuer", "description"]
+    },
+    "ProjectHighlight": {
+      "title": "ProjectHighlight",
+      "description": "Executive mega-infrastructure and statutory safety project highlights",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "client": { "type": "string" },
+        "category": { "type": "string" },
+        "location": { "type": "string" },
+        "period": { "type": "string" },
+        "startYear": { "type": "number" },
+        "endYear": { "type": "string" },
+        "timelineDate": { "type": "string" },
+        "manHours": { "type": "string" },
+        "safetyRecord": { "type": "string" },
+        "summary": { "type": "string" },
+        "challenge": { "type": "string" },
+        "hseSolution": { "type": "string" },
+        "tags": { "type": "array" },
+        "imageUrl": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "title", "client", "category", "summary"]
+    },
+    "Inquiry": {
+      "title": "Inquiry",
+      "description": "Client consultation and speaking booking inquiry",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "date": { "type": "string" },
+        "name": { "type": "string" },
+        "organization": { "type": "string" },
+        "email": { "type": "string" },
+        "phone": { "type": "string" },
+        "segment": { "type": "string" },
+        "timeframe": { "type": "string" },
+        "message": { "type": "string" },
+        "status": { "type": "string" }
+      },
+      "required": ["id", "name", "email", "message", "status"]
+    },
+    "AdminUser": {
+      "title": "AdminUser",
+      "description": "Admin user profile with role configuration",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "role": { "type": "string" },
+        "displayName": { "type": "string" },
+        "lastLogin": { "type": "string" }
+      },
+      "required": ["uid", "email", "role"]
+    }
+  },
+  "firestore": {
+    "/credentials/{credentialId}": {
+      "schema": "Credential",
+      "description": "Professional certifications and credentials"
+    },
+    "/projects/{projectId}": {
+      "schema": "ProjectHighlight",
+      "description": "Major project highlights and case studies"
+    },
+    "/inquiries/{inquiryId}": {
+      "schema": "Inquiry",
+      "description": "Inbound client advisory bookings and inquiries"
+    },
+    "/users/{userId}": {
+      "schema": "AdminUser",
+      "description": "Registered administrative users"
+    }
+  }
+}

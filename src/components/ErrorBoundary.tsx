@@ -33,9 +33,9 @@ export class ErrorBoundary extends Component<Props, State> {
   public render() {
     if (this.state.hasError) {
       return (
-        <div className="min-h-screen bg-[#030305] text-white flex flex-col items-center justify-center p-6 text-center">
-          <div className="max-w-md p-6 rounded-2xl bg-[#090910] border border-white/10 space-y-4">
-            <h2 className="text-xl font-bold font-display">Something went wrong</h2>
+        <div className="min-h-screen bg-[#131314] text-white flex flex-col items-center justify-center p-6 text-center">
+          <div className="max-w-md p-6 rounded-2xl bg-[#1e1f20] border border-white/10 space-y-4">
+            <h2 className="text-xl font-bold font-display leading-snug sm:leading-tight">Something went wrong</h2>
             <p className="text-xs text-neutral-400">
               An unexpected error occurred while loading this view.
             </p>
