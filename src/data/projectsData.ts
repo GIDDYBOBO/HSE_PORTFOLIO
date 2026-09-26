@@ -137,7 +137,7 @@ export const SIGNATURE_WORKS: Megaproject[] = [
       { label: 'LTIFR', value: '0.00' }
     ],
     tags: ['Civil Megaproject', 'High-Density Traffic', 'Thermal Stress (WBGT)', 'Julius Berger PLC'],
-    imageUrl: 'https://images.unsplash.com/photo-1541888946425-d0fbb186c5f8?auto=format&fit=crop&w=1200&q=80'
+    imageUrl: 'https://images.unsplash.com/photo-1590486803833-1c5dc8ddd4c8?auto=format&fit=crop&w=1200&q=80'
   },
   {
     id: 'cbn-headquarters-highrise',

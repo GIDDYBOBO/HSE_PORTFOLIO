@@ -805,6 +805,11 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
                       src={work.imageUrl}
                       alt={work.title}
                       referrerPolicy="no-referrer"
+                      loading="lazy"
+                      onError={(e) => {
+                        e.currentTarget.onerror = null;
+                        e.currentTarget.src = 'https://images.unsplash.com/photo-1506521781263-d8422e82f27a?auto=format&fit=crop&w=1200&q=80';
+                      }}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 brightness-[0.90] contrast-[1.05]"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />

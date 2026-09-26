@@ -38,7 +38,7 @@ export const BOOKS_AND_PUBLICATIONS: BookItem[] = [
     accessUrl: "https://www.researchgate.net/publication/351052674",
     citation: "Osazee, I. T. (2021). Hazards and Risks presented by the Thermal Environment. Technical Monograph, ResearchGate. https://doi.org/10.13140/RG.2.2.21319.42408",
     format: "Technical Monograph",
-    imageUrl: "https://images.unsplash.com/photo-1581093458791-9f3c3900df4b?auto=format&fit=crop&w=1000&q=80",
+    imageUrl: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1000&q=80",
     imageAlt: "Scientific thermal ergonomics instrumentation and calibrated Wet Bulb Globe Temperature (WBGT) environmental monitoring apparatus used in tropical civil construction"
   },
   {
