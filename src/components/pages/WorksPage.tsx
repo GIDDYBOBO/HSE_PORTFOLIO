@@ -36,8 +36,8 @@ export const WorksPage: React.FC<WorksPageProps> = ({
   const [timelineOrder, setTimelineOrder] = useState<'desc' | 'asc'>('desc');
   const [activeCaseStudy, setActiveCaseStudy] = useState<Megaproject | null>(null);
 
-  // Perceived loading skeleton during category filter, sorting, or layout switch
-  const isLoading = usePerceivedLoading([selectedCategory, timelineOrder, viewMode], 360);
+  // Instant local rendering without artificial delays
+  const isLoading = false;
 
   const categories = [
     { id: 'all', label: 'All Megaprojects' },

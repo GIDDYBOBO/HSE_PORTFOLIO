@@ -13,8 +13,8 @@ import {
 export const LeadershipPage: React.FC = () => {
   const [roleFilter, setRoleFilter] = useState<'all' | 'governance' | 'institutional' | 'speaking'>('all');
 
-  // Perceived loading skeleton during filter switch
-  const isLoading = usePerceivedLoading([roleFilter], 300);
+  // Instant local rendering without artificial delays
+  const isLoading = false;
 
   const filteredRoles = LEADERSHIP_ROLES.filter((role) => {
     if (roleFilter === 'all') return true;

@@ -31,8 +31,8 @@ export const BooksPage: React.FC<BooksPageProps> = ({
   const [filter, setFilter] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Perceived loading skeleton during filter and search updates
-  const isLoading = usePerceivedLoading([filter, searchQuery], 340);
+  // Instant local rendering without artificial delays
+  const isLoading = false;
 
   const filteredBooks = BOOKS_AND_PUBLICATIONS.filter((b) => {
     const matchesSearch = 

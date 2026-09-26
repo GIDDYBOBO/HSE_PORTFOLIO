@@ -1,25 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 /**
- * Custom hook to simulate high-fidelity perceived loading on initial mount
- * or when filtering/searching data-heavy lists.
+ * Custom hook for perceived loading. Returns false immediately so data renders
+ * instantaneously with zero delay or sluggishness.
  */
 export function usePerceivedLoading(
-  triggerDeps: unknown[] = [], 
-  durationMs: number = 380
+  _triggerDeps: unknown[] = [], 
+  _durationMs: number = 0
 ): boolean {
-  const [loading, setLoading] = useState<boolean>(true);
-
-  useEffect(() => {
-    setLoading(true);
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, durationMs);
-
-    return () => clearTimeout(timer);
-  }, triggerDeps); // eslint-disable-line react-hooks/exhaustive-deps
-
-  return loading;
+  // Return false immediately: renders real content instantaneously with zero wait
+  return false;
 }
 
 /**

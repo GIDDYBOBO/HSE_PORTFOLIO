@@ -101,8 +101,8 @@ export const AllCredentialsModal: React.FC<AllCredentialsModalProps> = ({
   const [searchQuery, setSearchQuery] = useState('');
   const [filterType, setFilterType] = useState<'all' | 'chartered' | 'auditing' | 'institutional'>('all');
 
-  // Perceived loading skeleton during filter and modal open
-  const isLoading = usePerceivedLoading([isOpen, filterType, searchQuery], 280);
+  // Instant local rendering without artificial delays
+  const isLoading = false;
 
   useEffect(() => {
     const unsub = subscribeToCredentials((liveCreds) => {

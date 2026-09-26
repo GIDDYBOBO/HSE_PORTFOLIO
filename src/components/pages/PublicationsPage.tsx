@@ -21,8 +21,8 @@ export const PublicationsPage: React.FC = () => {
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [expandedPubId, setExpandedPubId] = useState<string | null>('pub-thermal-hazards');
 
-  // High-fidelity perceived loading on mount and filter switches
-  const isLoading = usePerceivedLoading([activeTheme], 360);
+  // All data is local client-side state; do not artificially delay UI rendering
+  const isLoading = false;
 
   const themes = [
     { id: 'all', label: 'All Publications' },

@@ -64,8 +64,8 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
   const [activeCaseStudy, setActiveCaseStudy] = useState<Megaproject | null>(null);
   const [activeServiceTab, setActiveServiceTab] = useState<number>(0);
 
-  // Perceived loading skeleton during category filter or sort switch
-  const isProjectsLoading = usePerceivedLoading([selectedCategory, timelineOrder], 280);
+  // Instant local rendering without artificial delays
+  const isProjectsLoading = false;
 
   const categories = [
     { id: 'all', label: 'All Megaprojects' },
