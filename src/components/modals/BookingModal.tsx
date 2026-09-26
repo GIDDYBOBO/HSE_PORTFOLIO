@@ -83,23 +83,23 @@ export const BookingModal: React.FC<BookingModalProps> = ({
 
   return (
     <div 
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-black/85 backdrop-blur-xl animate-fadeIn"
+      className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-4 md:p-6 overflow-hidden bg-black/85 backdrop-blur-xl animate-fadeIn"
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
     >
       <div 
-        className="relative w-full max-w-2xl rounded-3xl dialed-glass-card-elevated border border-white/20 shadow-2xl overflow-hidden my-8 text-white"
+        className="relative w-full max-w-2xl max-h-[88vh] rounded-3xl dialed-glass-card-elevated border border-white/20 shadow-2xl flex flex-col my-auto overflow-hidden text-white"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="p-6 sm:p-8 border-b border-white/10 bg-white/[0.04] backdrop-blur-xl flex items-center justify-between">
+        <div className="p-5 sm:p-7 border-b border-white/10 bg-white/[0.04] backdrop-blur-xl flex items-center justify-between shrink-0">
           <div>
             <div className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full dialed-glass-pill text-xs font-mono text-neutral-200 mb-2">
               <Clock className="w-3 h-3 text-[#a8c7fa]" />
               <span>Direct Liaison Session</span>
             </div>
-            <h3 className="text-2xl font-display font-bold text-white tracking-tight leading-snug">
+            <h3 className="text-xl sm:text-2xl font-display font-bold text-white tracking-tight leading-snug">
               Book an Executive Advisory Call
             </h3>
             <p className="text-xs text-[#c4c7c5] font-mono mt-1">
@@ -109,14 +109,14 @@ export const BookingModal: React.FC<BookingModalProps> = ({
 
           <button
             onClick={onClose}
-            className="p-2 rounded-full bg-neutral-200 hover:bg-neutral-300 dark:bg-white/10 dark:hover:bg-white/20 text-black dark:text-white transition-colors cursor-pointer"
+            className="p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
-        {/* Content */}
-        <div className="p-6 sm:p-8">
+        {/* Content (Scrolls internally within screen range) */}
+        <div className="p-5 sm:p-7 overflow-y-auto flex-1">
           {submitted ? (
             <div className="text-center py-8 space-y-4 animate-fadeIn">
               <div className="w-16 h-16 rounded-full bg-black text-white dark:bg-white dark:text-black flex items-center justify-center mx-auto shadow-xl">

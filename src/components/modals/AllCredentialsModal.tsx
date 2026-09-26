@@ -152,24 +152,25 @@ export const AllCredentialsModal: React.FC<AllCredentialsModalProps> = ({
     <AnimatePresence>
       <div 
         id="all-credentials-modal-backdrop"
-        className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 overflow-y-auto bg-black/85 backdrop-blur-md"
+        className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-4 md:p-6 overflow-hidden bg-black/85 backdrop-blur-xl"
         onClick={(e) => {
           if (e.target === e.currentTarget) onClose();
         }}
       >
         <motion.div
-          initial={{ opacity: 0, scale: 0.95, y: 20 }}
+          initial={{ opacity: 0, scale: 0.96, y: 15 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.95, y: 20 }}
-          transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-          className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-3xl dialed-glass-card-elevated border border-white/20 text-white shadow-2xl flex flex-col"
+          exit={{ opacity: 0, scale: 0.96, y: 15 }}
+          transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+          className="relative w-full max-w-4xl max-h-[86vh] sm:max-h-[88vh] rounded-3xl dialed-glass-card-elevated border border-white/20 text-white shadow-2xl flex flex-col my-auto overflow-hidden"
+          onClick={(e) => e.stopPropagation()}
         >
           {/* Header */}
-          <div className="p-6 sm:p-8 border-b border-white/10 bg-white/[0.04] backdrop-blur-xl relative">
+          <div className="p-5 sm:p-7 border-b border-white/10 bg-white/[0.04] backdrop-blur-xl relative shrink-0">
             <button
               id="btn-close-credentials-modal"
               onClick={onClose}
-              className="absolute top-6 right-6 w-9 h-9 rounded-full bg-neutral-200 hover:bg-neutral-300 dark:bg-white/10 dark:hover:bg-white/20 text-black dark:text-white flex items-center justify-center transition-all border border-neutral-200 dark:border-[#333538] active:scale-95 cursor-pointer"
+              className="absolute top-5 right-5 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-all border border-white/20 active:scale-95 cursor-pointer"
               aria-label="Close credentials modal"
             >
               <X className="w-5 h-5" />
@@ -225,9 +226,9 @@ export const AllCredentialsModal: React.FC<AllCredentialsModalProps> = ({
             </div>
           </div>
 
-          {/* Credentials Grid */}
-          <div className="p-6 sm:p-8 space-y-4">
-            <div className="text-xs font-mono text-neutral-500 dark:text-neutral-400 flex items-center justify-between pb-1">
+          {/* Credentials Grid (Scrolls internally within screen range) */}
+          <div className="overflow-y-auto flex-1 p-5 sm:p-7 space-y-4">
+            <div className="text-xs font-mono text-neutral-400 flex items-center justify-between pb-1">
               <span>Showing {filteredCredentials.length} verifiable credentials</span>
               <span>Evidence Standard: ISO / IOSH UK / NSE / ISPON</span>
             </div>
@@ -240,32 +241,32 @@ export const AllCredentialsModal: React.FC<AllCredentialsModalProps> = ({
                 >
                   <div className="space-y-2">
                     <div className="flex items-center justify-between gap-2">
-                      <span className="px-2.5 py-0.5 rounded-full bg-neutral-100 dark:bg-white/10 text-black dark:text-white border border-neutral-200 dark:border-[#333538] text-[11px] font-mono font-bold">
+                      <span className="px-2.5 py-0.5 rounded-full bg-white/10 text-white border border-white/20 text-[11px] font-mono font-bold">
                         {cred.designation}
                       </span>
                       {cred.credentialId && (
-                        <span className="text-[10px] font-mono text-neutral-500 dark:text-neutral-400 bg-neutral-100 dark:bg-white/5 px-2 py-0.5 rounded border border-neutral-200 dark:border-white/5">
+                        <span className="text-[10px] font-mono text-neutral-300 bg-white/5 px-2 py-0.5 rounded border border-white/10">
                           {cred.credentialId}
                         </span>
                       )}
                     </div>
 
-                    <h3 className="text-base font-display font-bold text-black dark:text-white transition-colors leading-snug">
+                    <h3 className="text-base font-display font-bold text-white transition-colors leading-snug">
                       {cred.title}
                     </h3>
 
-                    <p className="text-xs text-neutral-600 dark:text-neutral-400 font-medium">
+                    <p className="text-xs text-[#a8c7fa] font-medium">
                       {cred.issuer}
                     </p>
 
-                    <p className="text-xs text-neutral-600 dark:text-neutral-300 leading-relaxed pt-1">
+                    <p className="text-xs text-neutral-300 leading-relaxed pt-1">
                       {cred.description}
                     </p>
                   </div>
 
-                  <div className="pt-2 border-t border-neutral-100 dark:border-[#333538] flex items-center justify-between text-[11px] font-mono text-neutral-500 dark:text-neutral-400">
-                    <span className="flex items-center gap-1.5 text-black dark:text-white font-medium">
-                      <CheckCircle2 className="w-3.5 h-3.5" />
+                  <div className="pt-2 border-t border-white/10 flex items-center justify-between text-[11px] font-mono text-neutral-400">
+                    <span className="flex items-center gap-1.5 text-emerald-400 font-medium">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
                       Status: Active / Certified
                     </span>
                     {cred.year && (
@@ -277,14 +278,14 @@ export const AllCredentialsModal: React.FC<AllCredentialsModalProps> = ({
             </div>
           </div>
 
-          {/* Footer */}
-          <div className="p-6 border-t border-neutral-200 dark:border-[#333538] bg-neutral-50 dark:bg-[#0e0e11] flex flex-wrap items-center justify-between gap-3">
-            <span className="text-xs font-mono text-neutral-500 dark:text-neutral-400">
+          {/* Footer (Shrink-0) */}
+          <div className="p-4 sm:p-5 border-t border-white/10 bg-white/[0.04] backdrop-blur-xl flex flex-wrap items-center justify-between gap-3 shrink-0">
+            <span className="text-xs font-mono text-[#8e918f]">
               Direct verification queries may be dispatched through official corporate liaison channels.
             </span>
             <button
               onClick={onClose}
-              className="px-6 py-2.5 rounded-full bg-black hover:bg-neutral-800 text-white dark:bg-white dark:hover:bg-neutral-200 dark:text-black font-semibold text-xs transition-colors cursor-pointer"
+              className="px-5 py-2 rounded-full bg-white hover:bg-[#f0f4f9] text-[#131314] font-semibold text-xs transition-colors cursor-pointer"
             >
               Close Registry
             </button>

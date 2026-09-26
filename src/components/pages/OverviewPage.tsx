@@ -13,7 +13,6 @@ import { BOOKS_AND_PUBLICATIONS } from '../../data/booksData';
 import { ThermalCalculator } from '../tools/ThermalCalculator';
 import { CaseStudyModal } from '../modals/CaseStudyModal';
 import { CountUp } from '../CountUp';
-import { LiquidMorphHero } from '../common/LiquidMorphHero';
 import { 
   ArrowUpRight, 
   ShieldCheck, 
@@ -63,10 +62,6 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
   const [timelineOrder, setTimelineOrder] = useState<'desc' | 'asc'>('desc');
   const [activeCaseStudy, setActiveCaseStudy] = useState<Megaproject | null>(null);
   const [activeServiceTab, setActiveServiceTab] = useState<number>(0);
-  const [card1Key, setCard1Key] = useState<number>(0);
-  const [card2Key, setCard2Key] = useState<number>(0);
-  const [card3Key, setCard3Key] = useState<number>(0);
-  const [card4Key, setCard4Key] = useState<number>(0);
 
   const categories = [
     { id: 'all', label: 'All Megaprojects' },
@@ -196,24 +191,6 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
 
         <div className="space-y-5 sm:space-y-7 max-w-4xl mx-auto text-center px-4">
           
-          {/* Live Availability Status Indicator (DialedWeb signature) */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/20 bg-white/[0.06] backdrop-blur-xl text-xs font-mono text-[#e3e3e3] shadow-[inset_0_1px_1px_rgba(255,255,255,0.25)]">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
-            </span>
-            <span className="text-white font-medium tracking-wide">EXECUTIVE HSE DIRECTORSHIP</span>
-            <span className="text-white/40">·</span>
-            <span className="text-[#a8c7fa] font-semibold">AVAILABLE FOR ADVISORY MANDATES</span>
-          </div>
-
-          {/* Name & Title Kicker */}
-          <div className="space-y-1">
-            <div className="text-xs sm:text-sm font-mono uppercase tracking-widest text-[#a8abb0] font-semibold">
-              Engr. Iyenoma ThankGod Osazee · CMIOSH · MNSE · Fellow ISPON
-            </div>
-          </div>
-
           {/* Giant DialedWeb-Style Bold Headline */}
           <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-extrabold text-white tracking-tight leading-[1.08] max-w-4xl mx-auto uppercase">
             ENGINEERING ZERO-HARM AT MEGA-SCALE.
@@ -274,53 +251,11 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
         </div>
       </FadeUpSection>
 
-      {/* Infinite DialedWeb Marquee Ticker */}
-      <div className="relative w-full overflow-hidden border-y border-white/10 bg-white/[0.03] backdrop-blur-xl py-3.5 sm:py-4">
-        <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-16 sm:w-28 bg-gradient-to-r from-[#0e0f12] to-transparent z-10" />
-        <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-16 sm:w-28 bg-gradient-to-l from-[#0e0f12] to-transparent z-10" />
-        <div className="animate-marquee whitespace-nowrap flex items-center gap-6 sm:gap-10 text-xs sm:text-sm font-mono tracking-wider uppercase text-[#c4c7c5]">
-          {[
-            "JULIUS BERGER PLC",
-            "50,000,000+ SAFE MAN-HOURS",
-            "CMIOSH UK CHARTERED #100175",
-            "ISO 45001 LEAD AUDITOR #423290",
-            "SECOND NIGER BRIDGE",
-            "ABUJA-KADUNA-KANO EXPANSION",
-            "FELLOW ISPON (#004)",
-            "23RD WORLD CONGRESS SYDNEY",
-            "11+ SCHOLARLY PAPERS",
-            "TROPICAL WBGT ERGONOMICS",
-            "HOUSE OF REPRESENTATIVES STATUTORY ARBITRATION",
-            "ZERO FATALITIES RECORD",
-            "NIGERIAN SOCIETY OF ENGINEERS (MNSE)"
-          ].concat([
-            "JULIUS BERGER PLC",
-            "50,000,000+ SAFE MAN-HOURS",
-            "CMIOSH UK CHARTERED #100175",
-            "ISO 45001 LEAD AUDITOR #423290",
-            "SECOND NIGER BRIDGE",
-            "ABUJA-KADUNA-KANO EXPANSION",
-            "FELLOW ISPON (#004)",
-            "23RD WORLD CONGRESS SYDNEY",
-            "11+ SCHOLARLY PAPERS",
-            "TROPICAL WBGT ERGONOMICS",
-            "HOUSE OF REPRESENTATIVES STATUTORY ARBITRATION",
-            "ZERO FATALITIES RECORD",
-            "NIGERIAN SOCIETY OF ENGINEERS (MNSE)"
-          ]).map((item, idx) => (
-            <span key={idx} className="flex items-center gap-6 sm:gap-10">
-              <span className="hover:text-white transition-colors cursor-default font-medium">{item}</span>
-              <span className="w-1.5 h-1.5 rounded-full bg-[#1a73e8]" />
-            </span>
-          ))}
-        </div>
-      </div>
-
       {/* 2. KEY PERFORMANCE INDICATORS ("Numbers That Just Make Sense" - Dialedweb Pattern) */}
       <FadeUpSection 
         as="section"
         id="kpi-metrics-section" 
-        className="space-y-8 scroll-mt-24"
+        className="space-y-8 scroll-mt-24 pt-4 sm:pt-6"
       >
         <div className="space-y-3 text-center max-w-2xl mx-auto">
           <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-white dark:bg-white/5 border border-neutral-200/90 dark:border-[#333538] text-neutral-800 dark:text-neutral-200 text-[11px] font-mono shadow-xs">
@@ -338,12 +273,7 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
         {/* Big KPI Cards Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {/* Card 1: Frontline Tenure */}
-          <div 
-            onMouseEnter={() => setCard1Key(k => k + 1)}
-            onClick={() => setCard1Key(k => k + 1)}
-            className="group p-6 sm:p-7 xl:p-8 rounded-3xl dialed-glass-card hover:border-[#a8c7fa]/40 transition-all flex flex-col justify-between cursor-pointer h-full"
-            title="Hover or click to recount"
-          >
+          <div className="group p-6 sm:p-7 xl:p-8 rounded-3xl dialed-glass-card hover:border-[#a8c7fa]/40 transition-all flex flex-col justify-between h-full">
             <div className="flex items-center justify-between pb-3.5 border-b border-white/10">
               <span className="text-xs font-mono uppercase text-[#a8c7fa] group-hover:text-white transition-colors tracking-wider font-semibold">Frontline Tenure</span>
               <span className="text-[10px] font-mono text-[#8e918f] group-hover:text-[#c4c7c5] transition-colors">Verified</span>
@@ -355,7 +285,6 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
                     end={22} 
                     suffix="+" 
                     duration={1600} 
-                    triggerKey={card1Key} 
                   />
                 </span>
                 <span className="text-sm sm:text-base lg:text-xs xl:text-base 2xl:text-xl text-[#c4c7c5] font-medium">
@@ -369,12 +298,7 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
           </div>
 
           {/* Card 2: Operational Exposure */}
-          <div 
-            onMouseEnter={() => setCard2Key(k => k + 1)}
-            onClick={() => setCard2Key(k => k + 1)}
-            className="group p-6 sm:p-7 xl:p-8 rounded-3xl dialed-glass-card hover:border-[#a8c7fa]/40 transition-all flex flex-col justify-between cursor-pointer h-full"
-            title="Hover or click to recount"
-          >
+          <div className="group p-6 sm:p-7 xl:p-8 rounded-3xl dialed-glass-card hover:border-[#a8c7fa]/40 transition-all flex flex-col justify-between h-full">
             <div className="flex items-center justify-between pb-3.5 border-b border-white/10">
               <span className="text-xs font-mono uppercase text-[#a8c7fa] group-hover:text-white transition-colors tracking-wider font-semibold">Operational Exposure</span>
               <span className="text-[10px] font-mono text-[#8e918f] group-hover:text-[#c4c7c5] transition-colors">Verified</span>
@@ -386,7 +310,6 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
                     end={50} 
                     suffix="M+" 
                     duration={1800} 
-                    triggerKey={card2Key} 
                   />
                 </span>
                 <span className="text-sm sm:text-base lg:text-xs xl:text-base 2xl:text-xl text-[#c4c7c5] font-medium">
@@ -400,12 +323,7 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
           </div>
 
           {/* Card 3: Global Recognition */}
-          <div 
-            onMouseEnter={() => setCard3Key(k => k + 1)}
-            onClick={() => setCard3Key(k => k + 1)}
-            className="group p-6 sm:p-7 xl:p-8 rounded-3xl dialed-glass-card hover:border-[#a8c7fa]/40 transition-all flex flex-col justify-between cursor-pointer h-full"
-            title="Hover or click to recount"
-          >
+          <div className="group p-6 sm:p-7 xl:p-8 rounded-3xl dialed-glass-card hover:border-[#a8c7fa]/40 transition-all flex flex-col justify-between h-full">
             <div className="flex items-center justify-between pb-3.5 border-b border-white/10">
               <span className="text-xs font-mono uppercase text-[#a8c7fa] group-hover:text-white transition-colors tracking-wider font-semibold">Global Selection</span>
               <span className="text-[10px] font-mono text-[#8e918f] group-hover:text-[#c4c7c5] transition-colors">Verified</span>
@@ -417,7 +335,6 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
                     end={1100} 
                     suffix="+" 
                     duration={2000} 
-                    triggerKey={card3Key} 
                   />
                 </span>
                 <span className="text-sm sm:text-base lg:text-xs xl:text-base 2xl:text-xl text-[#c4c7c5] font-medium">
@@ -431,12 +348,7 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
           </div>
 
           {/* Card 4: Chartered Rigor */}
-          <div 
-            onMouseEnter={() => setCard4Key(k => k + 1)}
-            onClick={() => setCard4Key(k => k + 1)}
-            className="group p-6 sm:p-7 xl:p-8 rounded-3xl dialed-glass-card hover:border-[#a8c7fa]/40 transition-all flex flex-col justify-between cursor-pointer h-full"
-            title="Hover or click to recount"
-          >
+          <div className="group p-6 sm:p-7 xl:p-8 rounded-3xl dialed-glass-card hover:border-[#a8c7fa]/40 transition-all flex flex-col justify-between h-full">
             <div className="flex items-center justify-between pb-3.5 border-b border-white/10">
               <span className="text-xs font-mono uppercase text-[#a8c7fa] group-hover:text-white transition-colors tracking-wider font-semibold">Chartered Rigor</span>
               <span className="text-[10px] font-mono text-[#8e918f] group-hover:text-[#c4c7c5] transition-colors">Verified</span>
@@ -447,7 +359,6 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
                   <CountUp 
                     end={2} 
                     duration={1200} 
-                    triggerKey={card4Key} 
                   />
                 </span>
                 <span className="text-sm sm:text-base lg:text-xs xl:text-base 2xl:text-xl text-[#c4c7c5] font-medium">
