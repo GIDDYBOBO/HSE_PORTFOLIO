@@ -98,7 +98,7 @@ export const WorksPage: React.FC<WorksPageProps> = ({
           <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden border border-neutral-200 dark:border-[#3c4043] bg-neutral-100 dark:bg-neutral-900 shadow-xl group">
             <div className="relative h-64 sm:h-80 lg:h-[380px] w-full overflow-hidden">
               <img
-                src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80"
+                src="https://images.unsplash.com/photo-1519817650390-64a93db51149?auto=format&fit=crop&w=1200&q=80"
                 alt="Second River Niger Bridge Heavy Civil Infrastructure and Marine Foundation Works"
                 referrerPolicy="no-referrer"
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 brightness-[0.80] contrast-[1.08]"

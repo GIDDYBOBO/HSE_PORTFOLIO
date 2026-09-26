@@ -112,10 +112,10 @@ export const AboutPage: React.FC<AboutPageProps> = ({
           <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden border border-neutral-200 dark:border-[#3c4043] bg-neutral-100 dark:bg-neutral-900 shadow-xl group">
             <div className="relative h-64 sm:h-80 lg:h-[400px] w-full overflow-hidden">
               <img
-                src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=80"
-                alt="Engr. Osazee Executive HSE Engineering Field Directorship and Civil Works Inspection"
+                src="https://images.pexels.com/photos/8961023/pexels-photo-8961023.jpeg?auto=compress&cs=tinysrgb&w=1200"
+                alt="Executive HSE Engineering Field Directorship, Safety Harness Auditing and Civil Works Inspection"
                 referrerPolicy="no-referrer"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 brightness-[0.82] contrast-[1.08]"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 brightness-[0.88] contrast-[1.08]"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
               <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-transparent" />

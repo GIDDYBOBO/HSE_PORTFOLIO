@@ -185,52 +185,131 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
   return (
     <div className="space-y-16 sm:space-y-24 md:space-y-28 pt-20 sm:pt-24 pb-16 sm:pb-20">
       
-      {/* 1. HERO SECTION (DialedWeb Reference: High-Impact Bold Typographic Statement & Live Availability) */}
+      {/* 1. HERO SECTION (High-Impact Hero with Prominent Megaproject & Safety Directorship Image) */}
       <FadeUpSection 
         as="section"
-        className="relative pt-4 sm:pt-8 md:pt-12"
+        className="relative pt-2 sm:pt-6 md:pt-10"
       >
         {/* Subtle Ambient Radial Glow */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-5xl h-[420px] sm:h-[520px] dialed-glow pointer-events-none -z-10" />
 
-        <div className="space-y-5 sm:space-y-7 max-w-4xl mx-auto text-center px-4">
-          
-          {/* Giant DialedWeb-Style Bold Headline */}
-          <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-extrabold text-white tracking-tight leading-[1.08] max-w-4xl mx-auto uppercase">
-            ENGINEERING ZERO-HARM AT MEGA-SCALE.
-          </h1>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          {/* Left Column: Bold Headline & Executive Actions */}
+          <div className="lg:col-span-7 space-y-6 sm:space-y-7 text-left">
+            {/* Live Executive Status Badge */}
+            <div className="inline-flex items-center space-x-2.5 px-4 py-1.5 rounded-full bg-white/10 dark:bg-white/5 backdrop-blur-md border border-white/20 text-white text-xs font-mono shadow-sm">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+              </span>
+              <span className="text-neutral-200">Executive HSE Directorship</span>
+              <span className="text-neutral-400">•</span>
+              <span className="text-[#a8c7fa] font-semibold">Julius Berger PLC</span>
+            </div>
+            
+            {/* Giant Bold Headline */}
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-display font-extrabold text-white tracking-tight leading-[1.08] uppercase">
+              ENGINEERING ZERO-HARM AT MEGA-SCALE.
+            </h1>
 
-          {/* Grounded Value Proposition */}
-          <p className="text-sm sm:text-base md:text-lg text-[#c4c7c5] max-w-2xl mx-auto leading-relaxed font-normal">
-            Directing corporate occupational safety architecture across Nigeria&apos;s landmark civil engineering megaprojects at Julius Berger PLC. Delivering 50,000,000+ incident-free man-hours through predictive hazard modeling, ISO 45001 auditing diagnostics, and bioclimatic thermal ergonomics.
-          </p>
+            {/* Grounded Value Proposition */}
+            <p className="text-sm sm:text-base md:text-lg text-[#c4c7c5] leading-relaxed font-normal">
+              Directing corporate occupational safety architecture across Nigeria&apos;s landmark civil engineering megaprojects at Julius Berger PLC. Delivering 50,000,000+ incident-free man-hours through predictive hazard modeling, ISO 45001 auditing diagnostics, and bioclimatic thermal ergonomics.
+            </p>
 
-          {/* High-Intent Dialed Actions */}
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 pt-2 w-full max-w-md sm:max-w-none mx-auto">
-            <button
-              type="button"
-              onClick={onOpenBookingModal}
-              className="flex items-center justify-center space-x-2 px-7 py-3.5 rounded-full bg-white hover:bg-[#f0f4f9] text-[#131314] font-bold text-xs sm:text-sm tracking-tight transition-all shadow-[0_8px_25px_rgba(255,255,255,0.25)] hover:scale-[1.02] cursor-pointer"
-            >
-              <span>Book Strategic Consultation</span>
-              <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
-            </button>
+            {/* High-Intent Dialed Actions */}
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
+              <button
+                type="button"
+                onClick={onOpenBookingModal}
+                className="flex items-center justify-center space-x-2 px-6 py-3.5 rounded-full bg-white hover:bg-[#f0f4f9] text-[#131314] font-bold text-xs sm:text-sm tracking-tight transition-all shadow-[0_8px_25px_rgba(255,255,255,0.25)] hover:scale-[1.02] cursor-pointer"
+              >
+                <span>Book Consultation</span>
+                <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
+              </button>
 
-            <a
-              href="#signature-works-section"
-              className="flex items-center justify-center space-x-2 px-6 py-3.5 rounded-full dialed-glass-pill hover:bg-white/15 text-white border border-white/20 font-semibold text-xs sm:text-sm transition-all shadow-xs"
-            >
-              <span>Explore Signature Works</span>
-            </a>
+              <a
+                href="#signature-works-section"
+                className="flex items-center justify-center space-x-2 px-5 py-3.5 rounded-full dialed-glass-pill hover:bg-white/15 text-white border border-white/20 font-semibold text-xs sm:text-sm transition-all shadow-xs"
+              >
+                <span>Signature Works</span>
+              </a>
 
-            <button
-              type="button"
-              onClick={() => onSelectPage('publications')}
-              className="flex items-center justify-center space-x-2 px-5 py-3.5 rounded-full dialed-glass-pill hover:bg-white/15 text-[#c4c7c5] hover:text-white border border-white/20 font-medium text-xs sm:text-sm transition-all shadow-xs cursor-pointer"
-            >
-              <Activity className="w-4 h-4 text-[#a8c7fa]" />
-              <span>WBGT Heat Tool</span>
-            </button>
+              <button
+                type="button"
+                onClick={() => onSelectPage('publications')}
+                className="flex items-center justify-center space-x-2 px-5 py-3.5 rounded-full dialed-glass-pill hover:bg-white/15 text-[#c4c7c5] hover:text-white border border-white/20 font-medium text-xs sm:text-sm transition-all shadow-xs cursor-pointer"
+              >
+                <Activity className="w-4 h-4 text-[#a8c7fa]" />
+                <span>WBGT Heat Tool</span>
+              </button>
+            </div>
+
+            {/* Verification Proof Strip */}
+            <div className="pt-3 border-t border-white/10 flex flex-wrap items-center gap-x-5 gap-y-2 text-[11px] font-mono text-neutral-400">
+              <div className="flex items-center space-x-1.5">
+                <CheckCircle2 className="w-3.5 h-3.5 text-white" />
+                <span>50M+ Man-Hours</span>
+              </div>
+              <div className="flex items-center space-x-1.5">
+                <CheckCircle2 className="w-3.5 h-3.5 text-white" />
+                <span>0.00 LTIFR Marine</span>
+              </div>
+              <div className="flex items-center space-x-1.5">
+                <CheckCircle2 className="w-3.5 h-3.5 text-white" />
+                <span>ISO 45001 / 14001 Lead Auditor</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column: Prominent Visual Hero Image Showcase Card */}
+          <div className="lg:col-span-5 w-full">
+            <div className="relative rounded-3xl overflow-hidden border border-white/20 bg-neutral-900 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.8)] group">
+              <div className="relative h-72 sm:h-96 lg:h-[440px] w-full overflow-hidden">
+                <img
+                  src="https://images.pexels.com/photos/1216589/pexels-photo-1216589.jpeg?auto=compress&cs=tinysrgb&w=1200"
+                  alt="Industrial Health, Safety and Environmental (HSE) Field Protection, Safety Helmet and Technical Equipment"
+                  referrerPolicy="no-referrer"
+                  loading="eager"
+                  onError={(e) => {
+                    e.currentTarget.onerror = null;
+                    e.currentTarget.src = 'https://images.pexels.com/photos/8961065/pexels-photo-8961065.jpeg?auto=compress&cs=tinysrgb&w=1200';
+                  }}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 brightness-[0.90] contrast-[1.08]"
+                />
+                
+                {/* Vignette Gradients for Text Readability */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/35 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-transparent" />
+              </div>
+
+              {/* Overlay Glass Tags & Captions */}
+              <div className="absolute inset-0 p-5 sm:p-6 flex flex-col justify-between pointer-events-none">
+                <div className="flex items-center justify-between gap-2">
+                  <div className="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-black/80 backdrop-blur-md border border-white/20 text-white text-[11px] font-mono">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                    <span>HSE Systems &amp; Operational Safety</span>
+                  </div>
+
+                  <span className="px-2.5 py-1 rounded-full bg-black/70 backdrop-blur-md border border-white/10 text-neutral-300 text-[10px] font-mono">
+                    50M+ Man-Hours
+                  </span>
+                </div>
+
+                <div className="space-y-1.5 text-left bg-black/60 backdrop-blur-md -mx-2 -mb-2 p-4 rounded-2xl border border-white/10">
+                  <div className="flex items-center justify-between text-[10px] sm:text-xs font-mono text-[#a8c7fa] uppercase tracking-wider font-semibold">
+                    <span>Proactive HSE Governance</span>
+                    <span className="text-white">LTIFR: 0.00</span>
+                  </div>
+                  <h3 className="text-base sm:text-lg font-display font-bold text-white leading-snug drop-shadow-sm">
+                    Holistic Health, Safety &amp; Environmental Leadership
+                  </h3>
+                  <p className="text-xs text-neutral-300 font-sans line-clamp-2 leading-relaxed">
+                    Protecting every life through predictive risk controls, rigorous ISO 45001 auditing, high-consequence engineering fail-safes, and human-centered safety culture.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </FadeUpSection>

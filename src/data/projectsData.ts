@@ -113,7 +113,7 @@ export const SIGNATURE_WORKS: Megaproject[] = [
       { label: 'Vector Incidents', value: 'Zero Serious' }
     ],
     tags: ['Mangrove Swampland', 'Marine Piling', 'Extreme Humidity', 'NLNG Corridor'],
-    imageUrl: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=80'
+    imageUrl: 'https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=1200&q=80'
   },
   {
     id: 'abuja-expressway-corridors',

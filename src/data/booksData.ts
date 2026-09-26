@@ -157,7 +157,7 @@ export const BOOKS_AND_PUBLICATIONS: BookItem[] = [
     accessUrl: "https://www.safety2023sydney.com",
     citation: "Osazee, I. T. (2023). Health and Safety Practice for the Construction Small and Medium Enterprises. Abstract accepted, 23rd World Congress on Safety and Health at Work, Sydney, Australia.",
     format: "Congress Paper",
-    imageUrl: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1000&q=80",
+    imageUrl: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=1000&q=80",
     imageAlt: "Civil infrastructure safety directors conducting non-punitive field coaching and risk assessment briefings with frontline construction workforce"
   },
   {

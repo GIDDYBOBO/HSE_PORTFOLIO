@@ -91,13 +91,13 @@ export const BooksPage: React.FC<BooksPageProps> = ({
             <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden border border-neutral-200 dark:border-[#3c4043] bg-neutral-100 dark:bg-neutral-900 shadow-xl group">
               <div className="relative h-64 sm:h-80 lg:h-[380px] w-full overflow-hidden">
                 <img
-                  src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=80"
+                  src="https://images.unsplash.com/photo-1507668077129-56e32842fceb?auto=format&fit=crop&w=1200&q=80"
                   alt="Environmental and Industrial Hygiene Scientific Research and Heat Stress Instrumentation"
                   referrerPolicy="no-referrer"
                   loading="eager"
                   onError={(e) => {
                     e.currentTarget.onerror = null;
-                    e.currentTarget.src = 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=1200&q=80';
+                    e.currentTarget.src = 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80';
                   }}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 brightness-[0.80] contrast-[1.08]"
                 />

@@ -171,7 +171,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
           <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden border border-neutral-200 dark:border-[#3c4043] bg-neutral-100 dark:bg-neutral-900 shadow-xl group">
             <div className="relative h-64 sm:h-80 lg:h-[380px] w-full overflow-hidden">
               <img
-                src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1200&q=80"
+                src="https://images.pexels.com/photos/585418/pexels-photo-585418.jpeg?auto=compress&cs=tinysrgb&w=1200"
                 alt="Executive Civil Engineering Safety Blueprint Analysis and Regulatory Systems Audit"
                 referrerPolicy="no-referrer"
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 brightness-[0.80] contrast-[1.08]"
