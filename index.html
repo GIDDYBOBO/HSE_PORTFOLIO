@@ -88,32 +88,49 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
     <script>
-      // Suppress benign third-party browser extension errors (such as MetaMask or other Web3 wallets)
+      // Suppress benign third-party browser extension errors and offline network notices
       (function() {
-        var isExtensionError = function(msg, src) {
+        var isBenignNotice = function(msg, src) {
           var str = (msg || '').toString().toLowerCase();
           var source = (src || '').toString().toLowerCase();
           return (
             str.indexOf('metamask') !== -1 ||
             str.indexOf('ethereum') !== -1 ||
             str.indexOf('failed to connect') !== -1 ||
+            str.indexOf('could not reach cloud firestore backend') !== -1 ||
+            str.indexOf('code=unavailable') !== -1 ||
             source.indexOf('chrome-extension://') !== -1 ||
             source.indexOf('moz-extension://') !== -1 ||
             source.indexOf('inpage.js') !== -1
           );
         };
 
+        if (typeof console !== 'undefined' && console.error) {
+          var origError = console.error;
+          console.error = function() {
+            var args = Array.prototype.slice.call(arguments);
+            var fullStr = args.map(function(a) { return String(a || ''); }).join(' ').toLowerCase();
+            if (isBenignNotice(fullStr, '')) {
+              if (console.debug) {
+                console.debug.apply(console, args);
+              }
+              return;
+            }
+            origError.apply(console, args);
+          };
+        }
+
         window.addEventListener('unhandledrejection', function(event) {
           var reason = event.reason;
           var msg = reason ? (reason.message || reason.stack || reason) : '';
-          if (isExtensionError(msg, '')) {
+          if (isBenignNotice(msg, '')) {
             event.preventDefault();
             event.stopImmediatePropagation();
           }
         }, true);
 
         window.addEventListener('error', function(event) {
-          if (isExtensionError(event.message, event.filename)) {
+          if (isBenignNotice(event.message, event.filename)) {
             event.preventDefault();
             event.stopImmediatePropagation();
           }

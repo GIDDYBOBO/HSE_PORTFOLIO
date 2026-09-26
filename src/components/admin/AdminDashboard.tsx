@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
-import { Credential, InquiryMessage } from '../../types';
+import { Credential, InquiryMessage, BookItem } from '../../types';
 import { Megaproject } from '../../data/projectsData';
 import { 
   subscribeToCredentials, 
   subscribeToProjects, 
   subscribeToInquiries,
+  subscribeToBooks,
   addCredentialItem, 
   updateCredentialItem, 
   deleteCredentialItem,
@@ -14,7 +15,10 @@ import {
   updateProjectItem, 
   deleteProjectItem,
   updateInquiryStatus,
-  deleteInquiryItem
+  deleteInquiryItem,
+  addBookItem,
+  updateBookItem,
+  deleteBookItem
 } from '../../lib/portfolioService';
 import { 
   LayoutDashboard, 
@@ -40,11 +44,12 @@ import {
   Clock,
   RefreshCw,
   Eye,
+  BookOpen,
   Sun,
   Moon
 } from 'lucide-react';
 
-type AdminTab = 'overview' | 'credentials' | 'projects' | 'inquiries';
+type AdminTab = 'overview' | 'credentials' | 'projects' | 'inquiries' | 'books';
 
 interface AdminDashboardProps {
   onBackToPortfolio: () => void;
@@ -60,6 +65,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToPortfoli
   const [credentials, setCredentials] = useState<Credential[]>([]);
   const [projects, setProjects] = useState<Megaproject[]>([]);
   const [inquiries, setInquiries] = useState<InquiryMessage[]>([]);
+  const [books, setBooks] = useState<BookItem[]>([]);
   const [loadingData, setLoadingData] = useState(true);
 
   // Search & Filters
@@ -71,6 +77,8 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToPortfoli
   const [isNewCredentialModalOpen, setIsNewCredentialModalOpen] = useState(false);
   const [editingProject, setEditingProject] = useState<Megaproject | null>(null);
   const [isNewProjectModalOpen, setIsNewProjectModalOpen] = useState(false);
+  const [editingBook, setEditingBook] = useState<BookItem | null>(null);
+  const [isNewBookModalOpen, setIsNewBookModalOpen] = useState(false);
   const [selectedInquiry, setSelectedInquiry] = useState<InquiryMessage | null>(null);
 
   // Feedback Notification
@@ -97,10 +105,15 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToPortfoli
       setInquiries(data);
     });
 
+    const unsubBooks = subscribeToBooks((data) => {
+      setBooks(data);
+    });
+
     return () => {
       unsubCreds();
       unsubProjects();
       unsubInquiries();
+      unsubBooks();
     };
   }, []);
 
@@ -119,6 +132,13 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToPortfoli
     const matchesCat = categoryFilter === 'all' || p.category === categoryFilter;
     return matchesSearch && matchesCat;
   });
+
+  const filteredBooks = books.filter(b => 
+    b.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    (b.publisherOrJournal && b.publisherOrJournal.toLowerCase().includes(searchQuery.toLowerCase())) ||
+    (b.doiOrRef && b.doiOrRef.toLowerCase().includes(searchQuery.toLowerCase())) ||
+    (b.keyTopics && b.keyTopics.some((t: string) => t.toLowerCase().includes(searchQuery.toLowerCase())))
+  );
 
   return (
     <div className="min-h-screen bg-[#131314] text-neutral-100 flex flex-col md:flex-row">
@@ -224,6 +244,23 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToPortfoli
             </button>
 
             <button
+              onClick={() => { setCurrentTab('books'); setSidebarOpen(false); }}
+              className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-medium transition-all ${
+                currentTab === 'books'
+                  ? 'bg-sky-500/15 text-sky-300 border border-sky-400/30'
+                  : 'text-neutral-400 hover:bg-white/5 hover:text-neutral-200'
+              }`}
+            >
+              <div className="flex items-center gap-3">
+                <BookOpen className="w-4 h-4" />
+                <span>Books &amp; Publications</span>
+              </div>
+              <span className="px-2 py-0.5 rounded-full bg-white/5 text-[10px] font-mono text-neutral-400">
+                {books.length}
+              </span>
+            </button>
+
+            <button
               onClick={() => { setCurrentTab('inquiries'); setSidebarOpen(false); }}
               className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-medium transition-all ${
                 currentTab === 'inquiries'
@@ -322,7 +359,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToPortfoli
             </div>
 
             {/* Metrics Bento Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
               <div className="p-5 rounded-2xl bg-neutral-900/60 border border-white/10 space-y-2">
                 <div className="flex items-center justify-between text-neutral-400 text-xs font-mono">
                   <span>Credentials</span>
@@ -341,6 +378,15 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToPortfoli
                 </div>
                 <div className="text-3xl font-bold text-white font-mono">{projects.length}</div>
                 <p className="text-[11px] text-neutral-400">Mega-civil &amp; statutory works</p>
+              </div>
+
+              <div className="p-5 rounded-2xl bg-neutral-900/60 border border-white/10 space-y-2">
+                <div className="flex items-center justify-between text-neutral-400 text-xs font-mono">
+                  <span>Authored Books</span>
+                  <BookOpen className="w-4 h-4 text-purple-400" />
+                </div>
+                <div className="text-3xl font-bold text-white font-mono">{books.length}</div>
+                <p className="text-[11px] text-neutral-400">Scientific monographs</p>
               </div>
 
               <div className="p-5 rounded-2xl bg-neutral-900/60 border border-white/10 space-y-2">
@@ -369,10 +415,10 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToPortfoli
               <h2 className="text-sm font-semibold text-white font-mono uppercase tracking-wider leading-snug sm:leading-tight">
                 Management Shortcuts
               </h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <button
                   onClick={() => { setCurrentTab('credentials'); setIsNewCredentialModalOpen(true); }}
-                  className="p-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-left flex items-start gap-3 transition-all"
+                  className="p-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-left flex items-start gap-3 transition-all cursor-pointer"
                 >
                   <Plus className="w-5 h-5 text-sky-400 shrink-0 mt-0.5" />
                   <div>
@@ -383,12 +429,23 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToPortfoli
 
                 <button
                   onClick={() => { setCurrentTab('projects'); setIsNewProjectModalOpen(true); }}
-                  className="p-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-left flex items-start gap-3 transition-all"
+                  className="p-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-left flex items-start gap-3 transition-all cursor-pointer"
                 >
                   <Plus className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
                   <div>
                     <div className="text-sm font-medium text-white">Add Megaproject Highlight</div>
                     <div className="text-xs text-neutral-400">Publish a new high-consequence civil safety record</div>
+                  </div>
+                </button>
+
+                <button
+                  onClick={() => { setCurrentTab('books'); setIsNewBookModalOpen(true); }}
+                  className="p-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-left flex items-start gap-3 transition-all cursor-pointer"
+                >
+                  <Plus className="w-5 h-5 text-purple-400 shrink-0 mt-0.5" />
+                  <div>
+                    <div className="text-sm font-medium text-white">Add Authored Book</div>
+                    <div className="text-xs text-neutral-400">Publish new monograph or technical research volume</div>
                   </div>
                 </button>
               </div>
@@ -749,6 +806,146 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToPortfoli
           </div>
         )}
 
+        {/* TAB 5: BOOKS & RESEARCH MANAGER */}
+        {currentTab === 'books' && (
+          <div className="space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div>
+                <h1 className="text-2xl font-bold font-display text-white tracking-tight leading-snug sm:leading-tight">
+                  Authored Books &amp; Scientific Research
+                </h1>
+                <p className="text-xs text-neutral-400 font-mono">
+                  Manage published monographs, bioclimatic safety treatises, and academic publications
+                </p>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setIsNewBookModalOpen(true)}
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-400 hover:to-indigo-500 text-white text-xs font-semibold shadow-lg shadow-purple-500/20 transition-all cursor-pointer"
+              >
+                <Plus className="w-4 h-4" />
+                <span>Add Book / Monograph</span>
+              </button>
+            </div>
+
+            {/* Filter & Search Bar */}
+            <div className="relative">
+              <Search className="w-4 h-4 text-neutral-500 absolute left-3 top-3.5" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search publications by title, publisher, ISBN, or topic..."
+                className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-neutral-900/80 border border-white/10 text-sm text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+              />
+            </div>
+
+            {/* Data Table */}
+            <div className="rounded-2xl border border-white/10 bg-neutral-900/60 overflow-hidden shadow-xl">
+              <div className="overflow-x-auto">
+                <table className="w-full text-left text-xs">
+                  <thead className="bg-black/40 text-neutral-400 font-mono uppercase text-[10px] tracking-wider border-b border-white/10">
+                    <tr>
+                      <th className="py-3.5 px-4">Publication Title</th>
+                      <th className="py-3.5 px-4">Publisher / Journal</th>
+                      <th className="py-3.5 px-4">Format / Year</th>
+                      <th className="py-3.5 px-4">Length &amp; Ref</th>
+                      <th className="py-3.5 px-4">Key Themes</th>
+                      <th className="py-3.5 px-4 text-right">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-white/5 font-sans">
+                    {filteredBooks.length === 0 ? (
+                      <tr>
+                        <td colSpan={6} className="py-8 text-center text-neutral-400 font-mono">
+                          No publications found matching &quot;{searchQuery}&quot;.
+                        </td>
+                      </tr>
+                    ) : (
+                      filteredBooks.map((bk) => (
+                        <tr key={bk.id} className="hover:bg-white/[0.02] transition-colors">
+                          <td className="py-3 px-4">
+                            <div className="flex items-center gap-3">
+                              {bk.imageUrl ? (
+                                <img
+                                  src={bk.imageUrl}
+                                  alt={bk.title}
+                                  className="w-10 h-14 object-cover rounded-lg border border-white/10 shrink-0"
+                                />
+                              ) : (
+                                <div className="w-10 h-14 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-neutral-500 shrink-0">
+                                  <BookOpen className="w-4 h-4" />
+                                </div>
+                              )}
+                              <div className="space-y-0.5">
+                                <div className="font-semibold text-white max-w-sm line-clamp-1">{bk.title}</div>
+                                {bk.subtitle && (
+                                  <div className="text-[11px] text-neutral-400 max-w-sm line-clamp-1">{bk.subtitle}</div>
+                                )}
+                              </div>
+                            </div>
+                          </td>
+                          <td className="py-3 px-4 text-neutral-300 font-mono text-[11px]">
+                            {bk.publisherOrJournal}
+                          </td>
+                          <td className="py-3 px-4 font-mono text-[11px] text-neutral-300">
+                            <div>{bk.format}</div>
+                            <div className="text-[10px] text-neutral-500">{bk.publishedYear}</div>
+                          </td>
+                          <td className="py-3 px-4 font-mono text-[11px] text-neutral-400">
+                            <div>{bk.pagesOrLength || '—'}</div>
+                            {bk.doiOrRef && <div className="text-[10px] text-sky-400 truncate max-w-[120px]">{bk.doiOrRef}</div>}
+                          </td>
+                          <td className="py-3 px-4">
+                            <div className="flex flex-wrap gap-1 max-w-xs">
+                              {bk.keyTopics?.slice(0, 2).map((topic, i) => (
+                                <span key={i} className="px-1.5 py-0.5 rounded bg-purple-500/10 border border-purple-400/20 text-purple-300 font-mono text-[10px] truncate max-w-[130px]">
+                                  {topic.replace(/^Chapter \d+:\s*/, '')}
+                                </span>
+                              ))}
+                              {(bk.keyTopics?.length || 0) > 2 && (
+                                <span className="text-[10px] font-mono text-neutral-500">
+                                  +{(bk.keyTopics?.length || 0) - 2} more
+                                </span>
+                              )}
+                            </div>
+                          </td>
+                          <td className="py-3 px-4 text-right">
+                            <div className="flex items-center justify-end gap-1.5">
+                              <button
+                                type="button"
+                                onClick={() => setEditingBook(bk)}
+                                className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-neutral-300 hover:text-white transition-colors cursor-pointer"
+                                title="Edit Book"
+                              >
+                                <Edit3 className="w-3.5 h-3.5" />
+                              </button>
+                              <button
+                                type="button"
+                                onClick={async () => {
+                                  if (confirm(`Are you sure you want to delete book "${bk.title}"?`)) {
+                                    await deleteBookItem(bk.id);
+                                    showNotification(`Deleted publication "${bk.title}"`);
+                                  }
+                                }}
+                                className="p-1.5 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-300 transition-colors cursor-pointer"
+                                title="Delete Book"
+                              >
+                                <Trash2 className="w-3.5 h-3.5" />
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* MODAL: ADD / EDIT CREDENTIAL */}
         {(isNewCredentialModalOpen || editingCredential) && (
           <CredentialModal
@@ -789,6 +986,28 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToPortfoli
               }
               setIsNewProjectModalOpen(false);
               setEditingProject(null);
+            }}
+          />
+        )}
+
+        {/* MODAL: ADD / EDIT BOOK */}
+        {(isNewBookModalOpen || editingBook) && (
+          <BookModal
+            initialData={editingBook}
+            onClose={() => {
+              setIsNewBookModalOpen(false);
+              setEditingBook(null);
+            }}
+            onSave={async (data) => {
+              if (editingBook) {
+                await updateBookItem(editingBook.id, data);
+                showNotification(`Updated publication "${data.title}"`);
+              } else {
+                await addBookItem(data);
+                showNotification(`Added publication "${data.title}"`);
+              }
+              setIsNewBookModalOpen(false);
+              setEditingBook(null);
             }}
           />
         )}
@@ -1214,13 +1433,284 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ initialData, onClose, onSav
             >
               Cancel
             </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+// ----------------- SUB-COMPONENTS: BOOK MODAL ----------------- //
+
+interface BookModalProps {
+  initialData: BookItem | null;
+  onClose: () => void;
+  onSave: (data: Omit<BookItem, 'id'>) => Promise<void>;
+}
+
+const BookModal: React.FC<BookModalProps> = ({ initialData, onClose, onSave }) => {
+  const [title, setTitle] = useState(initialData?.title || '');
+  const [subtitle, setSubtitle] = useState(initialData?.subtitle || '');
+  const [authors, setAuthors] = useState(initialData?.authors?.join(', ') || 'Engr. Iyenoma ThankGod Osazee');
+  const [publisherOrJournal, setPublisherOrJournal] = useState(initialData?.publisherOrJournal || '');
+  const [publishedYear, setPublishedYear] = useState(initialData?.publishedYear || '');
+  const [format, setFormat] = useState<BookItem['format']>(initialData?.format || 'Technical Monograph');
+  const [pagesOrLength, setPagesOrLength] = useState(initialData?.pagesOrLength || '');
+  const [doiOrRef, setDoiOrRef] = useState(initialData?.doiOrRef || '');
+  const [badge, setBadge] = useState(initialData?.badge || 'Technical Monograph');
+  const [imageUrl, setImageUrl] = useState(initialData?.imageUrl || '');
+  const [accessUrl, setAccessUrl] = useState(initialData?.accessUrl || '');
+  const [citation, setCitation] = useState(initialData?.citation || '');
+  const [abstract, setAbstract] = useState(initialData?.abstract || '');
+  const [keyTopics, setKeyTopics] = useState(initialData?.keyTopics?.join('\n') || '');
+  const [whatYoullLearn, setWhatYoullLearn] = useState(initialData?.whatYoullLearn?.join('\n') || '');
+  const [whoIsThisFor, setWhoIsThisFor] = useState(initialData?.whoIsThisFor?.join('\n') || '');
+  const [authorsNote, setAuthorsNote] = useState(initialData?.authorsNote || '');
+  const [coverGradient] = useState(initialData?.coverGradient || 'from-purple-700 via-indigo-800 to-neutral-900');
+  const [accentColor] = useState(initialData?.accentColor || 'purple');
+  const [submitting, setSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitting(true);
+    try {
+      await onSave({
+        title,
+        subtitle,
+        authors: authors.split(',').map(a => a.trim()).filter(Boolean),
+        publisherOrJournal,
+        publishedYear,
+        format,
+        pagesOrLength,
+        doiOrRef: doiOrRef || undefined,
+        badge,
+        imageUrl: imageUrl || undefined,
+        accessUrl: accessUrl || undefined,
+        citation: citation || `${authors}. (${publishedYear}). ${title}. ${publisherOrJournal}.`,
+        abstract,
+        keyTopics: keyTopics.split('\n').map(t => t.trim()).filter(Boolean),
+        whatYoullLearn: whatYoullLearn.split('\n').map(l => l.trim()).filter(Boolean),
+        whoIsThisFor: whoIsThisFor.split('\n').map(w => w.trim()).filter(Boolean),
+        authorsNote,
+        coverGradient,
+        accentColor,
+      });
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm overflow-y-auto">
+      <div className="w-full max-w-2xl rounded-3xl bg-neutral-900 border border-white/10 p-6 space-y-4 shadow-2xl my-8 max-h-[90vh] overflow-y-auto">
+        <div className="flex items-center justify-between border-b border-white/10 pb-3">
+          <div className="flex items-center gap-2">
+            <BookOpen className="w-5 h-5 text-purple-400" />
+            <h3 className="text-base font-bold text-white font-display leading-snug">
+              {initialData ? 'Edit Authored Publication' : 'Add Authored Book / Research Monograph'}
+            </h3>
+          </div>
+          <button type="button" onClick={onClose} className="p-1 rounded-lg text-neutral-400 hover:text-white">
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+
+        <form onSubmit={handleSubmit} className="space-y-4 text-xs">
+          <div>
+            <label className="block text-neutral-300 font-mono mb-1">Publication Title *</label>
+            <input
+              type="text"
+              required
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              placeholder="e.g. Hazards and Risks Presented by the Thermal Environment"
+              className="w-full p-2.5 rounded-xl bg-black/40 border border-white/10 text-white text-sm focus:ring-2 focus:ring-purple-500"
+            />
+          </div>
+
+          <div>
+            <label className="block text-neutral-300 font-mono mb-1">Subtitle / Thematic Focus</label>
+            <input
+              type="text"
+              value={subtitle}
+              onChange={(e) => setSubtitle(e.target.value)}
+              placeholder="e.g. Bioclimatic Ergonomics, Wet Bulb Globe Temperature (WBGT) Modeling..."
+              className="w-full p-2.5 rounded-xl bg-black/40 border border-white/10 text-white text-sm focus:ring-2 focus:ring-purple-500"
+            />
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div>
+              <label className="block text-neutral-300 font-mono mb-1">Publisher or Journal *</label>
+              <input
+                type="text"
+                required
+                value={publisherOrJournal}
+                onChange={(e) => setPublisherOrJournal(e.target.value)}
+                placeholder="e.g. ResearchGate Technical Monograph Series"
+                className="w-full p-2.5 rounded-xl bg-black/40 border border-white/10 text-white text-sm focus:ring-2 focus:ring-purple-500"
+              />
+            </div>
+
+            <div>
+              <label className="block text-neutral-300 font-mono mb-1">Published Year / Date *</label>
+              <input
+                type="text"
+                required
+                value={publishedYear}
+                onChange={(e) => setPublishedYear(e.target.value)}
+                placeholder="e.g. April 2021"
+                className="w-full p-2.5 rounded-xl bg-black/40 border border-white/10 text-white text-sm focus:ring-2 focus:ring-purple-500"
+              />
+            </div>
+
+            <div>
+              <label className="block text-neutral-300 font-mono mb-1">Format Category *</label>
+              <select
+                value={format}
+                onChange={(e) => setFormat(e.target.value as BookItem['format'])}
+                className="w-full p-2.5 rounded-xl bg-black/40 border border-white/10 text-white text-sm focus:ring-2 focus:ring-purple-500"
+              >
+                <option value="Technical Monograph">Technical Monograph</option>
+                <option value="Peer-Reviewed Paper">Peer-Reviewed Paper</option>
+                <option value="Guidance Standard">Guidance Standard</option>
+                <option value="Congress Paper">Congress Paper</option>
+              </select>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div>
+              <label className="block text-neutral-300 font-mono mb-1">Pages or Volume Length</label>
+              <input
+                type="text"
+                value={pagesOrLength}
+                onChange={(e) => setPagesOrLength(e.target.value)}
+                placeholder="e.g. 48 Pages • Monograph"
+                className="w-full p-2.5 rounded-xl bg-black/40 border border-white/10 text-white text-sm focus:ring-2 focus:ring-purple-500"
+              />
+            </div>
+
+            <div>
+              <label className="block text-neutral-300 font-mono mb-1">DOI / Reference / ISBN</label>
+              <input
+                type="text"
+                value={doiOrRef}
+                onChange={(e) => setDoiOrRef(e.target.value)}
+                placeholder="e.g. 10.24018/ejgeo.2021.2.4.165"
+                className="w-full p-2.5 rounded-xl bg-black/40 border border-white/10 text-white text-sm focus:ring-2 focus:ring-purple-500"
+              />
+            </div>
+
+            <div>
+              <label className="block text-neutral-300 font-mono mb-1">Badge Tag</label>
+              <input
+                type="text"
+                value={badge}
+                onChange={(e) => setBadge(e.target.value)}
+                placeholder="e.g. Technical Monograph & Model"
+                className="w-full p-2.5 rounded-xl bg-black/40 border border-white/10 text-white text-sm focus:ring-2 focus:ring-purple-500"
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label className="block text-neutral-300 font-mono mb-1">Cover Image URL</label>
+              <input
+                type="url"
+                value={imageUrl}
+                onChange={(e) => setImageUrl(e.target.value)}
+                placeholder="https://images.pexels.com/..."
+                className="w-full p-2.5 rounded-xl bg-black/40 border border-white/10 text-white text-sm focus:ring-2 focus:ring-purple-500"
+              />
+            </div>
+
+            <div>
+              <label className="block text-neutral-300 font-mono mb-1">Access / Download Link</label>
+              <input
+                type="url"
+                value={accessUrl}
+                onChange={(e) => setAccessUrl(e.target.value)}
+                placeholder="https://www.researchgate.net/publication/..."
+                className="w-full p-2.5 rounded-xl bg-black/40 border border-white/10 text-white text-sm focus:ring-2 focus:ring-purple-500"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-neutral-300 font-mono mb-1">Executive Abstract *</label>
+            <textarea
+              rows={3}
+              required
+              value={abstract}
+              onChange={(e) => setAbstract(e.target.value)}
+              placeholder="Detailed synthesis of the scientific investigation, methodology, and engineering findings..."
+              className="w-full p-2.5 rounded-xl bg-black/40 border border-white/10 text-white text-sm focus:ring-2 focus:ring-purple-500"
+            />
+          </div>
+
+          <div>
+            <label className="block text-neutral-300 font-mono mb-1">Key Chapters / Topics (one per line)</label>
+            <textarea
+              rows={3}
+              value={keyTopics}
+              onChange={(e) => setKeyTopics(e.target.value)}
+              placeholder={"Chapter 1: The Physics of Human Heat Exchange\nChapter 2: WBGT Instrumentation\nChapter 3: Cognitive & Neuromuscular Impairment"}
+              className="w-full p-2.5 rounded-xl bg-black/40 border border-white/10 text-white text-sm focus:ring-2 focus:ring-purple-500 font-mono"
+            />
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label className="block text-neutral-300 font-mono mb-1">What Readers Learn (one per line)</label>
+              <textarea
+                rows={2}
+                value={whatYoullLearn}
+                onChange={(e) => setWhatYoullLearn(e.target.value)}
+                placeholder={"Mathematical derivation of calibrated outdoor WBGT\nDesign of non-punitive hydration protocols"}
+                className="w-full p-2.5 rounded-xl bg-black/40 border border-white/10 text-white text-sm focus:ring-2 focus:ring-purple-500"
+              />
+            </div>
+
+            <div>
+              <label className="block text-neutral-300 font-mono mb-1">Intended Audience (one per line)</label>
+              <textarea
+                rows={2}
+                value={whoIsThisFor}
+                onChange={(e) => setWhoIsThisFor(e.target.value)}
+                placeholder={"Civil Engineering Project Directors\nCorporate HSE Managers and Ergonomists"}
+                className="w-full p-2.5 rounded-xl bg-black/40 border border-white/10 text-white text-sm focus:ring-2 focus:ring-purple-500"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-neutral-300 font-mono mb-1">Author's Field Note</label>
+            <textarea
+              rows={2}
+              value={authorsNote}
+              onChange={(e) => setAuthorsNote(e.target.value)}
+              placeholder="Firsthand reflection on why this monograph or paper was written and its practical field impact..."
+              className="w-full p-2.5 rounded-xl bg-black/40 border border-white/10 text-white text-sm focus:ring-2 focus:ring-purple-500"
+            />
+          </div>
+
+          <div className="flex justify-end gap-2 pt-3 border-t border-white/10">
+            <button
+              type="button"
+              onClick={onClose}
+              className="px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-neutral-300 cursor-pointer"
+            >
+              Cancel
+            </button>
             <button
               type="submit"
               disabled={submitting}
-              className="px-5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-white font-medium flex items-center gap-2 cursor-pointer disabled:opacity-50"
+              className="px-5 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-medium flex items-center gap-2 cursor-pointer disabled:opacity-50"
             >
               <Save className="w-4 h-4" />
-              <span>{submitting ? 'Saving to Firestore...' : 'Save Project'}</span>
+              <span>{submitting ? 'Saving to Firestore...' : 'Save Publication'}</span>
             </button>
           </div>
         </form>

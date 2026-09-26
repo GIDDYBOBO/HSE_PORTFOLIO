@@ -62,6 +62,29 @@
       },
       "required": ["id", "name", "email", "message", "status"]
     },
+    "Book": {
+      "title": "Book",
+      "description": "Authored monographs, scientific research publications, and books",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "subtitle": { "type": "string" },
+        "year": { "type": "string" },
+        "publisher": { "type": "string" },
+        "isbn": { "type": "string" },
+        "researchGateUrl": { "type": "string" },
+        "readSampleUrl": { "type": "string" },
+        "format": { "type": "string" },
+        "pages": { "type": "string" },
+        "summary": { "type": "string" },
+        "keyThemes": { "type": "array" },
+        "imageUrl": { "type": "string" },
+        "featured": { "type": "boolean" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "title", "publisher", "summary"]
+    },
     "AdminUser": {
       "title": "AdminUser",
       "description": "Admin user profile with role configuration",
@@ -88,6 +111,10 @@
     "/inquiries/{inquiryId}": {
       "schema": "Inquiry",
       "description": "Inbound client advisory bookings and inquiries"
+    },
+    "/books/{bookId}": {
+      "schema": "Book",
+      "description": "Authored monographs and scientific research publications"
     },
     "/users/{userId}": {
       "schema": "AdminUser",

@@ -1,12 +1,16 @@
 import { initializeApp, getApps, getApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
+import { initializeFirestore, getFirestore, setLogLevel, Firestore } from 'firebase/firestore';
+import baseConfig from '../../firebase-applet-config.json';
 
-// Safely load local config if present on disk, without breaking CI/CD builds if gitignored
-const configFiles = import.meta.glob<{ default: Record<string, string> }>('../../firebase-applet-config.json', { eager: true });
-const baseConfig = configFiles['../../firebase-applet-config.json']?.default || {};
+// Configure Firestore internal logger to prevent unhandled connection retry notices
+try {
+  setLogLevel('silent');
+} catch {
+  // Ignored if already configured
+}
 
-// Securely load API Key and configuration from environment variables (hidden from GitHub/Git)
+// Securely load API Key and configuration from environment variables or local blueprint config
 const env = import.meta.env;
 
 const firebaseConfig = {
@@ -25,11 +29,27 @@ export const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getA
 // Initialize Firebase Authentication
 export const auth = getAuth(app);
 
-// Initialize Cloud Firestore with custom database ID if provided
+// Initialize Cloud Firestore with custom database ID and resilient auto-detect long polling
 const firestoreDbId = firebaseConfig.firestoreDatabaseId;
-export const db = firestoreDbId && firestoreDbId !== '(default)'
-  ? getFirestore(app, firestoreDbId)
-  : getFirestore(app);
+
+let firestoreInstance: Firestore;
+try {
+  if (firestoreDbId && firestoreDbId !== '(default)') {
+    firestoreInstance = initializeFirestore(app, {
+      experimentalAutoDetectLongPolling: true,
+    }, firestoreDbId);
+  } else {
+    firestoreInstance = initializeFirestore(app, {
+      experimentalAutoDetectLongPolling: true,
+    });
+  }
+} catch {
+  firestoreInstance = firestoreDbId && firestoreDbId !== '(default)'
+    ? getFirestore(app, firestoreDbId)
+    : getFirestore(app);
+}
+
+export const db = firestoreInstance;
 
 // Export database and auth instances
 export default app;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { PageId, BookItem } from './types';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
 import { AuthProvider } from './context/AuthContext';
@@ -15,6 +15,8 @@ import { LeadershipPage } from './components/pages/LeadershipPage';
 import { BookingModal } from './components/modals/BookingModal';
 import { AllCredentialsModal } from './components/modals/AllCredentialsModal';
 import { BookDetailModal } from './components/modals/BookDetailModal';
+import { ProtectedRoute } from './components/admin/ProtectedRoute';
+import { AdminDashboard } from './components/admin/AdminDashboard';
 import { useScrollRevealContainer } from './hooks';
 import { MorphBackground } from './components/common/MorphBackground';
 
@@ -25,10 +27,58 @@ function PortfolioApp() {
   const [credentialsModalOpen, setCredentialsModalOpen] = useState(false);
   const [selectedBook, setSelectedBook] = useState<BookItem | null>(null);
 
+  // Stealth Admin Route: Activated ONLY via /#mine or Secret Shortcut (Ctrl+Shift+A / Cmd+Shift+A)
+  const [isAdminView, setIsAdminView] = useState(() => {
+    return typeof window !== 'undefined' && window.location.hash.toLowerCase() === '#mine';
+  });
+
+  // Listen for hash navigation (e.g. user types /#mine in the browser address bar)
+  useEffect(() => {
+    const handleHashChange = () => {
+      if (window.location.hash.toLowerCase() === '#mine') {
+        setIsAdminView(true);
+      } else if (isAdminView && window.location.hash !== '#mine') {
+        setIsAdminView(false);
+      }
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, [isAdminView]);
+
+  // Secret Executive Keystroke: Ctrl + Shift + A (or Cmd + Shift + A on macOS)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'a' || e.key === 'A')) {
+        e.preventDefault();
+        setIsAdminView((prev) => {
+          const next = !prev;
+          if (next) {
+            window.location.hash = 'mine';
+          } else {
+            window.history.replaceState(null, '', window.location.pathname + window.location.search);
+          }
+          return next;
+        });
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
+  const handleExitAdmin = () => {
+    setIsAdminView(false);
+    if (window.location.hash.toLowerCase() === '#mine') {
+      window.history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   // Manage IntersectionObserver logic for all major page sections as they scroll into view
   const { containerRef } = useScrollRevealContainer<HTMLElement>({
     selector: '.fade-up-section, [data-scroll-reveal]',
-    deps: [currentPage],
+    deps: [currentPage, isAdminView],
     threshold: 0.06,
     rootMargin: '0px 0px -40px 0px',
   });
@@ -46,6 +96,15 @@ function PortfolioApp() {
       handleSelectPage('books');
     }
   };
+
+  // If in stealth admin view, render ProtectedRoute and AdminDashboard (zero trace on public site)
+  if (isAdminView) {
+    return (
+      <ProtectedRoute onBackToPortfolio={handleExitAdmin}>
+        <AdminDashboard onBackToPortfolio={handleExitAdmin} />
+      </ProtectedRoute>
+    );
+  }
 
   return (
     <div className="relative min-h-screen flex flex-col bg-transparent text-[#e3e3e3] selection:bg-[#1a73e8]/30 selection:text-white transition-colors duration-200">

@@ -17,6 +17,12 @@ service cloud.firestore {
       allow write: if isAuthenticated();
     }
 
+    // Authored books & publications: public read, authenticated admin write
+    match /books/{bookId} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+
     // Inbound inquiries: public create, authenticated admin read/manage
     match /inquiries/{inquiryId} {
       allow create: if true;
