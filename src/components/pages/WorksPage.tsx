@@ -250,7 +250,7 @@ export const WorksPage: React.FC<WorksPageProps> = ({
                         loading="lazy"
                         onError={(e) => {
                           e.currentTarget.onerror = null;
-                          e.currentTarget.src = 'https://images.unsplash.com/photo-1506521781263-d8422e82f27a?auto=format&fit=crop&w=1200&q=80';
+                          e.currentTarget.src = 'https://images.pexels.com/photos/3760529/pexels-photo-3760529.jpeg?auto=compress&cs=tinysrgb&w=1200';
                         }}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 brightness-[0.85] contrast-[1.05]"
                       />
@@ -385,7 +385,7 @@ export const WorksPage: React.FC<WorksPageProps> = ({
                       loading="lazy"
                       onError={(e) => {
                         e.currentTarget.onerror = null;
-                        e.currentTarget.src = 'https://images.unsplash.com/photo-1506521781263-d8422e82f27a?auto=format&fit=crop&w=1200&q=80';
+                        e.currentTarget.src = 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=80';
                       }}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 brightness-[0.85] contrast-[1.05]"
                     />

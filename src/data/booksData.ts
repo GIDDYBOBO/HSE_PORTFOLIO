@@ -38,7 +38,7 @@ export const BOOKS_AND_PUBLICATIONS: BookItem[] = [
     accessUrl: "https://www.researchgate.net/publication/351052674",
     citation: "Osazee, I. T. (2021). Hazards and Risks presented by the Thermal Environment. Technical Monograph, ResearchGate. https://doi.org/10.13140/RG.2.2.21319.42408",
     format: "Technical Monograph",
-    imageUrl: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1000&q=80",
+    imageUrl: "https://images.pexels.com/photos/3861440/pexels-photo-3861440.jpeg?auto=compress&cs=tinysrgb&w=1000",
     imageAlt: "Scientific thermal ergonomics instrumentation and calibrated Wet Bulb Globe Temperature (WBGT) environmental monitoring apparatus used in tropical civil construction"
   },
   {
@@ -78,7 +78,7 @@ export const BOOKS_AND_PUBLICATIONS: BookItem[] = [
     accessUrl: "https://doi.org/10.24018/ejgeo.2021.2.4.165",
     citation: "Osazee, I. T. (2021). Landfill in a Sustainable Waste Disposal. European Journal of Environment and Earth Sciences, 2(4), 67–74. https://doi.org/10.24018/ejgeo.2021.2.4.165",
     format: "Peer-Reviewed Paper",
-    imageUrl: "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&w=1000&q=80",
+    imageUrl: "https://images.pexels.com/photos/1108572/pexels-photo-1108572.jpeg?auto=compress&cs=tinysrgb&w=1000",
     imageAlt: "Engineered sanitary containment cell and environmental geosynthetic barrier system for municipal waste kinetics and leachate prevention"
   },
   {

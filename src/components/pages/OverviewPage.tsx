@@ -700,15 +700,47 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
           {BOOKS_AND_PUBLICATIONS.slice(0, 2).map((book) => (
             <article
               key={book.id}
-              className="p-6 sm:p-8 rounded-3xl dialed-glass-card hover:border-[#a8c7fa]/40 transition-all flex flex-col justify-between space-y-6 group"
+              className="p-6 sm:p-8 rounded-3xl dialed-glass-card hover:border-[#a8c7fa]/40 transition-all flex flex-col justify-between space-y-6 group overflow-hidden"
             >
               <div className="space-y-5">
-                <div className="flex items-center justify-between border-b border-neutral-100 dark:border-white/5 pb-3">
-                  <span className="text-[10px] font-mono px-3 py-1 rounded-full bg-neutral-100 dark:bg-white/10 text-neutral-900 dark:text-neutral-200 border border-neutral-200 dark:border-[#3c4043] font-semibold">
-                    {book.badge}
-                  </span>
-                  <span className="text-xs font-mono text-neutral-600 dark:text-neutral-400">{book.publishedYear}</span>
-                </div>
+                {/* Small Image Preview inside Section Box */}
+                {book.imageUrl && (
+                  <div className="relative h-36 sm:h-44 -mx-6 sm:-mx-8 -mt-6 sm:-mt-8 overflow-hidden bg-black/40 border-b border-white/10 group/img">
+                    <img
+                      src={book.imageUrl}
+                      alt={book.imageAlt || book.title}
+                      referrerPolicy="no-referrer"
+                      loading="lazy"
+                      onError={(e) => {
+                        e.currentTarget.onerror = null;
+                        e.currentTarget.src = 'https://images.pexels.com/photos/3862130/pexels-photo-3862130.jpeg?auto=compress&cs=tinysrgb&w=800';
+                      }}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 brightness-[0.88] contrast-[1.05]"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
+                    
+                    <div className="absolute top-3 left-3 sm:top-4 sm:left-4 flex items-center gap-1.5">
+                      <span className="text-[10px] font-mono px-3 py-1 rounded-full bg-black/80 backdrop-blur-md text-[#a8c7fa] border border-white/20 font-semibold shadow-xs">
+                        {book.badge}
+                      </span>
+                    </div>
+
+                    <div className="absolute bottom-3 right-3 sm:bottom-3 sm:right-4 flex items-center gap-2">
+                      <span className="text-[10px] font-mono text-neutral-300 bg-black/80 backdrop-blur-md px-2.5 py-0.5 rounded-full border border-white/10">
+                        {book.publishedYear}
+                      </span>
+                    </div>
+                  </div>
+                )}
+
+                {!book.imageUrl && (
+                  <div className="flex items-center justify-between border-b border-neutral-100 dark:border-white/5 pb-3">
+                    <span className="text-[10px] font-mono px-3 py-1 rounded-full bg-neutral-100 dark:bg-white/10 text-neutral-900 dark:text-neutral-200 border border-neutral-200 dark:border-[#3c4043] font-semibold">
+                      {book.badge}
+                    </span>
+                    <span className="text-xs font-mono text-neutral-600 dark:text-neutral-400">{book.publishedYear}</span>
+                  </div>
+                )}
 
                 <div className="space-y-2">
                   <h3 className="text-xl sm:text-2xl font-display font-bold text-black dark:text-white group-hover:underline transition-colors leading-snug">
@@ -887,7 +919,7 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
                       loading="lazy"
                       onError={(e) => {
                         e.currentTarget.onerror = null;
-                        e.currentTarget.src = 'https://images.unsplash.com/photo-1506521781263-d8422e82f27a?auto=format&fit=crop&w=1200&q=80';
+                        e.currentTarget.src = 'https://images.pexels.com/photos/8961439/pexels-photo-8961439.jpeg?auto=compress&cs=tinysrgb&w=1200';
                       }}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 brightness-[0.90] contrast-[1.05]"
                     />
