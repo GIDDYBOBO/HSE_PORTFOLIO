@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Credential } from '../../types';
 import { CREDENTIALS } from '../../data/profileData';
 import { subscribeToCredentials } from '../../lib/portfolioService';
+import { usePerceivedLoading, CredentialsGridSkeleton } from '../common/Skeletons';
 import { 
   X, 
   ShieldCheck, 
@@ -99,6 +100,9 @@ export const AllCredentialsModal: React.FC<AllCredentialsModalProps> = ({
   const [credentialsList, setCredentialsList] = useState<Credential[]>(EXTENDED_CREDENTIALS);
   const [searchQuery, setSearchQuery] = useState('');
   const [filterType, setFilterType] = useState<'all' | 'chartered' | 'auditing' | 'institutional'>('all');
+
+  // Perceived loading skeleton during filter and modal open
+  const isLoading = usePerceivedLoading([isOpen, filterType, searchQuery], 280);
 
   useEffect(() => {
     const unsub = subscribeToCredentials((liveCreds) => {
@@ -233,12 +237,15 @@ export const AllCredentialsModal: React.FC<AllCredentialsModalProps> = ({
               <span>Evidence Standard: ISO / IOSH UK / NSE / ISPON</span>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {filteredCredentials.map((cred) => (
-                <div
-                  key={cred.id}
-                  className="p-5 rounded-2xl dialed-glass-card hover:border-[#a8c7fa]/40 transition-all flex flex-col justify-between space-y-3 group"
-                >
+            {isLoading ? (
+              <CredentialsGridSkeleton count={6} />
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 animate-fadeIn">
+                {filteredCredentials.map((cred) => (
+                  <div
+                    key={cred.id}
+                    className="p-5 rounded-2xl dialed-glass-card hover:border-[#a8c7fa]/40 transition-all flex flex-col justify-between space-y-3 group"
+                  >
                   <div className="space-y-2">
                     <div className="flex items-center justify-between gap-2">
                       <span className="px-2.5 py-0.5 rounded-full bg-white/10 text-white border border-white/20 text-[11px] font-mono font-bold">
@@ -276,6 +283,7 @@ export const AllCredentialsModal: React.FC<AllCredentialsModalProps> = ({
                 </div>
               ))}
             </div>
+            )}
           </div>
 
           {/* Footer (Shrink-0) */}

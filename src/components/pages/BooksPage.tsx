@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { BookItem, PageId } from '../../types';
 import { BOOKS_AND_PUBLICATIONS } from '../../data/booksData';
+import { usePerceivedLoading, BooksGridSkeleton } from '../common/Skeletons';
 import { 
   BookOpen, 
   ExternalLink, 
@@ -29,6 +30,9 @@ export const BooksPage: React.FC<BooksPageProps> = ({
 }) => {
   const [filter, setFilter] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
+
+  // Perceived loading skeleton during filter and search updates
+  const isLoading = usePerceivedLoading([filter, searchQuery], 340);
 
   const filteredBooks = BOOKS_AND_PUBLICATIONS.filter((b) => {
     const matchesSearch = 
@@ -163,12 +167,15 @@ export const BooksPage: React.FC<BooksPageProps> = ({
         transition={{ duration: 0.5 }}
         className="space-y-8"
       >
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
-          {filteredBooks.map((book) => (
-            <div
-              key={book.id}
-              className="rounded-3xl dialed-glass-card hover:border-[#a8c7fa]/40 transition-all flex flex-col overflow-hidden group"
-            >
+        {isLoading ? (
+          <BooksGridSkeleton count={4} />
+        ) : (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 animate-fadeIn">
+            {filteredBooks.map((book) => (
+              <div
+                key={book.id}
+                className="rounded-3xl dialed-glass-card hover:border-[#a8c7fa]/40 transition-all flex flex-col overflow-hidden group"
+              >
               {/* Individual Publication Visual Image Preview Container */}
               {book.imageUrl && (
                 <div className="relative h-44 sm:h-52 w-full overflow-hidden bg-black/40 border-b border-white/10">
@@ -271,7 +278,8 @@ export const BooksPage: React.FC<BooksPageProps> = ({
             </div>
           ))}
         </div>
-      </motion.section>
+      )}
+    </motion.section>
 
       {/* Interactive Tool Cross-Link */}
       <motion.div

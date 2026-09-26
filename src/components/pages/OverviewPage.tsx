@@ -13,6 +13,7 @@ import { BOOKS_AND_PUBLICATIONS } from '../../data/booksData';
 import { ThermalCalculator } from '../tools/ThermalCalculator';
 import { CaseStudyModal } from '../modals/CaseStudyModal';
 import { CountUp } from '../CountUp';
+import { usePerceivedLoading, ProjectsListSkeleton } from '../common/Skeletons';
 import { 
   ArrowUpRight, 
   ShieldCheck, 
@@ -62,6 +63,9 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
   const [timelineOrder, setTimelineOrder] = useState<'desc' | 'asc'>('desc');
   const [activeCaseStudy, setActiveCaseStudy] = useState<Megaproject | null>(null);
   const [activeServiceTab, setActiveServiceTab] = useState<number>(0);
+
+  // Perceived loading skeleton during category filter or sort switch
+  const isProjectsLoading = usePerceivedLoading([selectedCategory, timelineOrder], 280);
 
   const categories = [
     { id: 'all', label: 'All Megaprojects' },
@@ -227,26 +231,6 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
               <Activity className="w-4 h-4 text-[#a8c7fa]" />
               <span>WBGT Heat Tool</span>
             </button>
-          </div>
-
-          {/* Institutional Standing Ribbon */}
-          <div className="pt-2 flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-[11px] sm:text-xs font-mono text-[#8e918f]">
-            <div className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full dialed-glass-pill text-[#e3e3e3]">
-              <ShieldCheck className="w-3.5 h-3.5 text-[#a8c7fa] shrink-0" />
-              <span>CMIOSH UK (#100175)</span>
-            </div>
-            <div className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full dialed-glass-pill text-[#e3e3e3]">
-              <Award className="w-3.5 h-3.5 text-[#a8c7fa] shrink-0" />
-              <span>ISO 45001 Lead Auditor (#423290)</span>
-            </div>
-            <div className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full dialed-glass-pill text-[#e3e3e3]">
-              <CheckCircle2 className="w-3.5 h-3.5 text-[#a8c7fa] shrink-0" />
-              <span>Fellow ISPON (#004)</span>
-            </div>
-            <div className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full dialed-glass-pill text-[#e3e3e3]">
-              <Building2 className="w-3.5 h-3.5 text-[#a8c7fa] shrink-0" />
-              <span>Julius Berger PLC</span>
-            </div>
           </div>
         </div>
       </FadeUpSection>
@@ -782,8 +766,11 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
         </div>
 
         {/* Vertical Timeline Track & Milestone Cards */}
-        <div className="relative pl-6 sm:pl-10 md:pl-12 lg:pl-14 space-y-10 sm:space-y-12 pt-2">
-          {/* Continuous vertical timeline track spine */}
+        {isProjectsLoading ? (
+          <ProjectsListSkeleton count={2} />
+        ) : (
+          <div className="relative pl-6 sm:pl-10 md:pl-12 lg:pl-14 space-y-10 sm:space-y-12 pt-2 animate-fadeIn">
+            {/* Continuous vertical timeline track spine */}
           <div className="absolute left-[11px] sm:left-[19px] md:left-[23px] lg:left-[27px] top-6 bottom-6 w-[2px] bg-gradient-to-b from-neutral-800 via-neutral-400 to-neutral-200 dark:from-white dark:via-neutral-500 dark:to-white/10" />
 
           {filteredProjects.map((work, index) => (
@@ -926,6 +913,7 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
             </motion.div>
           ))}
         </div>
+        )}
       </FadeUpSection>
 
       {/* 4. OUR SERVICES: YOUR SAFETY & ENGINEERING POWERHOUSE */}

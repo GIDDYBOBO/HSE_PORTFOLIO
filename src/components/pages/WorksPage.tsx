@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { PageId } from '../../types';
 import { SIGNATURE_WORKS, Megaproject } from '../../data/projectsData';
 import { CaseStudyModal } from '../modals/CaseStudyModal';
+import { usePerceivedLoading, ProjectsListSkeleton } from '../common/Skeletons';
 import { 
   Building2, 
   ArrowUpRight, 
@@ -34,6 +35,9 @@ export const WorksPage: React.FC<WorksPageProps> = ({
   const [viewMode, setViewMode] = useState<'timeline' | 'grid'>('timeline');
   const [timelineOrder, setTimelineOrder] = useState<'desc' | 'asc'>('desc');
   const [activeCaseStudy, setActiveCaseStudy] = useState<Megaproject | null>(null);
+
+  // Perceived loading skeleton during category filter, sorting, or layout switch
+  const isLoading = usePerceivedLoading([selectedCategory, timelineOrder, viewMode], 360);
 
   const categories = [
     { id: 'all', label: 'All Megaprojects' },
@@ -203,9 +207,11 @@ export const WorksPage: React.FC<WorksPageProps> = ({
           </div>
         </div>
 
-        {/* 3. Projects View: Timeline vs Grid */}
-        {viewMode === 'timeline' ? (
-          <div className="relative pl-6 sm:pl-10 md:pl-12 lg:pl-14 space-y-10 sm:space-y-12 pt-2">
+        {/* 3. Projects View: Timeline vs Grid with Skeleton Loading */}
+        {isLoading ? (
+          <ProjectsListSkeleton count={3} />
+        ) : viewMode === 'timeline' ? (
+          <div className="relative pl-6 sm:pl-10 md:pl-12 lg:pl-14 space-y-10 sm:space-y-12 pt-2 animate-fadeIn">
             {/* Continuous vertical timeline track spine */}
             <div className="absolute left-[11px] sm:left-[19px] md:left-[23px] lg:left-[27px] top-6 bottom-6 w-[2px] bg-neutral-300 dark:bg-neutral-700" />
 

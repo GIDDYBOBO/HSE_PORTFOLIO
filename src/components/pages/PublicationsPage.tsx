@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { PUBLICATIONS } from '../../data/profileData';
 import { ThermalCalculator } from '../tools/ThermalCalculator';
+import { usePerceivedLoading, PublicationsListSkeleton } from '../common/Skeletons';
 import { 
   BookOpen, 
   ExternalLink, 
@@ -19,6 +20,9 @@ export const PublicationsPage: React.FC = () => {
   const [activeTheme, setActiveTheme] = useState<string>('all');
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [expandedPubId, setExpandedPubId] = useState<string | null>('pub-thermal-hazards');
+
+  // High-fidelity perceived loading on mount and filter switches
+  const isLoading = usePerceivedLoading([activeTheme], 360);
 
   const themes = [
     { id: 'all', label: 'All Publications' },
@@ -164,8 +168,11 @@ export const PublicationsPage: React.FC = () => {
         </div>
 
         {/* Publications List */}
-        <div className="space-y-6">
-          {filteredPublications.map((pub) => {
+        {isLoading ? (
+          <PublicationsListSkeleton count={3} />
+        ) : (
+          <div className="space-y-6 animate-fadeIn">
+            {filteredPublications.map((pub) => {
             const isExpanded = expandedPubId === pub.id;
             return (
               <article
@@ -291,6 +298,7 @@ export const PublicationsPage: React.FC = () => {
             );
           })}
         </div>
+        )}
       </motion.section>
 
       {/* Research Theme Summary Matrix */}

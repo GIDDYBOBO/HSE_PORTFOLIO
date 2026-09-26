@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { LEADERSHIP_ROLES, AWARDS_AND_HONORS } from '../../data/profileData';
+import { usePerceivedLoading, LeadershipGridSkeleton } from '../common/Skeletons';
 import { 
   Award, 
   Landmark, 
@@ -11,6 +12,9 @@ import {
 
 export const LeadershipPage: React.FC = () => {
   const [roleFilter, setRoleFilter] = useState<'all' | 'governance' | 'institutional' | 'speaking'>('all');
+
+  // Perceived loading skeleton during filter switch
+  const isLoading = usePerceivedLoading([roleFilter], 300);
 
   const filteredRoles = LEADERSHIP_ROLES.filter((role) => {
     if (roleFilter === 'all') return true;
@@ -185,47 +189,51 @@ export const LeadershipPage: React.FC = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {filteredRoles.map((role, idx) => (
-            <div
-              key={idx}
-              className="p-6 rounded-2xl dialed-glass-card hover:border-[#a8c7fa]/40 transition-all flex flex-col justify-between space-y-4"
-            >
-              <div className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-mono text-neutral-800 dark:text-neutral-300 px-2.5 py-0.5 rounded bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-[#444746]">
-                    {role.period}
-                  </span>
-                  <span className="text-[11px] font-mono uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-medium">
-                    {role.category}
-                  </span>
-                </div>
+        {isLoading ? (
+          <LeadershipGridSkeleton count={4} />
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 animate-fadeIn">
+            {filteredRoles.map((role, idx) => (
+              <div
+                key={idx}
+                className="p-6 rounded-2xl dialed-glass-card hover:border-[#a8c7fa]/40 transition-all flex flex-col justify-between space-y-4"
+              >
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-mono text-neutral-800 dark:text-neutral-300 px-2.5 py-0.5 rounded bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-[#444746]">
+                      {role.period}
+                    </span>
+                    <span className="text-[11px] font-mono uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-medium">
+                      {role.category}
+                    </span>
+                  </div>
 
-                <div>
-                  <h3 className="text-lg font-display font-bold text-black dark:text-white leading-snug">
-                    {role.role}
-                  </h3>
-                  <p className="text-xs text-neutral-500 dark:text-neutral-400 font-mono mt-0.5">
-                    {role.organization}
+                  <div>
+                    <h3 className="text-lg font-display font-bold text-black dark:text-white leading-snug">
+                      {role.role}
+                    </h3>
+                    <p className="text-xs text-neutral-500 dark:text-neutral-400 font-mono mt-0.5">
+                      {role.organization}
+                    </p>
+                  </div>
+
+                  <div className="p-3 rounded-lg bg-neutral-50 dark:bg-[#282a2c]/80 border border-neutral-200 dark:border-[#333538] text-xs text-neutral-700 dark:text-neutral-200 leading-relaxed font-medium">
+                    {role.impactSummary}
+                  </div>
+
+                  <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                    {role.details}
                   </p>
                 </div>
 
-                <div className="p-3 rounded-lg bg-neutral-50 dark:bg-[#282a2c]/80 border border-neutral-200 dark:border-[#333538] text-xs text-neutral-700 dark:text-neutral-200 leading-relaxed font-medium">
-                  {role.impactSummary}
+                <div className="pt-3 border-t border-neutral-100 dark:border-[#333538] flex items-center justify-between text-[11px] text-neutral-500 font-mono">
+                  <span>Verified Public Record</span>
+                  <CheckCircle2 className="w-3.5 h-3.5 text-black dark:text-white" />
                 </div>
-
-                <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                  {role.details}
-                </p>
               </div>
-
-              <div className="pt-3 border-t border-neutral-100 dark:border-[#333538] flex items-center justify-between text-[11px] text-neutral-500 font-mono">
-                <span>Verified Public Record</span>
-                <CheckCircle2 className="w-3.5 h-3.5 text-black dark:text-white" />
-              </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </motion.section>
 
       {/* Honors, Awards & Distinctions */}

@@ -162,21 +162,21 @@ export const BookDetailModal: React.FC<BookDetailModalProps> = ({
                 )}
               </div>
 
-              {/* Side-by-Side Action Buttons (Never wrap or stack) */}
-              <div className="flex flex-row items-center gap-2.5 sm:gap-3 shrink-0">
+              {/* Side-by-Side Action Buttons (Strictly side-by-side on all screens, never wrap) */}
+              <div className="flex flex-row items-center gap-2 sm:gap-3 w-full sm:w-auto shrink-0">
                 <button
                   id="btn-copy-citation"
                   onClick={handleCopyCitation}
-                  className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-full bg-white/10 hover:bg-white/20 text-xs font-mono border border-white/20 text-white transition-all whitespace-nowrap cursor-pointer active:scale-95"
+                  className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-full bg-white/10 hover:bg-white/20 text-[11px] sm:text-xs font-mono border border-white/20 text-white transition-all whitespace-nowrap cursor-pointer active:scale-95"
                 >
                   {copied ? (
                     <>
-                      <Check className="w-3.5 h-3.5 text-emerald-400" />
+                      <Check className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
                       <span className="font-semibold text-emerald-400">Citation Copied</span>
                     </>
                   ) : (
                     <>
-                      <Copy className="w-3.5 h-3.5 text-neutral-400" />
+                      <Copy className="w-3.5 h-3.5 text-neutral-400 shrink-0" />
                       <span>Copy Citation</span>
                     </>
                   )}
@@ -190,9 +190,9 @@ export const BookDetailModal: React.FC<BookDetailModalProps> = ({
                       onOpenInquiryForBook(book.title);
                     }
                   }}
-                  className="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-full bg-white hover:bg-[#f0f4f9] text-[#131314] font-bold text-xs transition-all shadow-md whitespace-nowrap cursor-pointer active:scale-95"
+                  className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-full bg-white hover:bg-[#f0f4f9] text-[#131314] font-bold text-[11px] sm:text-xs transition-all shadow-md whitespace-nowrap cursor-pointer active:scale-95"
                 >
-                  <Mail className="w-3.5 h-3.5 text-[#131314]" />
+                  <Mail className="w-3.5 h-3.5 text-[#131314] shrink-0" />
                   <span>Request Copy / Enquire</span>
                 </button>
               </div>
